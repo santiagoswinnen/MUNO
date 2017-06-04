@@ -84,7 +84,7 @@ public class Game {
 	/*iterator que maneja el flujo del juego*/
 	private class GameFlowIterator {
 		Iterator<Player> iterator;
-		Player currentPlayer = null;
+		Player currentPlayer;
 
 		GameFlowIterator() {
 
