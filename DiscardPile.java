@@ -25,15 +25,7 @@ public class DiscardPile {
         return discardPile.size();
     }
 
-    public void throwCard(Card card){
-        // if (!isEmpty() && lastCard().instanceof(WildCard)){
-        //lastcard().setColor=blacK
-        //}
-        discardPile.add(card);
-    }
-
     // Una vez que una WildCard (Carta color negro) deja de estar primera, le cambia el color a negro.
-
     public ArrayList<Card> askCards(){
         Card cardAux= lastCard();
         ArrayList <Card> aux = new ArrayList<Card>();
