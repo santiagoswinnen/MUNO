@@ -1,5 +1,5 @@
 /**
- * Created by Lo Coco on 02/06/2017.
+ * @author jlococo 
  */
 public class Dealer {
     //Listado de jugadores
@@ -15,21 +15,22 @@ public class Dealer {
     // Crea un mazo principal y de descarte.
     // Crea un nuevo Dealer.
     public Dealer(ArrayList<Player> players){
-        this.players=players;
-        drawPile = new DrawPile();
-        discardPile = new DiscardPile();
+        this.players=players;    
     }
 
-
+    public void AskForCards(){
+        for (Player p: players){
+            players.giveHand();
+        }
+        
+    }
 
     //Reparte a los jugadores las cartas.
     //Antes pide a los jugadores las cartas.
     public void deal (){
-        //AskForCards()
-        // for(int x = 0 ; x<players.size();x++){
-        // 	players.get(x).pedircartas();
-        // }
-
+        AskForCards();
+        drawPile = new DrawPile();
+        discardPile = new DiscardPile();
         for(int x = 0 ; x<players.size();x++){
             for (int y = 0; y < 7; y++ ){
                 players.get(x).addCard(getCard());
