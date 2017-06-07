@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 /**
- * Created by Lo Coco on 02/06/2017.
+ * @author JLoCoco
  */
 public class DiscardPile {
     private ArrayList<Card> discardPile;
