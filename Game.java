@@ -17,8 +17,7 @@ public class Game {
 
 
 
-	public Game( Dealer dealer) {
-		this.dealer = dealer;
+	public Game() {
 		gameState = true;
 		
 	}
