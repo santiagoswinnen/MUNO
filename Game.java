@@ -22,21 +22,24 @@ public class Game {
 		gameState = true;
 		
 	}
+	public Dealer getDealer() {
+		return dealer;
+	}
 
-	public Player getNextPlayer(){
+	public Player getNextPlayer() {
 		return flow.next();
 	}
 
-	public void reverseGameFLow(){
+	public void reverseGameFLow() {
 		flow.reverse();
 	}
 
-	public Player getCurrentPlayer(){
+	public Player getCurrentPlayer() {
 		return flow.getcurrentPlayer();
 	}
 
 	/*Setea los lugares de los jugadores para el Round de manera random*/
-	public void setPlayerPosition(){
+	public void setPlayerPosition() {
 		Collections.shuffle(players);
 		flow = new GameFlowIterator();
 	}
