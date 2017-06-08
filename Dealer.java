@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * @author jlococo 
  */
@@ -18,11 +20,11 @@ public class Dealer {
         this.players=players;    
     }
 
+    /*vacia las manos de los jugadores*/
     public void AskForCards(){
         for (Player p: players){
-            players.giveHand();
+            p.giveHand();
         }
-        
     }
 
     //Reparte a los jugadores las cartas.
@@ -33,14 +35,14 @@ public class Dealer {
         discardPile = new DiscardPile();
         for(int x = 0 ; x<players.size();x++){
             for (int y = 0; y < 7; y++ ){
-                players.get(x).addCard(getCard());
+                players.get(x).addCard(drawCard());
             }
         }
     }
 
     // Agrega una carta al mazo de Descarte.
-    public void throwCard(Card card){
-        discardPile.throwCard(card);
+    public void discardCard(Card card){
+        discardPile.addCard(card);
     }
 
     //Coloca las cartas del mazo de descarte, en el mazo principal
@@ -52,7 +54,7 @@ public class Dealer {
     //transpasa las cartas del mazo de descarte
     //al mazo principal.
     //De todos modos, toma una carta.
-    public Card getCard() {
+    public Card drawCard() {
         if (drawPile.isEmpty())
             setDecks();
         drawPile.getCard();
