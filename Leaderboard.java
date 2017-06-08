@@ -38,12 +38,15 @@ public class Leaderboard {
         }
         return null;
     }
-
+    /*update de los scores al terminar una ronda*/
     public void updateScores() {
         Player winner = getWinner();
         for(Player player : scoreboard.keySet()) {
             for(Card card : player.getHand()){
-                if(card instanceof DrawTwo || card instanceof Skip
+                if(card instanceof NumberedScore){
+                    addScore(winner, card.getNumber());
+                }
+                else if(card instanceof DrawTwo || card instanceof Skip
                     || card instanceof  Reverse || card instanceof  Mirror){
                     addScore(winner, 20);
                 }
