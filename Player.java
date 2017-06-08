@@ -17,7 +17,7 @@ public class Player {
         this.name = name;
         hand = new ArrayList<>();
     }
-
+    
 
     /*agrega carta a la mano*/
     public void addCard(Card card) {
@@ -25,11 +25,16 @@ public class Player {
     }
 
 
-    /*el jugador entrega su mano*/
+    /*el jugador entrega su mano y su mano queda vacía*/
     public ArrayList<Card> giveHand() {
         ArrayList<Card> aux = hand;
         hand = null;
         return aux;
+    }
+    
+    /*muestra la mano el juador, pero se la queda*/
+     public ArrayList<Card> getHand() {
+        return hand;
     }
 
     /*el jugador tira su carta en el mazo de descarte*/
