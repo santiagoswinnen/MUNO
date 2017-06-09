@@ -1,5 +1,7 @@
+import java.util.ArrayList;
+
 /**
- * Created by Lo Coco on 02/06/2017.
+ * @author jlococo 
  */
 public class Dealer {
     //Listado de jugadores
@@ -15,31 +17,32 @@ public class Dealer {
     // Crea un mazo principal y de descarte.
     // Crea un nuevo Dealer.
     public Dealer(ArrayList<Player> players){
-        this.players=players;
-        drawPile = new DrawPile();
-        discardPile = new DiscardPile();
+        this.players=players;    
     }
 
-
+    /*vacia las manos de los jugadores*/
+    public void AskForCards(){
+        for (Player p: players){
+            p.giveHand();
+        }
+    }
 
     //Reparte a los jugadores las cartas.
     //Antes pide a los jugadores las cartas.
     public void deal (){
-        //AskForCards()
-        // for(int x = 0 ; x<players.size();x++){
-        // 	players.get(x).pedircartas();
-        // }
-
+        AskForCards();
+        drawPile = new DrawPile();
+        discardPile = new DiscardPile();
         for(int x = 0 ; x<players.size();x++){
             for (int y = 0; y < 7; y++ ){
-                players.get(x).addCard(getCard());
+                players.get(x).addCard(drawCard());
             }
         }
     }
 
     // Agrega una carta al mazo de Descarte.
-    public void throwCard(Card card){
-        discardPile.throwCard(card);
+    public void discardCard(Card card){
+        discardPile.addCard(card);
     }
 
     //Coloca las cartas del mazo de descarte, en el mazo principal
@@ -51,7 +54,7 @@ public class Dealer {
     //transpasa las cartas del mazo de descarte
     //al mazo principal.
     //De todos modos, toma una carta.
-    public Card getCard() {
+    public Card drawCard() {
         if (drawPile.isEmpty())
             setDecks();
         drawPile.getCard();

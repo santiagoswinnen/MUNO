@@ -4,10 +4,11 @@ import java.util.Iterator;
 
 public class Game {
 
-	private Leaderboard leaderboard;
+	
 	private ArrayList<Player> players = new ArrayList<>(); //controla el flujo del juego
 	private Dealer dealer = new Dealer(players);
 	private GameFlowIterator flow;
+	private Leaderboard leaderboard = new Leaderboard(this);
 
 
 
@@ -17,26 +18,28 @@ public class Game {
 
 
 
-	public Game( Dealer dealer) {
-		this.dealer = dealer;
+	public Game() {
 		gameState = true;
 		
 	}
+	public Dealer getDealer() {
+		return dealer;
+	}
 
-	public Player getNextPlayer(){
+	public Player getNextPlayer() {
 		return flow.next();
 	}
 
-	public void reverseGameFLow(){
+	public void reverseGameFLow() {
 		flow.reverse();
 	}
 
-	public Player getCurrentPlayer(){
+	public Player getCurrentPlayer() {
 		return flow.getcurrentPlayer();
 	}
 
 	/*Setea los lugares de los jugadores para el Round de manera random*/
-	public void setPlayerPosition(){
+	public void setPlayerPosition() {
 		Collections.shuffle(players);
 		flow = new GameFlowIterator();
 	}
@@ -83,8 +86,8 @@ public class Game {
 
 	/*iterator que maneja el flujo del juego*/
 	private class GameFlowIterator {
-		Iterator<Player> iterator;
-		Player currentPlayer;
+		private Iterator<Player> iterator;
+		private Player currentPlayer;
 
 		GameFlowIterator() {
 
