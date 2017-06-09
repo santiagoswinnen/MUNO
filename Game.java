@@ -4,10 +4,11 @@ import java.util.Iterator;
 
 public class Game {
 
-	private Leaderboard leaderboard;
+	
 	private ArrayList<Player> players = new ArrayList<>(); //controla el flujo del juego
 	private Dealer dealer = new Dealer(players);
 	private GameFlowIterator flow;
+	private Leaderboard leaderboard = new Leaderboard(this);
 
 
 
@@ -85,8 +86,8 @@ public class Game {
 
 	/*iterator que maneja el flujo del juego*/
 	private class GameFlowIterator {
-		Iterator<Player> iterator;
-		Player currentPlayer;
+		private Iterator<Player> iterator;
+		private Player currentPlayer;
 
 		GameFlowIterator() {
 
