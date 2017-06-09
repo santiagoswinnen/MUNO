@@ -4,9 +4,9 @@ import java.util.ArrayList;
  * Created by lmikolas on 07/06/17.
  */
 public class Player {
-    ArrayList<Card> hand;
-    Game game;
-    String name;
+    private ArrayList<Card> hand;
+    private Game game;
+    private String name;
 
     Player(){};
 
