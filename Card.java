@@ -70,6 +70,6 @@ public abstract class Card {
         return score;
     }
 
-    public abstract boolean match();
+    public abstract boolean match(Card card);
 
 }
