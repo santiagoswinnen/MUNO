@@ -25,6 +25,10 @@ public class NumberedCard extends Card {
         }
         return false;
     }
+    
+    public int getScore(){
+        return number;
+    }
 
 
 
