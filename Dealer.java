@@ -41,15 +41,24 @@ public class Dealer {
             }
         }
     }
-
+    
+    private DiscardPile getDiscardPile(){
+        return this.discardPile;
+    }
+    
+    
+    private DrawPile getDrawPile(){
+        return this.drawPile;
+    }
+        
     // Agrega una carta al mazo de Descarte.
     public void discardCard(Card card){
-        discardPile.throwCard(card);
+        getDiscardPile().throwCard(card);
     }
 
     //Coloca las cartas del mazo de descarte, en el mazo principal
     private void setDecks(){
-        drawPile.setDrawPile(discardPile.askCards());
+        getDrawPile().setDrawPile(getDiscardPile().askCards());
     }
 
     private Game getGame(){
@@ -61,13 +70,13 @@ public class Dealer {
     //al mazo principal.
     //De todos modos, toma una carta.
     public Card drawCard() {
-        if (drawPile.isEmpty())
+        if (getDrawPile().isEmpty())
             setDecks();
-        drawPile.getCard();
+        getDrawPile().getCard();
     }
 
     // Retorna la ultima carta del mazo de descarte
     public Card lastCard(){
-        return discardPile.lastCard();
+        return getDiscardPile().lastCard();
     }
 }
