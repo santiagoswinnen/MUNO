@@ -48,7 +48,7 @@ public abstract class Card {
         return false;
     }
 
-    public boolean checkColor(String color){
+    public static boolean checkColor(String color){
         for(String aColor : CARD_NAMES){
             if(aColor.equals(color))
                 return true;
