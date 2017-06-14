@@ -11,18 +11,22 @@ public class DiscardPile {
     }
 
     public Card lastCard(){
-        return discardPile.get(size()-1)
+        return getDiscardPile().get(size()-1)
     }
 
     public void throwCard(Card card){
         if (!isEmpty() && lastCard().iswildCard()){
             lastcard().setColor="black";
         }
-        discardPile.add(card);
+        getDiscardPile().add(card);
     }
-
+    
+    private ArrayList<Card> getDiscardPile(){
+        return this.discardPile;
+    }
+    
     private int size(){
-        return discardPile.size();
+        return getDiscardPile().size();
     }
 
     // Una vez que una WildCard (Carta color negro) deja de estar primera, le cambia el color a negro.
@@ -30,10 +34,10 @@ public class DiscardPile {
         Card cardAux= lastCard();
         ArrayList <Card> aux = new ArrayList<Card>();
         for (int t = 0 ; t < size() - 2; t++ ) {
-            aux.add(discardPile.remove(t));
+            aux.add(getDiscardPile().remove(t));
         }
-        discardPile.clear();
-        discardPile.add(cardAux);
+        getDiscardPile().clear();
+        getDiscardPile().add(cardAux);
         return aux;
     }
 
