@@ -31,9 +31,15 @@ public abstract class Card {
         this.score = score;
         this.color = color;
     }
-    public void setColor(){
-        if(!color.equals("black")){
+    
+    public void setColor(String color){
+        if(!color.equals("black")) {
             throw new UnsupportedOperationException("can't change color to this card");
+        }
+        if(!checkColor(color)){
+            throw new IllegalArgumentException("not a valid color");
+        }
+        this.color = color;
     }
 
     public boolean checkName(String name){
