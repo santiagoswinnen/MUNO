@@ -11,8 +11,8 @@ public abstract class Card {
     private static final String [] CARD_COLORS={"black", "red", "yellow", "green", "blue"};
     private static final String [] CARD_NAMES={"Zero", "One", "Two","Three","Four",
                                                 "Five", "Six", "Seven","Eight", "Nine",
-                                                    "DrawFour","Mirror", "Skip", "Reverse",
-                                                        "DrawTwo", "Wild"};
+                                                    "DrawTwo","Reverse", "Skip", "Mirror","DrawFour"
+                                                        , "Wild"};
     private static final Integer [] CARD_SCORES={0,1,2,3,4,5,6,7,8,9,20,50};
 
 
