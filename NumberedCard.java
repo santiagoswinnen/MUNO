@@ -2,7 +2,7 @@
  * Created by lmikolas on 07/06/17.
  */
 public class NumberedCard extends Card {
-    int number;
+    private int number;
 
     NumberedCard(String name,int number, String color) {
         super(name,color);
@@ -17,10 +17,10 @@ public class NumberedCard extends Card {
 
 
     public boolean match(Card card){
-        if(card.color.equals("black") || card.getColor().equals(card.getColor())){
+        if(this.getColor().equals("black") || this.getColor().equals(card.getColor())){
             return true;
         }
-        else if(card.getName().equals("NumberedCard") && card.getNumber().equals(number)){
+        else if(this.getName().equals("NumberedCard") && card.getNumber() == number){
             return true;
         }
         return false;
