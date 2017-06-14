@@ -4,8 +4,8 @@
 public class NumberedCard extends Card {
     int number;
 
-    NumberedCard(int number, String color) {
-        super(color);
+    NumberedCard(String name,int number, String color) {
+        super(name,color);
         if(number<0 || number>9)
             throw new IllegalArgumentException("Not valid number for card.")
         this.number = number;
@@ -16,11 +16,11 @@ public class NumberedCard extends Card {
     }
 
 
-    public boolean match(NumberedCard card){
+    public boolean match(Card card){
         if(card.color.equals("black") || card.getColor().equals(card.getColor())){
             return true;
         }
-        else if(number == card.getNumber()){
+        else if(card.getName().equals("NumberedCard") && card.getNumber().equals(number)){
             return true;
         }
         return false;
