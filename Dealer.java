@@ -44,7 +44,7 @@ public class Dealer {
 
     // Agrega una carta al mazo de Descarte.
     public void discardCard(Card card){
-        discardPile.addCard(card);
+        discardPile.throwCard(card);
     }
 
     //Coloca las cartas del mazo de descarte, en el mazo principal
@@ -52,6 +52,10 @@ public class Dealer {
         drawPile.setDrawPile(discardPile.askCards());
     }
 
+    private Game getGame(){
+        return this.game; 
+    }
+        
     //Si el mazo principal esta vacio,
     //transpasa las cartas del mazo de descarte
     //al mazo principal.
