@@ -12,6 +12,7 @@ public class DrawPile {
     public DrawPile(Game game) {
         drawPile = new ArrayList<Card>();
         this.game = game;
+        drawPile = newDeck();
     }
 
     public boolean isEmpty(){
