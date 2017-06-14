@@ -4,6 +4,6 @@ public class ColorableBehaviour implements Behaviour{
 		this.game = game;
 	}
 	public void action(String...args){
-
+		game.getDealer().lastCard().setColor(args[0]);
 	}
 }
