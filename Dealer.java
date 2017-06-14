@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Dealer {
     //Listado de jugadores
     private ArrayList<Player> players;
+    private Game game;
 
     //Extraccion
     private DrawPile drawPile;
@@ -16,8 +17,9 @@ public class Dealer {
 
     // Crea un mazo principal y de descarte.
     // Crea un nuevo Dealer.
-    public Dealer(ArrayList<Player> players){
-        this.players=players;    
+    public Dealer(Game game){
+        this.game = game
+        this.players=game.getPlayers();    
     }
 
     /*vacia las manos de los jugadores*/
@@ -31,7 +33,7 @@ public class Dealer {
     //Antes pide a los jugadores las cartas.
     public void deal (){
         AskForCards();
-        drawPile = new DrawPile();
+        drawPile = new DrawPile(game);
         discardPile = new DiscardPile();
         for(int x = 0 ; x<players.size();x++){
             for (int y = 0; y < 7; y++ ){
