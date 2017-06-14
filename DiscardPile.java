@@ -15,9 +15,9 @@ public class DiscardPile {
     }
 
     public void throwCard(Card card){
-        // if (!isEmpty() && lastCard().instanceof(WildCard)){
-        //lastcard().setColor=blacK
-        //}
+        if (!isEmpty() && lastCard().iswildCard()){
+            lastcard().setColor="black";
+        }
         discardPile.add(card);
     }
 
