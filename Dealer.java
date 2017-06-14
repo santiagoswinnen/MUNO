@@ -33,7 +33,7 @@ public class Dealer {
     //Antes pide a los jugadores las cartas.
     public void deal (){
         AskForCards();
-        drawPile = new DrawPile(game);
+        drawPile = new DrawPile(getGame());
         discardPile = new DiscardPile();
         for(int x = 0 ; x<players.size();x++){
             for (int y = 0; y < 7; y++ ){
