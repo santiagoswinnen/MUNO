@@ -2,7 +2,7 @@
  * Created by lmikolas on 07/06/17.
  */
 public class SkipBehaviour implements Behaviour{
-    Game game;
+    private Game game;
 
     SkipBehaviour(Game game) {
         this.game = game;
