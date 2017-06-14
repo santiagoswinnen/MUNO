@@ -33,7 +33,7 @@ public abstract class Card {
     }
     
     public void setColor(String color){
-        if(!color.equals("black")) {
+        if(!isWildCard()) {
             throw new UnsupportedOperationException("can't change color to this card");
         }
         if(!checkColor(color)){
@@ -79,7 +79,11 @@ public abstract class Card {
     public Integer getScore(){
         return score;
     }
-
+    
+    public boolean isWildCard(){
+        return (getName().equals("DrawFour")||getName().equals("Mirror")||getName().equals("Wild"));
+    }
+    
     public abstract boolean match(Card card);
 
 }
