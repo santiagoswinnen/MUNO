@@ -2,7 +2,7 @@
  * Created by lmikolas on 07/06/17.
  */
 public class ReverseBehaviour implements Behaviour {
-    Game game;
+    private Game game;
 
     ReverseBehaviour(Game game) {
         this.game = game;
