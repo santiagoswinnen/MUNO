@@ -11,6 +11,8 @@ public class DiscardPile {
     }
 
     public Card lastCard(){
+        if(discardPile.isEmpty()){
+            throw new UnsupportedOperationException("Discard Pile is Empty");
         return getDiscardPile().get(size()-1)
     }
 
