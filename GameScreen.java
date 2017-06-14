@@ -1,56 +1,55 @@
-package Screens;
+package muno.game;
+
+import java.util.ArrayList;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.mygdx.game.Card;
-import com.mygdx.game.CardDeck;
 
 public class GameScreen extends AbstractScreen {
-	TextureAtlas atlas;
-	CardDeck myDeck;
-	
-	public GameScreen(Game game){
+
+	public GameScreen(Game game) {
 		super(game);
-		atlas  = new TextureAtlas(Gdx.files.internal("UNO_Deck.atlas"));
-		myDeck = new CardDeck(atlas);
+		UNOGame myGame = new UNOGame();
+		Player player1 = new Player("Human Player", myGame);
+		PlayerIA player2 = new PlayerIA("Player 2", myGame);
+		PlayerIA player3 = new PlayerIA("Player 3", myGame);
+		PlayerIA player4 = new PlayerIA("Player 4", myGame);
+		
+		ArrayList<Player> players = new ArrayList<Player>();
+		players.add(player1);
+		players.add(player2);
+		players.add(player3);
+		players.add(player4);
+		myGame.addPlayers(players);
+		myGame.getDealer().deal();
+		System.out.println("HOLA");
 	}
-	
+
 	@Override
-	public void render(float delta) {
+	public void render(float dt) {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
 		gameCam.update();
 		super.batch.setProjectionMatrix(gameCam.combined);
-		
-		super.batch.begin();
-		Card card1 = myDeck.getCardDeck().get(9);
-		card1.draw(super.batch, 0, 0);
-		myDeck.getCardDeck().get(0).draw(super.batch, 300, 0);
-		super.batch.end();
 	}
-	
-	@Override
-	public void resize(int width, int height) {
-		
-	}
-	
+
 	@Override
 	public void show() {
-		//myMusic.play();
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void hide() {
+		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void pause() {	}
-
-	@Override
-	public void resume() {	}
+	public void pause() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

@@ -1,59 +1,41 @@
-class CardFactory() {
-	public static Card getCard(String color, String name,Game game) {
+package muno.game;
+
+public class CardFactory {
+	public static Card getCard(String color, String name, UNOGame game){
 		Card card;
-		switch(name){
-			case "Zero":
-				return card = new NumberedCard(name,0,color);
-				Break;
-			case "One":
-				card = new NumberedCard(name,1,color);
-				Break;
-			case "Two":
-				card= new NumberedCard(name,2,color);
-				Break;
-			case "Three":
-				card = new NumberedCard(name,3,color);
-				Break;
-			case "Four":
-				card = new NumberedCard(name,4,color);
-				Break;
-			case "Five":
-				card = new NumberedCard(name,5,color);
-				Break;
-			case "Six":
-				card = new NumberedCard(name,6,color);
-				Break;
-			case "Seven":
-				card = new NumberedCard(name,7,color);
-				Break;
-			case "Eight":
-				card = new NumberedCard(name,8,color);
-				Break;
-			case "Nine":
-				card = new NumberedCard(name,9,color);
-				Break;
-			case "DrawTwo":
-				card = new ActionCard(name, 20, color, new DrawNCardsBehaviour(game,2));
-				Break;
-			case "Skip":
-				card = new ActionCard(name, 20, color, new SkipBehaviour(game)); 
-				Break;
-			case "Reverse":
-				card = new ActionCard(name, 20, color, new ReverseBehaviour(game));
-				Break;
-			case "Wild":
-				card = new ActionCard(name, 50, color, new ColorableBehaviour(game));
-				Break;
-			case "Mirror":
-				card = new ActionCard(name, 50, color, new ColorableBehaviour(game));
-				Break;
-			case "DrawFour":
-				card = new ActionCard(name, 50, color, new DrawNCardBehaviour(game,4));
-				Break;
-			default: throw new IllegalArgumentException("Wrong card name");
-			}
-			
-		return card; 
-		} 
+		
+		if(name.equals("Zero"))
+			return card = new NumberedCard(name, 0, color);
+		if(name.equals("One"))
+			return card = new NumberedCard(name, 1, color);
+		if(name.equals("Two"))
+			return card = new NumberedCard(name, 2, color);
+		if(name.equals("Three"))
+			return card = new NumberedCard(name, 3, color);
+		if(name.equals("Four"))
+			return card = new NumberedCard(name, 4, color);
+		if(name.equals("Five"))
+			return card = new NumberedCard(name, 5, color);
+		if(name.equals("Six"))
+			return card = new NumberedCard(name, 6, color);
+		if(name.equals("Seven"))
+			return card = new NumberedCard(name, 7, color);
+		if(name.equals("Eight"))
+			return card = new NumberedCard(name, 8, color);
+		if(name.equals("Nine"))
+			return card = new NumberedCard(name, 9, color);
+		if(name.equals("DrawTwo"))
+			return card = new ActionCard(name, 20, color, new DrawNBehaviour(game,2));
+		if(name.equals("Skip"))
+			return card = new ActionCard(name, 20, color, new SkipBehaviour(game)); 
+		if(name.equals("Reverse"))
+			return card = new ActionCard(name, 20, color, new ReverseBehaviour(game));
+		if(name.equals("Wild"))
+			return card = new ActionCard(name, 50, color, new ColorableBehaviour(game));
+		if(name.equals("Mirror"))
+			return card = new ActionCard(name, 50, color, new ColorableBehaviour(game));
+		if(name.equals("DrawFour"))
+			return card = new ActionCard(name, 50, color, new DrawNBehaviour(game,4));
+		throw new IllegalArgumentException("Wrong card name");
 	}
 }

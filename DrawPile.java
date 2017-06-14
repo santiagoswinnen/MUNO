@@ -1,18 +1,20 @@
+package muno.game;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 
 /**
  * Created by Lo Coco on 02/06/2017.
  */
 public class DrawPile {
-    private Game game;
+    private UNOGame game;
+    private ArrayList<Card> drawPile;
 
-    private ArrayList<Card>drawPile;
-
-    public DrawPile(Game game) {
+    public DrawPile(UNOGame game) {
         drawPile = new ArrayList<Card>();
+        newDeck();
         this.game = game;
-        drawPile = newDeck();
     }
 
     public boolean isEmpty(){
@@ -28,7 +30,7 @@ public class DrawPile {
     }
 
     public Card getCard() {
-        return getDrawPile().remove(size()-1);
+        return getDrawPile().remove(getDrawPile().size() - 1);
     }
     
     private ArrayList<Card> getDrawPile(){
@@ -38,11 +40,11 @@ public class DrawPile {
     public void newDeck() {
         String[] cardName = Card.getCardNames();
         String[] cardColors = Card.getCardColors();
-        ArrayList<Card> cardList = new ArrayList<>();
-        for (int color = 1;color < cardColors.length;color++ ){
-            for (int name = 0; name < cardName.length-3;name++){
-                    getDrawPile().add(CardFactory.getCard(color,name, getGame()));
-                     getDrawPile().add(CardFactory.getCard(color,name, getGame()));
+        ArrayList<Card> cardList = new ArrayList<Card>(); //PARA QUE SE USA?
+        for (int color = 1; color < cardColors.length; color++ ){
+            for (int name = 0; name < cardName.length - 3; name++){
+                    getDrawPile().add(CardFactory.getCard(cardColors[color], cardName[name], getGame()));
+                     getDrawPile().add(CardFactory.getCard(cardColors[color], cardName[name], getGame()));
             }
         }
         for (int count = 0; count < 4;count++ ){
@@ -52,12 +54,12 @@ public class DrawPile {
         }
         shuffle();
     }
-
+    
     public void setDrawPile(ArrayList<Card> cardArray){
-        getDrawPile()=cardArray;
+        drawPile = cardArray;
         shuffle();
     }
-    private Game getGame(){
+    private UNOGame getGame(){
         return this.game;
     }
     

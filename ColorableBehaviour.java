@@ -1,6 +1,8 @@
+package muno.game;
+
 public class ColorableBehaviour implements Behaviour{
-	private Game game;
-	ColorableBehaviour(Game game){
+	private UNOGame game;
+	ColorableBehaviour(UNOGame game){
 		this.game = game;
 	}
 	public void action(String...args){

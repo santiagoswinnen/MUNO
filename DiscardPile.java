@@ -1,3 +1,5 @@
+package muno.game;
+
 import java.util.ArrayList;
 
 /**
@@ -11,14 +13,13 @@ public class DiscardPile {
     }
 
     public Card lastCard(){
-        if(discardPile.isEmpty()){
-            throw new UnsupportedOperationException("Discard Pile is Empty");
-        return getDiscardPile().get(size()-1)
+    	//ERROR
+        return getDiscardPile().get(getDiscardPile().size() - 1);
     }
 
     public void throwCard(Card card){
-        if (!isEmpty() && lastCard().iswildCard()){
-            lastcard().setColor="black";
+        if (!isEmpty() && lastCard().isWildCard()){
+            lastCard().setColor("black");
         }
         getDiscardPile().add(card);
     }
@@ -41,6 +42,10 @@ public class DiscardPile {
         getDiscardPile().clear();
         getDiscardPile().add(cardAux);
         return aux;
+    }
+    
+    public boolean isEmpty(){
+    	return this.discardPile.size() == 0;
     }
 
 }

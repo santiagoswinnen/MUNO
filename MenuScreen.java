@@ -1,4 +1,4 @@
-package Screens;
+package muno.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -47,5 +47,4 @@ public class MenuScreen extends AbstractScreen {
 
 	@Override
 	public void pause(){	}
-
 }

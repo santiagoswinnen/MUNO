@@ -1,3 +1,5 @@
+package muno.game;
+
 /**
  * Created by lmikolas on 07/06/17.
  */

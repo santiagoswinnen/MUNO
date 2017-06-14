@@ -1,12 +1,14 @@
+package muno.game;
+
 /**
  * Created by lmikolas on 10/06/17.
  */
 public class DrawNBehaviour implements Behaviour {
-    private Game game;
+    private UNOGame game;
     private Integer n;
 
 
-    DrawNBehaviour(Game game, Integer number){
+    DrawNBehaviour(UNOGame game, Integer number){
         this.game = game;
         n= number;
 

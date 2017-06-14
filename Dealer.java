@@ -1,12 +1,11 @@
-import java.util.ArrayList;
+package muno.game;
 
 /**
  * @author jlococo 
  */
 public class Dealer {
     //Listado de jugadores
-    private ArrayList<Player> players;
-    private Game game;
+    private UNOGame game;
 
     //Extraccion
     private DrawPile drawPile;
@@ -17,14 +16,13 @@ public class Dealer {
 
     // Crea un mazo principal y de descarte.
     // Crea un nuevo Dealer.
-    public Dealer(Game game){
-        this.game = game
-        this.players=game.getPlayers();    
+    public Dealer(UNOGame game){
+        this.game = game;
     }
 
     /*vacia las manos de los jugadores*/
-    public void AskForCards(){
-        for (Player p: players){
+    public void askForCards(){
+        for (Player p: this.game.getPlayers()){
             p.giveHand();
         }
     }
@@ -32,51 +30,38 @@ public class Dealer {
     //Reparte a los jugadores las cartas.
     //Antes pide a los jugadores las cartas.
     public void deal (){
-        AskForCards();
-        drawPile = new DrawPile(getGame());
+        askForCards();
+        drawPile = new DrawPile(game);
         discardPile = new DiscardPile();
-        for(int x = 0 ; x<players.size();x++){
-            for (int y = 0; y < 7; y++ ){
-                players.get(x).addCard(drawCard());
+        for(int x = 0 ; x < this.game.getPlayers().size(); x++){
+            for(int y = 0; y < 7; y++){
+            	this.game.getPlayers().get(x).addCard(drawCard());
             }
         }
     }
-    
-    private DiscardPile getDiscardPile(){
-        return this.discardPile;
-    }
-    
-    
-    private DrawPile getDrawPile(){
-        return this.drawPile;
-    }
-        
+
     // Agrega una carta al mazo de Descarte.
     public void discardCard(Card card){
-        getDiscardPile().throwCard(card);
+        discardPile.throwCard(card);//DECIA ADDCARD, PUSIMOS THROWCARD
     }
 
     //Coloca las cartas del mazo de descarte, en el mazo principal
     private void setDecks(){
-        getDrawPile().setDrawPile(getDiscardPile().askCards());
+        drawPile.setDrawPile(discardPile.askCards());
     }
 
-    private Game getGame(){
-        return this.game; 
-    }
-        
     //Si el mazo principal esta vacio,
     //transpasa las cartas del mazo de descarte
     //al mazo principal.
     //De todos modos, toma una carta.
     public Card drawCard() {
-        if (getDrawPile().isEmpty())
+        if (drawPile.isEmpty())
             setDecks();
-        getDrawPile().getCard();
+        return drawPile.getCard();
     }
 
     // Retorna la ultima carta del mazo de descarte
     public Card lastCard(){
-        return getDiscardPile().lastCard();
+        return discardPile.lastCard();
     }
 }

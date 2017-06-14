@@ -1,3 +1,5 @@
+package muno.game;
+
 /**
  * Created by lmikolas on 10/06/17.
  */
@@ -67,7 +69,7 @@ public abstract class Card {
     }
 
     public static boolean checkColor(String color){
-        for(String aColor : CARD_NAMES){
+        for(String aColor : CARD_COLORS){
             if(aColor.equals(color))
                 return true;
         }
