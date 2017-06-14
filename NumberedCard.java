@@ -5,7 +5,7 @@ public class NumberedCard extends Card {
     private int number;
 
     NumberedCard(String name,int number, String color) {
-        super(name,color);
+        super(name, number, color);
         if(number<0 || number>9)
             throw new IllegalArgumentException("Not valid number for card.")
         this.number = number;
