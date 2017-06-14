@@ -17,7 +17,7 @@ public abstract class Card {
 
 
 
-
+    
 
 
     Card(String name, Integer score, String color) {
@@ -41,7 +41,15 @@ public abstract class Card {
         }
         this.color = color;
     }
-
+    
+    public static String[] getCardNames(){
+        return CARD_NAMES;
+    }
+    
+    public static String[] getCardColors(){
+        return CARD_COLORS;
+    }
+    
     public boolean checkName(String name){
         for(String cardName : CARD_NAMES){
             if(cardName.equals(name))
