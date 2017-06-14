@@ -17,7 +17,7 @@ public class NumberedCard extends Card {
 
 
     public boolean match(Card card){
-        if(this.getColor().equals("black") || this.getColor().equals(card.getColor())){
+        if(this.getColor().equals(card.getColor())){
             return true;
         }
         else if(this.getName().equals("NumberedCard") && card.getNumber() == number){
