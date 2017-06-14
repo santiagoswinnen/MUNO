@@ -2,9 +2,9 @@
  * Created by lmikolas on 07/06/17.
  */
 public class NumberedCard extends Card {
-    private int number;
+    private Integer number;
 
-    NumberedCard(String name,int number, String color) {
+    NumberedCard(String name,Integer number, String color) {
         super(name, number, color);
         if(number<0 || number>9)
             throw new IllegalArgumentException("Not valid number for card.")
@@ -26,9 +26,7 @@ public class NumberedCard extends Card {
         return false;
     }
     
-    public int getScore(){
-        return number;
-    }
+   
 
 
 
