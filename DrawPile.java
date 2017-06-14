@@ -5,11 +5,13 @@ import java.util.Collections;
  * Created by Lo Coco on 02/06/2017.
  */
 public class DrawPile {
+    private Game game;
 
     private ArrayList<Card>drawPile;
 
-    public DrawPile() {
+    public DrawPile(Game game) {
         drawPile = new ArrayList<Card>();
+        this.game = game;
     }
 
     public boolean isEmpty(){
@@ -38,14 +40,14 @@ public class DrawPile {
         ArrayList<Card> cardList = new ArrayList<>();
         for (int color = 1;color < cardColors.length;color++ ){
             for (int name = 0; name < cardName.length-3;name++){
-            getDrawPile().add(CardFactory.getCard(color,name));
-            getDrawPile().add(CardFactory.getCard(color,name));
+                    getDrawPile().add(CardFactory.getCard(color,name, getGame()));
+                     getDrawPile().add(CardFactory.getCard(color,name, getGame()));
             }
         }
         for (int count = 0; count < 4;count++ ){
-            getDrawPile().add(CardFactory.getCard("black","Wild"));
-            getDrawPile().add(CardFactory.getCard("black","DrawFour")); 
-            getDrawPile().add(CardFactory.getCard("black","Mirror"));
+            getDrawPile().add(CardFactory.getCard("black","Wild", getGame()));
+            getDrawPile().add(CardFactory.getCard("black","DrawFour", getGame())); 
+            getDrawPile().add(CardFactory.getCard("black","Mirror",getGame()));
         }
         shuffle();
     }
@@ -53,6 +55,9 @@ public class DrawPile {
     public void setDrawPile(ArrayList<Card> cardArray){
         getDrawPile()=cardArray;
         shuffle();
+    }
+    private Game getGame(){
+        return this.game;
     }
     
     
