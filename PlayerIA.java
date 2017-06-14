@@ -1,9 +1,11 @@
+package muno.game;
+
 /**
  * Created by lmikolas on 08/06/17.
  */
 public class PlayerIA extends Player {
 
-    PlayerIA(String name, Game game){
+    PlayerIA(String name, UNOGame game){
         super(name, game);
     }
 
@@ -11,13 +13,13 @@ public class PlayerIA extends Player {
     /*tira la primera carta que matchea, si puedo o si no simplemente levanta*/
     public void makeMove(){
         boolean foundCard = false;
-        for(Card c: hand) {
-            if (!foundCard && c.match(game.getDealer().lastCard())) {
+        for(Card c: getHand()) {
+            if (!foundCard && c.match(getGame().getDealer().lastCard())) {
                 throwCard(c);
                 foundCard = true;
             }
         }
         if(!foundCard)
-            addCard(game.getDealer().drawCard());
+            addCard(getGame().getDealer().drawCard());
     }
 }

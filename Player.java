@@ -1,3 +1,5 @@
+package muno.game;
+
 import java.util.ArrayList;
 
 /**
@@ -5,23 +7,23 @@ import java.util.ArrayList;
  */
 public class Player {
     private ArrayList<Card> hand;
-    private Game game;
+    private UNOGame game;
     private String name;
 
     Player(){};
 
-    Player(String name, Game game) {
-        if(!checkGame())
-            throw new IllegalArgumentException("Player is not in the game");
+    Player(String name, UNOGame game) {
+        //if(!checkGame())
+        //    throw new IllegalArgumentException("Player is not in the game");
         this.game = game;
         this.name = name;
-        hand = new ArrayList<>();
+        hand = new ArrayList<Card>();
     }
     
 
     /*agrega carta a la mano*/
     public void addCard(Card card) {
-        hand.add(card);
+        this.getHand().add(card);
     }
 
 
@@ -53,5 +55,9 @@ public class Player {
             return true;
         }
         return false;
+    }
+    
+    public UNOGame getGame(){
+    	return this.game;
     }
 }

@@ -1,11 +1,11 @@
-import java.util.ArrayList;
+package muno.game;
 
 /**
  * @author jlococo 
  */
 public class Dealer {
     //Listado de jugadores
-    private ArrayList<Player> players;
+    private UNOGame game;
 
     //Extraccion
     private DrawPile drawPile;
@@ -16,13 +16,13 @@ public class Dealer {
 
     // Crea un mazo principal y de descarte.
     // Crea un nuevo Dealer.
-    public Dealer(ArrayList<Player> players){
-        this.players=players;    
+    public Dealer(UNOGame game){
+        this.game = game;
     }
 
     /*vacia las manos de los jugadores*/
-    public void AskForCards(){
-        for (Player p: players){
+    public void askForCards(){
+        for (Player p: this.game.getPlayers()){
             p.giveHand();
         }
     }
@@ -30,19 +30,19 @@ public class Dealer {
     //Reparte a los jugadores las cartas.
     //Antes pide a los jugadores las cartas.
     public void deal (){
-        AskForCards();
-        drawPile = new DrawPile();
+        askForCards();
+        drawPile = new DrawPile(game);
         discardPile = new DiscardPile();
-        for(int x = 0 ; x<players.size();x++){
-            for (int y = 0; y < 7; y++ ){
-                players.get(x).addCard(drawCard());
+        for(int x = 0 ; x < this.game.getPlayers().size(); x++){
+            for(int y = 0; y < 7; y++){
+            	this.game.getPlayers().get(x).addCard(drawCard());
             }
         }
     }
 
     // Agrega una carta al mazo de Descarte.
     public void discardCard(Card card){
-        discardPile.addCard(card);
+        discardPile.throwCard(card);//DECIA ADDCARD, PUSIMOS THROWCARD
     }
 
     //Coloca las cartas del mazo de descarte, en el mazo principal
@@ -57,7 +57,7 @@ public class Dealer {
     public Card drawCard() {
         if (drawPile.isEmpty())
             setDecks();
-        drawPile.getCard();
+        return drawPile.getCard();
     }
 
     // Retorna la ultima carta del mazo de descarte

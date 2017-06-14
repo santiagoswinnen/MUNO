@@ -1,13 +1,15 @@
+package muno.game;
+
 /**
  * Created by lmikolas on 07/06/17.
  */
 public class SkipBehaviour implements Behaviour{
-    Game game;
+    private UNOGame game;
 
-    SkipBehaviour(Game game) {
+    SkipBehaviour(UNOGame game) {
         this.game = game;
     }
-    public void action() {
+    public void action(String... args) {
         game.getNextPlayer();
     }
 }
