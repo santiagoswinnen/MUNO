@@ -30,7 +30,7 @@ public class DrawPile {
     }
 
     public Card getCard() {
-        return getDrawPile().remove(getDrawPile().size() - 1);
+        return getDrawPile().remove(size() - 1);
     }
     
     private ArrayList<Card> getDrawPile(){
