@@ -1,6 +1,3 @@
-/**
- * @author jlococo
- */
 package muno.game;
 
 /**
