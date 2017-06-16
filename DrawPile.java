@@ -13,6 +13,8 @@ public class DrawPile {
 
     /**
      * Se crea un DrawPile
+     * Se crean las cartas y se las 
+     * agrega al DrawPile
      * @param Game referencia a Game
      */
     public DrawPile(UNOGame game) {
