@@ -30,7 +30,7 @@ public class Dealer {
     //Reparte a los jugadores las cartas.
     //Antes pide a los jugadores las cartas.
     public void deal (){
-        askForCards();
+        //askForCards();  PELIGRO!!!!!!!!!!!!!!!!!!!!
         drawPile = new DrawPile(game);
         discardPile = new DiscardPile();
         for(int x = 0 ; x < this.game.getPlayers().size(); x++){
@@ -38,6 +38,8 @@ public class Dealer {
             	this.game.getPlayers().get(x).addCard(drawCard());
             }
         }
+        setFirstCard();
+        
     }
 
     // Agrega una carta al mazo de Descarte.
@@ -63,5 +65,15 @@ public class Dealer {
     // Retorna la ultima carta del mazo de descarte
     public Card lastCard(){
         return discardPile.lastCard();
+    }
+    
+    /* Setea la 1ra carta del DiscardPile */
+    public void setFirstCard(){
+    	Card cardAux = drawCard();
+    	while(cardAux.isActionCard()){
+    		discardCard(cardAux);
+    		cardAux = drawCard();
+    	}
+    	discardCard(cardAux);	
     }
 }
