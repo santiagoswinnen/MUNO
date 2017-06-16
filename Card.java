@@ -1,6 +1,7 @@
 package muno.game;
 
 /**
+mmm
  * Created by lmikolas on 10/06/17.
  */
 public abstract class Card {
