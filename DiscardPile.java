@@ -13,7 +13,6 @@ public class DiscardPile {
     }
 
     public Card lastCard(){
-    	//ERROR
         return getDiscardPile().get(getDiscardPile().size() - 1);
     }
 
