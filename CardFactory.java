@@ -3,6 +3,7 @@ package muno.game;
 public class CardFactory {
 	public static Card getCard(String color, String name, UNOGame game){
 		Card card;
+		/* -------- No queda mejor "return new Numbered card..."? card esta al dope */
 		
 		if(name.equals("Zero"))
 			return card = new NumberedCard(name, 0, color);
@@ -25,7 +26,7 @@ public class CardFactory {
 		if(name.equals("Nine"))
 			return card = new NumberedCard(name, 9, color);
 		if(name.equals("DrawTwo"))
-			return card = new ActionCard(name, 20, color, new DrawNBehaviour(game,2));
+			return card = new ActionCard(name, 20, color, new DrawNBehaviour(game, 2));
 		if(name.equals("Skip"))
 			return card = new ActionCard(name, 20, color, new SkipBehaviour(game)); 
 		if(name.equals("Reverse"))
@@ -35,7 +36,7 @@ public class CardFactory {
 		if(name.equals("Mirror"))
 			return card = new ActionCard(name, 50, color, new ColorableBehaviour(game));
 		if(name.equals("DrawFour"))
-			return card = new ActionCard(name, 50, color, new DrawNBehaviour(game,4));
+			return card = new ActionCard(name, 50, color, new DrawNBehaviour(game, 4));
 		throw new IllegalArgumentException("Wrong card name");
 	}
 }

@@ -8,7 +8,7 @@ public class NumberedCard extends Card {
 
     NumberedCard(String name, Integer number, String color) {
         super(name, number, color);
-        if(number<0 || number>9)
+        if(number < 0 || number > 9)
             throw new IllegalArgumentException("Not valid number for card.");
         this.number = number;
     }
@@ -17,21 +17,13 @@ public class NumberedCard extends Card {
         return number;
     }
 
-
     public boolean match(Card card){
         if(this.getColor().equals(card.getColor())){
             return true;
         }
-        else if(this.getName().equals("NumberedCard") && ((NumberedCard)card).getNumber() == number){
+        else if(card.isNumbered() && ((NumberedCard)card).getNumber() == this.number){
             return true;
         }
         return false;
     }
-    
-   
-
-
-
-
-
 }

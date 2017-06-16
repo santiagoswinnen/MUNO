@@ -5,17 +5,19 @@ package muno.game;
  */
 public class DrawNBehaviour implements Behaviour {
     private UNOGame game;
-    private Integer n;
+    private Integer number;
 
 
     DrawNBehaviour(UNOGame game, Integer number){
         this.game = game;
-        n= number;
+        this.number = number;
 
     }
     public void action(String...args) {
-        for(int i = 0; i < n; i++)
+        for(int i = 0; i < number; i++){
             game.getCurrentPlayer().addCard(game.getDealer().drawCard());
+        }
+        /* Si se trata de un DrawFour recibe como parametro un String color */
         if(args.length == 1){
             game.getDealer().lastCard().setColor(args[0]);
         }

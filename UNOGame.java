@@ -18,6 +18,7 @@ public class UNOGame {
 		players = new ArrayList<Player>();
 		dealer = new Dealer(this);
 		gameState = true;
+		//flow = new GameFlowIterator(players); //AGREGUE ESTO -----------
 	}
 	public Dealer getDealer(){
 		return dealer;
@@ -36,17 +37,17 @@ public class UNOGame {
 	}
 
 	/*Setea los lugares de los jugadores para el Round de manera random*/
-	public void setPlayerPosition() {
-		Collections.shuffle(players);
-		flow = new GameFlowIterator();
-	}
+//	public void setPlayerPosition() {
+//		Collections.shuffle(players);
+//		flow = new GameFlowIterator();
+//	}
 
 	public ArrayList<Player> getPlayers(){
 		return players;
 	}
 
 	/*Devuelve si el juego termino o no*/
-	public boolean gameState(){
+	public boolean getGameState(){
 		return gameState;
 	}
 
@@ -64,17 +65,23 @@ public class UNOGame {
 	}
 	
 	public void addPlayers(ArrayList<Player> players){
+		if(this.players.size() != 0)
+			throw new UnsupportedOperationException("Players have already been added");
 		Iterator<Player> iterator = players.iterator();
 		while(iterator.hasNext())
 			this.players.add(iterator.next());
+		flow = new GameFlowIterator(players);
 	}
 
 	/*iterator que maneja el flujo del juego*/
-	private class GameFlowIterator {
+	private class GameFlowIterator implements Iterator<Player> {
 		private Iterator<Player> iterator;
 		private Player currentPlayer;
+		private ArrayList<Player> players;
 
-		GameFlowIterator(){
+		GameFlowIterator(ArrayList<Player> players){
+			this.players = new ArrayList<Player>();
+			this.players.addAll(players);
 			iterator = players.iterator();
 		}
 
@@ -83,7 +90,7 @@ public class UNOGame {
 				iterator = players.iterator();
 			}
 			currentPlayer = iterator.next();
-			return currentPlayer;
+			return currentPlayer; 
 		}
 
 		public Player getcurrentPlayer(){
@@ -95,12 +102,20 @@ public class UNOGame {
 			int k = 0;
 			aux.add(currentPlayer);
 			while(k < players.size() - 1){
+				if(!iterator.hasNext())
+					iterator = players.iterator();
 				aux.add(iterator.next());
 				k++;
 			}
 			Collections.reverse(aux);
 			players = aux;
 			iterator = players.iterator();
+		}
+
+		@Override
+		public boolean hasNext() {
+			// TODO Auto-generated method stub
+			return true;
 		}
 	}
 }

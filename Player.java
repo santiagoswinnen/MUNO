@@ -9,21 +9,23 @@ public class Player {
     private ArrayList<Card> hand;
     private UNOGame game;
     private String name;
+    
 
-    Player(){};
+    public Player(){};
 
-    Player(String name, UNOGame game) {
+    public Player(String name, UNOGame game) {
         //if(!checkGame())
         //    throw new IllegalArgumentException("Player is not in the game");
-        this.game = game;
+    	hand = new ArrayList<Card>();
+    	this.game = game;
         this.name = name;
-        hand = new ArrayList<Card>();
+        
+        
     }
-    
 
     /*agrega carta a la mano*/
     public void addCard(Card card) {
-        this.getHand().add(card);
+        this.hand.add(card);
     }
 
 
@@ -40,13 +42,15 @@ public class Player {
     }
 
     /*el jugador tira su carta en el mazo de descarte*/
-    public void throwCard(Card card) {
+    public boolean throwCard(Card card) {
         int i = hand.indexOf(card);
         if(i == -1)
             throw new IllegalArgumentException("No such card in hand");
         if(card.match(game.getDealer().lastCard())) {
             game.getDealer().discardCard(hand.remove(i));
+            return true;
         }
+        return false;
     }
 
     /*verifico que el jugador este en el juego*/

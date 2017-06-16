@@ -6,6 +6,9 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 
+/**
+ * Created by mlund on 14/06/17.
+ */
 public class MenuScreen extends AbstractScreen {
 	private Texture bg;
 	private Texture playButton;
