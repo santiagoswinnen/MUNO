@@ -29,9 +29,9 @@ public class Leaderboard {
     }
 
     public String toString() {
-	String ret;
+	String ret = " | ";
 	for(Player player : scoreboard.keySet()) {
-            ret += player.getName() + " score: "+ scoreboard.get(player) + ". ";
+            ret += player.getName() + " score: "+ scoreboard.get(player) + " | ";
         }
 	return ret;
       }
