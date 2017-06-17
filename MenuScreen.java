@@ -30,8 +30,12 @@ public class MenuScreen extends AbstractScreen {
 		super.batch.begin();
 		super.batch.draw(bg, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		super.batch.draw(playButton, 0, 0);
-		if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+		if(Gdx.input.isKeyJustPressed(Input.Keys.M)) { //Modo multi player
 			game.setScreen(new GameScreen(game));
+			dispose();
+		}
+		if(Gdx.input.isKeyJustPressed(Input.Keys.S)) { //Modo single player
+			//game.setScreen(new SinglePlayerScreen(game)); ACA VA LA CLASE NUEVA
 			dispose();
 		}
 		super.batch.end();
