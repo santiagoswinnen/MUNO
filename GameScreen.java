@@ -29,14 +29,16 @@ public class GameScreen extends AbstractScreen {
 	/* Contiene los indices para mostrar los reversos de las cartas que no son del actual */
 	private int[] positions;
 	private boolean cardDrawn;
+	private boolean isWaitingColor;
 	private String strPlayer;
+
 
 	public GameScreen(Game game) {
 		super(game);
 		
 		myGame = new UNOGame();
 		
-		Player player1 = new Player("Human Player", myGame);
+		Player player1 = new Player("Player 1", myGame);
 		Player player2 = new Player("Player 2", myGame);
 		Player player3 = new Player("Player 3", myGame);
 		Player player4 = new Player("Player 4", myGame);
@@ -70,6 +72,7 @@ public class GameScreen extends AbstractScreen {
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
 		font.getData().setScale(1.4f);
+		isWaitingColor=false;
 	}
 
 	@Override
@@ -117,8 +120,34 @@ public class GameScreen extends AbstractScreen {
 //		if(myGame.getGameState() ==  false){
 //			setScreen(new EndScreen(game));
 //		}
+		if(isWaitingColor){
+			if(Gdx.input.isKeyJustPressed(Input.Keys.G)){
+				((ActionCard)(myGame.getDealer().lastCard())).makeAction("green");
+				isWaitingColor=false;
+				nextPlayer();
+				setTexturesHand();
+			}
+			if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
+				((ActionCard)(myGame.getDealer().lastCard())).makeAction("red");
+				isWaitingColor=false;
+				nextPlayer();
+				setTexturesHand();
+			}
+			if(Gdx.input.isKeyJustPressed(Input.Keys.Y)){
+				((ActionCard)(myGame.getDealer().lastCard())).makeAction("yellow");
+				isWaitingColor=false;
+				nextPlayer();
+				setTexturesHand();
+			}
+			if(Gdx.input.isKeyJustPressed(Input.Keys.B)){
+				((ActionCard)(myGame.getDealer().lastCard())).makeAction("blue");
+				isWaitingColor=false;
+				nextPlayer();
+				setTexturesHand();
+			}
+		}
 		
-		if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)){
+		if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT) && !isWaitingColor){
 			if(currentCard == myGame.getCurrentPlayer().getHand().size() - 1)
 				currentCard = 0;
 			else
@@ -126,7 +155,7 @@ public class GameScreen extends AbstractScreen {
 			System.out.println(currentCard);
 		}
 		
-		if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)){
+		if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT) && !isWaitingColor){
 			if(currentCard == 0)
 				currentCard = myGame.getCurrentPlayer().getHand().size() - 1;
 			else
@@ -134,18 +163,20 @@ public class GameScreen extends AbstractScreen {
 			System.out.println(currentCard);
 		}
 		
-		if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
+		if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && !isWaitingColor){
 			if(myGame.getCurrentPlayer().throwCard(myGame.getCurrentPlayer().getHand().get(currentCard))){
 				currentCard = 0;
-				nextPlayer();
 				if(myGame.getDealer().lastCard().isActionCard()){
 					if(myGame.getDealer().lastCard().isWildCard()){
-						//POPPEAR MENSAJE!!!
-//						chooseColor();
+						isWaitingColor=true;
 					}
 					else {
 						((ActionCard)myGame.getDealer().lastCard()).makeAction();
+						nextPlayer();
 					}
+				}
+				else {
+					nextPlayer();
 				}
 				tDiscard = new Texture(myGame.getDealer().lastCard().getColor() + myGame.getDealer().lastCard().getName() + ".png");
 				setTexturesHand();
@@ -158,7 +189,7 @@ public class GameScreen extends AbstractScreen {
 			setTexturesHand();
 		}
 		
-		if(Gdx.input.isKeyJustPressed(Input.Keys.P) && cardDrawn){
+		if(Gdx.input.isKeyJustPressed(Input.Keys.P) && cardDrawn && !isWaitingColor){
 			currentCard = 0;
 			nextPlayer();
 			setTexturesHand();
@@ -197,25 +228,25 @@ public class GameScreen extends AbstractScreen {
 		}
 	}
 	
-//	public boolean chooseColor(){
-//		if(Gdx.input.isKeyJustPressed(Input.Keys.B)){
-//			myGame.getDealer().lastCard().setColor("blue");
-//			return true;
-//		}
-//		if(Gdx.input.isKeyJustPressed(Input.Keys.G)){
-//			myGame.getDealer().lastCard().setColor("green");
-//			return true;
-//		}
-//		if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
-//			myGame.getDealer().lastCard().setColor("red");
-//			return true;
-//		}
-//		if(Gdx.input.isKeyJustPressed(Input.Keys.Y)){
-//			myGame.getDealer().lastCard().setColor("yellow");
-//			return true;
-//		}
-//		return false;
-//	}
+	public boolean chooseColor(){
+		if(Gdx.input.isKeyJustPressed(Input.Keys.B)){
+			myGame.getDealer().lastCard().setColor("blue");
+			return true;
+		}
+		if(Gdx.input.isKeyJustPressed(Input.Keys.G)){
+			myGame.getDealer().lastCard().setColor("green");
+			return true;
+		}
+		if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
+			myGame.getDealer().lastCard().setColor("red");
+			return true;
+		}
+		if(Gdx.input.isKeyJustPressed(Input.Keys.Y)){
+			myGame.getDealer().lastCard().setColor("yellow");
+			return true;
+		}
+		return false;
+	}
 
 	@Override
 	public void pause() {

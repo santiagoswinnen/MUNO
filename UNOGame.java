@@ -74,7 +74,7 @@ public class UNOGame {
 	}
 
 	/*iterator que maneja el flujo del juego*/
-	private class GameFlowIterator implements Iterator<Player> {
+	private class GameFlowIterator{
 		private Iterator<Player> iterator;
 		private Player currentPlayer;
 		private ArrayList<Player> players;
@@ -112,7 +112,7 @@ public class UNOGame {
 			iterator = players.iterator();
 		}
 
-		@Override
+
 		public boolean hasNext() {
 			// TODO Auto-generated method stub
 			return true;
