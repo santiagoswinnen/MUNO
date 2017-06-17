@@ -32,7 +32,7 @@ public abstract class AbstractScreen implements Screen {
 	private int[] positions;
 	private boolean cardDrawn;
 	private String strPlayer;
-	private UpdateLibrary lib;
+	private Update upd;
 	private UNOGame myGame;
 
 
@@ -215,11 +215,11 @@ public abstract class AbstractScreen implements Screen {
 		this.strPlayer = strPlayer;
 	}
 
-	public UpdateLibrary getLib() {
-		return lib;
+	public Update getUpd() {
+		return upd;
 	}
 
-	public void setLib(UpdateLibrary lib) {
-		this.lib = lib;
+	public void setUpd(Update upd) {
+		this.upd = upd;
 	}
 }

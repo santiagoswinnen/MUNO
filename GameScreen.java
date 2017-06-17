@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -55,7 +54,7 @@ public class GameScreen extends AbstractScreen {
 		getFont().setColor(Color.WHITE);
 		getFont().getData().setScale(1.4f);
 		setWaitingColor(false);
-		setLib(new UpdateLibrary(this));
+		setUpd(new Update(this));
 
 	}
 
@@ -107,16 +106,16 @@ public class GameScreen extends AbstractScreen {
 //			setScreen(new EndScreen(game));
 //		}
 		if(this.isWaitingColor()){
-			getLib().changeToRed();
-			getLib().changeToGreen();
-			getLib().changeToBlue();
-			getLib().changeToYellow();
+			getUpd().changeToRed();
+			getUpd().changeToGreen();
+			getUpd().changeToBlue();
+			getUpd().changeToYellow();
 		}
-		getLib().moveLeft();
-		getLib().moveRight();
-		getLib().nonColorCard();
-		getLib().cardDraw();
-		getLib().pass();
+		getUpd().moveLeft();
+		getUpd().moveRight();
+		getUpd().nonColorCard();
+		getUpd().cardDraw();
+		getUpd().pass();
 	}
 	
 	/* Setea las positions correspondientes a los siguientes jugadores de acuerdo a su posicion
