@@ -10,8 +10,10 @@ public class MirrorBehaviour implements Behaviour {
     }
 
     public void action(String...args){
+
         game.getDealer().lastCard().setColor(args[0]);
         game.reverseGameFLow();
+        game.getNextPlayer();
         game.getNextPlayer();
     }
 

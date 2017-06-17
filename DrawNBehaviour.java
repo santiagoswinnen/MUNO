@@ -22,7 +22,9 @@ public class DrawNBehaviour implements Behaviour {
         if(args.length == 1){
             game.getDealer().lastCard().setColor(args[0]);
         }
+        game.getNextPlayer();
     }
+
 
 
 }

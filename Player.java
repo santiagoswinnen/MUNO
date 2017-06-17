@@ -14,14 +14,20 @@ public class Player {
     public Player(){};
 
     public Player(String name, UNOGame game) {
-        //if(!checkGame())
-        //    throw new IllegalArgumentException("Player is not in the game");
+
     	hand = new ArrayList<Card>();
     	this.game = game;
         this.name = name;
         
         
     }
+    /*Pregunta si le queda una sola carta al jugador*/
+    public boolean hasUNO(){
+        if(hand.size() == 1)
+            return true;
+        return false;
+    }
+
     public String getName(){
         return name;
     }
@@ -65,4 +71,10 @@ public class Player {
     public UNOGame getGame(){
     	return this.game;
     }
+
+
+    public String toString(){
+        return getName();
+    }
+
 }
