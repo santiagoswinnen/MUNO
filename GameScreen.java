@@ -31,7 +31,24 @@ public class GameScreen extends AbstractScreen {
 	private boolean cardDrawn;
 	private boolean isWaitingColor;
 	private String strPlayer;
+	private UpdateLibrary lib;
 
+
+	public UNOGame getMyGame() {
+		return myGame;
+	}
+
+	public void setMyGame(UNOGame myGame) {
+		this.myGame = myGame;
+	}
+
+	public boolean isWaitingColor() {
+		return isWaitingColor;
+	}
+
+	public void setWaitingColor(boolean waitingColor) {
+		isWaitingColor = waitingColor;
+	}
 
 	public GameScreen(Game game) {
 		super(game);
@@ -73,6 +90,8 @@ public class GameScreen extends AbstractScreen {
 		font.setColor(Color.WHITE);
 		font.getData().setScale(1.4f);
 		isWaitingColor=false;
+		lib= new UpdateLibrary(this);
+
 	}
 
 	@Override
@@ -112,89 +131,50 @@ public class GameScreen extends AbstractScreen {
 		
 		super.batch.draw(arrow, 165 + currentCard * 641 / (texturesHand.size() - 1), 140, 45, 50);
 		font.draw(super.batch, strPlayer, 15, 30);
-		fonr.draw(super.batch, myGame.getLeaderboard().toString(), (MyGame.WIDTH /6), (MyGame.HEIGHT /2)+100);
+		font.draw(super.batch, myGame.getLeaderboard().toString(), (MyGame.WIDTH /6), (MyGame.HEIGHT /2)+100);
 		
 		super.batch.end();
 	}
-	
+
+	public int getCurrentCard() {
+		return currentCard;
+	}
+
+	public void setCurrentCard(int currentCard) {
+		this.currentCard = currentCard;
+	}
+
+	public Texture gettDiscard() {
+		return tDiscard;
+	}
+
+	public void settDiscard(Texture tDiscard) {
+		this.tDiscard = tDiscard;
+	}
+
+	public boolean isCardDrawn() {
+		return cardDrawn;
+	}
+
+	public void setCardDrawn(boolean cardDrawn) {
+		this.cardDrawn = cardDrawn;
+	}
+
 	public void update(){
 //		if(myGame.getGameState() ==  false){
 //			setScreen(new EndScreen(game));
 //		}
 		if(isWaitingColor){
-			if(Gdx.input.isKeyJustPressed(Input.Keys.G)){
-				((ActionCard)(myGame.getDealer().lastCard())).makeAction("green");
-				isWaitingColor=false;
-				nextPlayer();
-				setTexturesHand();
-			}
-			if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
-				((ActionCard)(myGame.getDealer().lastCard())).makeAction("red");
-				isWaitingColor=false;
-				nextPlayer();
-				setTexturesHand();
-			}
-			if(Gdx.input.isKeyJustPressed(Input.Keys.Y)){
-				((ActionCard)(myGame.getDealer().lastCard())).makeAction("yellow");
-				isWaitingColor=false;
-				nextPlayer();
-				setTexturesHand();
-			}
-			if(Gdx.input.isKeyJustPressed(Input.Keys.B)){
-				((ActionCard)(myGame.getDealer().lastCard())).makeAction("blue");
-				isWaitingColor=false;
-				nextPlayer();
-				setTexturesHand();
-			}
+			lib.changeToRed();
+			lib.changeToGreen();
+			lib.changeToBlue();
+			lib.changeToYellow();
 		}
-		
-		if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT) && !isWaitingColor){
-			if(currentCard == myGame.getCurrentPlayer().getHand().size() - 1)
-				currentCard = 0;
-			else
-				currentCard++;
-			System.out.println(currentCard);
-		}
-		
-		if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT) && !isWaitingColor){
-			if(currentCard == 0)
-				currentCard = myGame.getCurrentPlayer().getHand().size() - 1;
-			else
-				currentCard--;
-			System.out.println(currentCard);
-		}
-		
-		if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && !isWaitingColor){
-			if(myGame.getCurrentPlayer().throwCard(myGame.getCurrentPlayer().getHand().get(currentCard))){
-				currentCard = 0;
-				if(myGame.getDealer().lastCard().isActionCard()){
-					if(myGame.getDealer().lastCard().isWildCard()){
-						isWaitingColor=true;
-					}
-					else {
-						((ActionCard)myGame.getDealer().lastCard()).makeAction();
-						nextPlayer();
-					}
-				}
-				else {
-					nextPlayer();
-				}
-				tDiscard = new Texture(myGame.getDealer().lastCard().getColor() + myGame.getDealer().lastCard().getName() + ".png");
-				setTexturesHand();
-			}
-		}
-		
-		if(Gdx.input.isKeyJustPressed(Input.Keys.D) && !cardDrawn){
-			myGame.getCurrentPlayer().addCard(myGame.getDealer().drawCard());
-			cardDrawn = true;
-			setTexturesHand();
-		}
-		
-		if(Gdx.input.isKeyJustPressed(Input.Keys.P) && cardDrawn && !isWaitingColor){
-			currentCard = 0;
-			nextPlayer();
-			setTexturesHand();
-		}
+		lib.moveLeft();
+		lib.moveRight();
+		lib.nonColorCard();
+		lib.cardDraw();
+		lib.pass();
 	}
 	
 	/* Setea las positions correspondientes a los siguientes jugadores de acuerdo a su posicion
@@ -209,12 +189,12 @@ public class GameScreen extends AbstractScreen {
 			positions[i] = num;
 		}
 	}
-	
+
 	public void nextPlayer(){
 		myGame.getNextPlayer();
 		setPositions();
 		cardDrawn = false;
-		strPlayer = "JUGADOR " + (myGame.getPlayers().indexOf((myGame.getCurrentPlayer())) + 1);
+		strPlayer = myGame.getCurrentPlayer().getName();
 	}
 	
 	/* Vacia el ArrayList y mete las texturas de las cartas del nuevo currentPlayer */
