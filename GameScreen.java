@@ -112,6 +112,7 @@ public class GameScreen extends AbstractScreen {
 		
 		super.batch.draw(arrow, 165 + currentCard * 641 / (texturesHand.size() - 1), 140, 45, 50);
 		font.draw(super.batch, strPlayer, 15, 30);
+		fonr.draw(super.batch, myGame.getLeaderboard().toString(), (MyGame.WIDTH /6), (MyGame.HEIGHT /2)+100);
 		
 		super.batch.end();
 	}
