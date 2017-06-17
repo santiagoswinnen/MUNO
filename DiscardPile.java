@@ -1,3 +1,6 @@
+/**
+ * Created by Lo Coco on 16/06/2017.
+ */
 package muno.game;
 
 import java.util.ArrayList;
@@ -7,31 +10,42 @@ import java.util.ArrayList;
  */
 public class DiscardPile {
     private ArrayList<Card> discardPile;
-
     public DiscardPile(){
         discardPile = new ArrayList<Card>();
     }
 
     public Card lastCard(){
-        return getDiscardPile().get(getDiscardPile().size() - 1);
+        if (size()==0)
+            throw new IndexOutOfBoundsException;
+        return getDiscardPile().get(size() - 1);
     }
 
+    /**
+     * Agrega la carta al mazo de descarte.
+     * Si la ultima carta era wildcard, le retorna su color a "black"
+     * @param card Carta a agregar al mazo.
+     */
     public void throwCard(Card card){
         if (!isEmpty() && lastCard().isWildCard()){
             lastCard().setColor("black");
         }
         getDiscardPile().add(card);
     }
-    
+
     private ArrayList<Card> getDiscardPile(){
         return this.discardPile;
     }
-    
+
     private int size(){
         return getDiscardPile().size();
     }
 
-    // Una vez que una WildCard (Carta color negro) deja de estar primera, le cambia el color a negro.
+    /**
+     *
+     * @return Un array list de Cards, con las cartas
+     *          que se encontraban en el DiscardPile menos
+     *          la ultima carta.
+     */
     public ArrayList<Card> askCards(){
         Card cardAux= lastCard();
         ArrayList <Card> aux = new ArrayList<Card>();
@@ -42,9 +56,9 @@ public class DiscardPile {
         getDiscardPile().add(cardAux);
         return aux;
     }
-    
+
     public boolean isEmpty(){
-    	return this.discardPile.size() == 0;
+        return this.discardPile.size() == 0;
     }
 
 }
