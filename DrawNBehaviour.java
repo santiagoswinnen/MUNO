@@ -15,6 +15,7 @@ public class DrawNBehaviour implements Behaviour {
     }
     public void action(String...args) {
         for(int i = 0; i < number; i++){
+            
             game.getCurrentPlayer().addCard(game.getDealer().drawCard());
         }
         /* Si se trata de un DrawFour recibe como parametro un String color */

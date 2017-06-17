@@ -22,6 +22,9 @@ public class Player {
         
         
     }
+    public String getName(){
+        return name;
+    }
 
     /*agrega carta a la mano*/
     public void addCard(Card card) {
@@ -30,10 +33,8 @@ public class Player {
 
 
     /*el jugador entrega su mano y su mano queda vacía*/
-    public ArrayList<Card> giveHand() {
-        ArrayList<Card> aux = hand;
-        hand = null;
-        return aux;
+    public void emptyHand() {
+       hand.clear();
     }
     
     /*muestra la mano el juador, pero se la queda*/

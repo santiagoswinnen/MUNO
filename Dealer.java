@@ -23,14 +23,14 @@ public class Dealer {
     /*vacia las manos de los jugadores*/
     public void askForCards(){
         for (Player p: this.game.getPlayers()){
-            p.giveHand();
+            p.emptyHand();
         }
     }
 
     //Reparte a los jugadores las cartas.
     //Antes pide a los jugadores las cartas.
     public void deal (){
-        //askForCards();  PELIGRO!!!!!!!!!!!!!!!!!!!!
+        askForCards();
         drawPile = new DrawPile(game);
         discardPile = new DiscardPile();
         for(int x = 0 ; x < this.game.getPlayers().size(); x++){

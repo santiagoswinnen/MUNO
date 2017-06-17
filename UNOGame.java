@@ -8,7 +8,7 @@ public class UNOGame {
 	private ArrayList<Player> players; //controla el flujo del juego
 	private Dealer dealer;
 	private GameFlowIterator flow;
-	//private Leaderboard leaderboard = new Leaderboard(this);
+	private Leaderboard leaderboard;
 
 	/*Estado del round y del juego en su totalidad respectivamente, SE VA A DISCUTIR EN EL FUTURO*/
 	private boolean UNO;
@@ -22,6 +22,10 @@ public class UNOGame {
 	}
 	public Dealer getDealer(){
 		return dealer;
+	}
+	
+	public Leaderboard getLeaderboard(){
+		return leaderboard;
 	}
 
 	public Player getNextPlayer(){
@@ -71,10 +75,11 @@ public class UNOGame {
 		while(iterator.hasNext())
 			this.players.add(iterator.next());
 		flow = new GameFlowIterator(players);
+		leaderboard = new Leaderboard(this);
 	}
 
 	/*iterator que maneja el flujo del juego*/
-	private class GameFlowIterator implements Iterator<Player> {
+	private class GameFlowIterator{
 		private Iterator<Player> iterator;
 		private Player currentPlayer;
 		private ArrayList<Player> players;
@@ -112,7 +117,7 @@ public class UNOGame {
 			iterator = players.iterator();
 		}
 
-		@Override
+
 		public boolean hasNext() {
 			// TODO Auto-generated method stub
 			return true;

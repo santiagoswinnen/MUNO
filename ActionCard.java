@@ -16,7 +16,7 @@ public class ActionCard extends Card {
     }
 
     public boolean match(Card card){
-        if(this.getColor().equals("black") ||  this.getColor().equals(card.getColor())){
+        if(this.getColor().equals("black") ||  this.getColor().equals(card.getColor()) || this.getName().equals(card.getName())){
             return true;
         }
         return false;

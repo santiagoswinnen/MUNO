@@ -1,12 +1,13 @@
+package muno.game;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
-
 /**
  * Created by lmikolas on 08/06/17.
  */
 public class Leaderboard {
-    private Map<Player, Integer> scoreboard = new HashMap<>();
+    private Map<Player, Integer> scoreboard = new HashMap<Player, Integer>();
     private UNOGame game;
 
     Leaderboard(UNOGame game) {
@@ -26,6 +27,14 @@ public class Leaderboard {
         }
         return false;
     }
+
+    public String toString() {
+	String ret = " | ";
+	for(Player player : scoreboard.keySet()) {
+            ret += player.getName() + " score: "+ scoreboard.get(player) + " | ";
+        }
+	return ret;
+      }
 
     /*devuelve el ganador*/
     public Player getWinner(){
