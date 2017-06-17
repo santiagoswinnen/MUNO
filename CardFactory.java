@@ -34,7 +34,7 @@ public class CardFactory {
 		if(name.equals("Wild"))
 			return card = new ActionCard(name, 50, color, new ColorableBehaviour(game));
 		if(name.equals("Mirror"))
-			return card = new ActionCard(name, 50, color, new ColorableBehaviour(game));
+			return card = new ActionCard(name, 50, color, new MirrorBehaviour(game));
 		if(name.equals("DrawFour"))
 			return card = new ActionCard(name, 50, color, new DrawNBehaviour(game, 4));
 		throw new IllegalArgumentException("Wrong card name");
