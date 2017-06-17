@@ -28,6 +28,14 @@ public class Leaderboard {
         return false;
     }
 
+    public String toString() {
+	String ret;
+	for(Player player : scoreboard.keySet()) {
+            ret += player.getName() + " score: "+ scoreboard.get(player) + ". ";
+        }
+	return ret;
+      }
+
     /*devuelve el ganador*/
     public Player getWinner(){
         if(!hasWinner()){
