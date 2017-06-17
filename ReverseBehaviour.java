@@ -10,11 +10,11 @@ public class ReverseBehaviour implements Behaviour {
         this.game = game;
     }
     public void action(String... args) {
-        System.out.println("befor reverse" + game.getCurrentPlayer());
+        
         game.reverseGameFLow();
 
         game.getNextPlayer();
         game.getNextPlayer();
-        System.out.println(" after reverse" +game.getCurrentPlayer());
+       
     }
 }
