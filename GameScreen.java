@@ -14,51 +14,16 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
  * Created by mlund on 14/06/17.
  */
 public class GameScreen extends AbstractScreen {
-	private UNOGame myGame;
-	
-	ArrayList<Texture> texturesHand;
-	private Texture tDraw;
-	private Texture tRight;
-	private Texture tUpside;
-	private Texture tLeft;
-	private Texture tDiscard;
-	private Texture arrow;
-	private BitmapFont font;
-	/* Indice de la carta seleccionada en la mano del jugador actual */
-	private int currentCard;
-	/* Contiene los indices para mostrar los reversos de las cartas que no son del actual */
-	private int[] positions;
-	private boolean cardDrawn;
-	private boolean isWaitingColor;
-	private String strPlayer;
-	private UpdateLibrary lib;
-
-
-	public UNOGame getMyGame() {
-		return myGame;
-	}
-
-	public void setMyGame(UNOGame myGame) {
-		this.myGame = myGame;
-	}
-
-	public boolean isWaitingColor() {
-		return isWaitingColor;
-	}
-
-	public void setWaitingColor(boolean waitingColor) {
-		isWaitingColor = waitingColor;
-	}
 
 	public GameScreen(Game game) {
 		super(game);
 		
-		myGame = new UNOGame();
+		setMyGame(new UNOGame());
 		
-		Player player1 = new Player("Player 1", myGame);
-		Player player2 = new Player("Player 2", myGame);
-		Player player3 = new Player("Player 3", myGame);
-		Player player4 = new Player("Player 4", myGame);
+		Player player1 = new Player("Player 1", getMyGame());
+		Player player2 = new Player("Player 2", getMyGame());
+		Player player3 = new Player("Player 3", getMyGame());
+		Player player4 = new Player("Player 4", getMyGame());
 		
 		ArrayList<Player> players = new ArrayList<Player>();
 		
@@ -67,30 +32,30 @@ public class GameScreen extends AbstractScreen {
 		players.add(player3);
 		players.add(player4);
 		
-		myGame.addPlayers(players);
+		getMyGame().addPlayers(players);
 		
-		myGame.getDealer().deal();
+		getMyGame().getDealer().deal();
 		
-		tDraw = new Texture("CardBack.jpg");
-		tRight = new Texture("CardBackRight.jpg");
-		tUpside = new Texture("CardBackUpside.jpg");
-		tLeft = new Texture("CardBackLeft.jpg");
-		arrow = new Texture("arrow.png");
+		settDraw(new Texture("CardBack.jpg"));
+		settRight(new Texture("CardBackRight.jpg"));
+		settUpside(new Texture("CardBackUpside.jpg"));
+		settLeft(new Texture("CardBackLeft.jpg"));
+		setArrow(new Texture("arrow.png"));
 		
 		texturesHand = new ArrayList<Texture>();
 		
-		currentCard = 0;
-		positions = new int[myGame.getPlayers().size() - 1];
+		setCurrentCard(0);
+		setPositions(new int[getMyGame().getPlayers().size() - 1]);
 		nextPlayer();
 		setTexturesHand();
 		
-		tDiscard = new Texture(myGame.getDealer().lastCard().getColor() + myGame.getDealer().lastCard().getName() + ".png");
+		settDiscard(new Texture(getMyGame().getDealer().lastCard().getColor() + getMyGame().getDealer().lastCard().getName() + ".png"));
 		
-		font = new BitmapFont();
-		font.setColor(Color.WHITE);
-		font.getData().setScale(1.4f);
-		isWaitingColor=false;
-		lib= new UpdateLibrary(this);
+		setFont(new BitmapFont());
+		getFont().setColor(Color.WHITE);
+		getFont().getData().setScale(1.4f);
+		setWaitingColor(false);
+		setLib(new UpdateLibrary(this));
 
 	}
 
@@ -111,90 +76,67 @@ public class GameScreen extends AbstractScreen {
 		}
 		
 		/* Dibujo las cartas de los jugadores a la derecha, enfrente e izquierda del currentPlayer */
-		for(int i = 0; i < myGame.getPlayers().get(positions[0]).getHand().size(); i++){
-			super.batch.draw(tRight, 904, 70 + i*435/(myGame.getPlayers().get(positions[0]).getHand().size() - 1), 110, 75);
+		for(int i = 0; i < getMyGame().getPlayers().get(getPositions()[0]).getHand().size(); i++){
+			super.batch.draw(gettRight(), 904, 70 + i*435/(getMyGame().getPlayers().get(getPositions()[0]).getHand().size() - 1), 110, 75);
 		}
 		
-		for(int i = 0; i < myGame.getPlayers().get(positions[1]).getHand().size(); i++){
-			super.batch.draw(tUpside, 150 + i*641/(myGame.getPlayers().get(positions[1]).getHand().size() - 1), 515, 75, 110);
+		for(int i = 0; i < getMyGame().getPlayers().get(getPositions()[1]).getHand().size(); i++){
+			super.batch.draw(gettUpside(), 150 + i*641/(getMyGame().getPlayers().get(getPositions()[1]).getHand().size() - 1), 515, 75, 110);
 		}
 		
-		for(int i = 0; i < myGame.getPlayers().get(positions[2]).getHand().size(); i++){
-			super.batch.draw(tLeft, 10, 70 + i*435/(myGame.getPlayers().get(positions[2]).getHand().size() - 1), 110, 75);
+		for(int i = 0; i < getMyGame().getPlayers().get(getPositions()[2]).getHand().size(); i++){
+			super.batch.draw(gettLeft(), 10, 70 + i*435/(getMyGame().getPlayers().get(getPositions()[2]).getHand().size() - 1), 110, 75);
 		}
 		
 		/* Dibujo DrawPile */
-		super.batch.draw(tDraw, (MyGame.WIDTH / 2) - 95, (MyGame.HEIGHT / 2) - 55, 75, 110);
+		super.batch.draw(gettDraw(), (MyGame.WIDTH / 2) - 95, (MyGame.HEIGHT / 2) - 55, 75, 110);
 		
 		/* Dibujo DiscardPile */
-		super.batch.draw(tDiscard, (MyGame.WIDTH / 2) + 20, (MyGame.HEIGHT / 2) - 55, 75, 110);
+		super.batch.draw(gettDiscard(), (MyGame.WIDTH / 2) + 20, (MyGame.HEIGHT / 2) - 55, 75, 110);
 		
-		super.batch.draw(arrow, 165 + currentCard * 641 / (texturesHand.size() - 1), 140, 45, 50);
-		font.draw(super.batch, strPlayer, 15, 30);
-		font.draw(super.batch, myGame.getLeaderboard().toString(), (MyGame.WIDTH /6), (MyGame.HEIGHT /2)+100);
+		super.batch.draw(getArrow(), 165 + getCurrentCard() * 641 / (texturesHand.size() - 1), 140, 45, 50);
+		getFont().draw(super.batch, getStrPlayer(), 15, 30);
+		getFont().draw(super.batch, getMyGame().getLeaderboard().toString(), (MyGame.WIDTH /6), (MyGame.HEIGHT /2)+100);
 		
 		super.batch.end();
 	}
 
-	public int getCurrentCard() {
-		return currentCard;
-	}
-
-	public void setCurrentCard(int currentCard) {
-		this.currentCard = currentCard;
-	}
-
-	public Texture gettDiscard() {
-		return tDiscard;
-	}
-
-	public void settDiscard(Texture tDiscard) {
-		this.tDiscard = tDiscard;
-	}
-
-	public boolean isCardDrawn() {
-		return cardDrawn;
-	}
-
-	public void setCardDrawn(boolean cardDrawn) {
-		this.cardDrawn = cardDrawn;
-	}
 
 	public void update(){
 //		if(myGame.getGameState() ==  false){
 //			setScreen(new EndScreen(game));
 //		}
-		if(isWaitingColor){
-			lib.changeToRed();
-			lib.changeToGreen();
-			lib.changeToBlue();
-			lib.changeToYellow();
+		if(this.isWaitingColor()){
+			getLib().changeToRed();
+			getLib().changeToGreen();
+			getLib().changeToBlue();
+			getLib().changeToYellow();
 		}
-		lib.moveLeft();
-		lib.moveRight();
-		lib.nonColorCard();
-		lib.cardDraw();
-		lib.pass();
+		getLib().moveLeft();
+		getLib().moveRight();
+		getLib().nonColorCard();
+		getLib().cardDraw();
+		getLib().pass();
 	}
 	
 	/* Setea las positions correspondientes a los siguientes jugadores de acuerdo a su posicion
 	 * en el ArrayList<Player> de myGame
 	 */
-	public void setPositions(){
-		int num = myGame.getPlayers().indexOf(myGame.getCurrentPlayer());
+	public void setPositionsArray(){
+		int num = getMyGame().getPlayers().indexOf(getMyGame().getCurrentPlayer());
 		for(int i = 0; i < 3; i++){
 			num++;
-			if(num > myGame.getPlayers().size() - 1)
+			if(num > getMyGame().getPlayers().size() - 1)
 				num = 0;
-			positions[i] = num;
+			getPositions()[i] = num;
 		}
 	}
 
 	public void nextPlayer(){
-		myGame.getNextPlayer();
-		setPositions();
-		cardDrawn = false;
-		strPlayer = myGame.getCurrentPlayer().getName();
+		getMyGame().getNextPlayer();
+		setPositionsArray();
+		setCardDrawn(false);
+		setStrPlayer(getMyGame().getCurrentPlayer().getName());
 	}
 	
 	/* Vacia el ArrayList y mete las texturas de las cartas del nuevo currentPlayer */
@@ -202,32 +144,14 @@ public class GameScreen extends AbstractScreen {
 		texturesHand.clear();
 		Card card;
 		Texture t;
-		for(int i = 0; i < myGame.getCurrentPlayer().getHand().size(); i++){
-			card = myGame.getCurrentPlayer().getHand().get(i);
+		for(int i = 0; i < getMyGame().getCurrentPlayer().getHand().size(); i++){
+			card = getMyGame().getCurrentPlayer().getHand().get(i);
 			t = new Texture(card.getColor() + card.getName() + ".png");
 			texturesHand.add(t);
 		}
 	}
 	
-	public boolean chooseColor(){
-		if(Gdx.input.isKeyJustPressed(Input.Keys.B)){
-			myGame.getDealer().lastCard().setColor("blue");
-			return true;
-		}
-		if(Gdx.input.isKeyJustPressed(Input.Keys.G)){
-			myGame.getDealer().lastCard().setColor("green");
-			return true;
-		}
-		if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
-			myGame.getDealer().lastCard().setColor("red");
-			return true;
-		}
-		if(Gdx.input.isKeyJustPressed(Input.Keys.Y)){
-			myGame.getDealer().lastCard().setColor("yellow");
-			return true;
-		}
-		return false;
-	}
+
 
 	@Override
 	public void pause() {
