@@ -5,21 +5,20 @@ import java.util.Iterator;
 
 public class UNOGame {
 
-	private ArrayList<Player> players; //controla el flujo del juego
+	private ArrayList<Player> players;
 	private Dealer dealer;
 	private GameFlowIterator flow;
 	private Leaderboard leaderboard;
 
 	/*Estado del round y del juego en su totalidad respectivamente, SE VA A DISCUTIR EN EL FUTURO*/
-
 	private boolean gameState;
 
 	public UNOGame(){
 		players = new ArrayList<Player>();
 		dealer = new Dealer(this);
 		gameState = true;
-		//flow = new GameFlowIterator(players); //AGREGUE ESTO -----------
 	}
+	
 	public Dealer getDealer(){
 		return dealer;
 	}
@@ -59,8 +58,6 @@ public class UNOGame {
 		gameState=false;
 	}
 
-
-
 	public void addPlayers(ArrayList<Player> players){
 		if(this.players.size() != 0)
 			throw new UnsupportedOperationException("Players have already been added");
@@ -72,7 +69,7 @@ public class UNOGame {
 	}
 
 	/*iterator que maneja el flujo del juego*/
-	private class GameFlowIterator{
+	private class GameFlowIterator {
 		private Iterator<Player> iterator;
 		private Player currentPlayer;
 		private ArrayList<Player> players;
@@ -110,9 +107,7 @@ public class UNOGame {
 			iterator = players.iterator();
 		}
 
-
 		public boolean hasNext() {
-			// TODO Auto-generated method stub
 			return true;
 		}
 	}
