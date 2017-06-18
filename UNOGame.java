@@ -11,7 +11,7 @@ public class UNOGame {
 	private Leaderboard leaderboard;
 
 	/*Estado del round y del juego en su totalidad respectivamente, SE VA A DISCUTIR EN EL FUTURO*/
-	private boolean UNO;
+
 	private boolean gameState;
 
 	public UNOGame(){
@@ -59,15 +59,8 @@ public class UNOGame {
 		gameState=false;
 	}
 
-	/*Devuelve si algun jugador consiguio UNO!*/
-	public boolean isUNO(){
-		return UNO;
-	}
 
-	public void setUNO(boolean b){
-		UNO = true;
-	}
-	
+
 	public void addPlayers(ArrayList<Player> players){
 		if(this.players.size() != 0)
 			throw new UnsupportedOperationException("Players have already been added");

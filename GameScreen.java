@@ -1,14 +1,13 @@
 package muno.game;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+
+import java.util.ArrayList;
 
 /**
  * Created by mlund on 14/06/17.
@@ -55,7 +54,8 @@ public class GameScreen extends AbstractScreen {
 		getFont().setColor(Color.WHITE);
 		getFont().getData().setScale(1.4f);
 		setWaitingColor(false);
-		setLib(new UpdateLibrary(this));
+		setUNO(false);
+		setUpd(new Update(this));
 
 	}
 
@@ -95,9 +95,16 @@ public class GameScreen extends AbstractScreen {
 		super.batch.draw(gettDiscard(), (MyGame.WIDTH / 2) + 20, (MyGame.HEIGHT / 2) - 55, 75, 110);
 		
 		super.batch.draw(getArrow(), 165 + getCurrentCard() * 641 / (texturesHand.size() - 1), 140, 45, 50);
-		getFont().draw(super.batch, getStrPlayer(), 15, 30);
+		getFont().draw(super.batch, getMyGame().getCurrentPlayer().getName(), 15, 30);
 		getFont().draw(super.batch, getMyGame().getLeaderboard().toString(), (MyGame.WIDTH /6), (MyGame.HEIGHT /2)+100);
-		
+		getFont().draw(super.batch, "Controls: d draw, p  pass, Arrow keys + ENTER to choose card",(MyGame.WIDTH /6), (MyGame.HEIGHT /2)+130);
+
+		if(this.isWaitingColor()){
+			getFont().draw(super.batch, "(Choose color: r RED, y YELLOW, b BLUE, g GREEN)",(MyGame.WIDTH /6),(MyGame.HEIGHT /2)-100);
+		}
+		else {
+			getFont().draw(super.batch, getMyGame().getDealer().lastCard().getColor(),(MyGame.WIDTH /2), (MyGame.HEIGHT /2)-100);
+		}
 		super.batch.end();
 	}
 
@@ -107,16 +114,18 @@ public class GameScreen extends AbstractScreen {
 //			setScreen(new EndScreen(game));
 //		}
 		if(this.isWaitingColor()){
-			getLib().changeToRed();
-			getLib().changeToGreen();
-			getLib().changeToBlue();
-			getLib().changeToYellow();
+			getUpd().changeToRed();
+			getUpd().changeToGreen();
+			getUpd().changeToBlue();
+			getUpd().changeToYellow();
 		}
-		getLib().moveLeft();
-		getLib().moveRight();
-		getLib().nonColorCard();
-		getLib().cardDraw();
-		getLib().pass();
+		getUpd().moveLeft();
+		getUpd().moveRight();
+		getUpd().nonColorCard();
+		getUpd().cardDraw();
+		getUpd().pass();
+		getUpd().callUNO();
+
 	}
 	
 	/* Setea las positions correspondientes a los siguientes jugadores de acuerdo a su posicion
@@ -136,7 +145,8 @@ public class GameScreen extends AbstractScreen {
 		getMyGame().getNextPlayer();
 		setPositionsArray();
 		setCardDrawn(false);
-		setStrPlayer(getMyGame().getCurrentPlayer().getName());
+
+
 	}
 	
 	/* Vacia el ArrayList y mete las texturas de las cartas del nuevo currentPlayer */

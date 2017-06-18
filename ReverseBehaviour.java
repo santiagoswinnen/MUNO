@@ -12,5 +12,7 @@ public class ReverseBehaviour implements Behaviour {
     public void action(String... args) {
         game.reverseGameFLow();
         game.getNextPlayer();
+        game.getNextPlayer();
+
     }
 }

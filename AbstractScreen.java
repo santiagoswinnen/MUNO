@@ -16,7 +16,11 @@ public abstract class AbstractScreen implements Screen {
 	protected Game game;
 	public SpriteBatch batch;
 	protected OrthographicCamera gameCam;
+	/*para saber si se espera input de color*/
 	private boolean isWaitingColor;
+	/*PARA saber si el current player dijo que tenia uno*/
+	private boolean UNO;
+
 	//protected Viewport gamePort;
 	ArrayList<Texture> texturesHand;
 	private Texture tDraw;
@@ -31,8 +35,8 @@ public abstract class AbstractScreen implements Screen {
 	/* Contiene los indices para mostrar los reversos de las cartas que no son del actual */
 	private int[] positions;
 	private boolean cardDrawn;
-	private String strPlayer;
-	private UpdateLibrary lib;
+
+	private Update upd;
 	private UNOGame myGame;
 
 
@@ -70,6 +74,15 @@ public abstract class AbstractScreen implements Screen {
 	public boolean isWaitingColor() {
 		return isWaitingColor;
 	}
+
+	public void setUNO(boolean bool){
+		UNO = bool;
+	}
+	/*devuelve true si un jugador declaro uno*/
+	public boolean isUNO(){
+		return UNO;
+	}
+
 
 	public void setWaitingColor(boolean waitingColor) {
 		isWaitingColor = waitingColor;
@@ -207,19 +220,12 @@ public abstract class AbstractScreen implements Screen {
 		this.cardDrawn = cardDrawn;
 	}
 
-	public String getStrPlayer() {
-		return strPlayer;
+
+	public Update getUpd() {
+		return upd;
 	}
 
-	public void setStrPlayer(String strPlayer) {
-		this.strPlayer = strPlayer;
-	}
-
-	public UpdateLibrary getLib() {
-		return lib;
-	}
-
-	public void setLib(UpdateLibrary lib) {
-		this.lib = lib;
+	public void setUpd(Update upd) {
+		this.upd = upd;
 	}
 }

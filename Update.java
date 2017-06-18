@@ -8,11 +8,12 @@ import com.badlogic.gdx.graphics.Texture;
 /**
  * Created by sswinnen on 17/06/17.
  */
-public class UpdateLibrary {
-
+public class Update {
+    /*log de la carta anterior a la last card*/
+    private Card log;
     GameScreen screen;
 
-    public UpdateLibrary(GameScreen screen){
+    public Update(GameScreen screen){
         this.screen=screen;
     }
 
@@ -45,6 +46,7 @@ public class UpdateLibrary {
         }
     }
 
+
     public void stopWaiting(){
         screen.setWaitingColor(false);
         screen.setTexturesHand();
@@ -68,24 +70,46 @@ public class UpdateLibrary {
     }
 
     public void nonColorCard(){
-        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && !screen.isWaitingColor()){
+        if(((Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) || screen.isUNO()) && !screen.isWaitingColor()){
+            log = screen.getMyGame().getDealer().lastCard();
             if(screen.getMyGame().getCurrentPlayer().throwCard(screen.getMyGame().getCurrentPlayer().getHand().get(screen.getCurrentCard()))){
                 screen.setCurrentCard(0);
+                setUNOpenalty();
                 if(screen.getMyGame().getDealer().lastCard().isActionCard()){
                     if(screen.getMyGame().getDealer().lastCard().isWildCard()){
                         screen.setWaitingColor(true);
                     }
                     else {
+
                         screen.nextPlayer();
                         ((ActionCard)screen.getMyGame().getDealer().lastCard()).makeAction();
                     }
                 }
                 else {
+
                     screen.nextPlayer();
                 }
+
                 screen.settDiscard(new Texture(screen.getMyGame().getDealer().lastCard().getColor() + screen.getMyGame().getDealer().lastCard().getName() + ".png"));
                 screen.setTexturesHand();
             }
+        }
+
+    }
+    public void setUNOpenalty(){
+        if(screen.getMyGame().getCurrentPlayer().hasUNO() && !screen.isUNO()){
+            screen.getMyGame().getCurrentPlayer().addCard(screen.getMyGame().getDealer().drawCard());
+            screen.getMyGame().getCurrentPlayer().addCard(screen.getMyGame().getDealer().drawCard());
+        }
+        screen.setUNO(false);
+    }
+    /* declarar UNO. Tira la carta seleccionada y declara UNO!. En caso de que no tenga uno levanta dos cartas como penalizacion
+
+     */
+    public void callUNO(){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_1) && !screen.isWaitingColor() ){
+            screen.setUNO(true);
+
         }
     }
 
