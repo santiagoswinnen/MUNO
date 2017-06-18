@@ -9,7 +9,8 @@ import com.badlogic.gdx.graphics.Texture;
  * Created by sswinnen on 17/06/17.
  */
 public class Update {
-
+    /*log de la carta anterior a la last card*/
+    private Card log;
     GameScreen screen;
 
     public Update(GameScreen screen){
@@ -45,6 +46,7 @@ public class Update {
         }
     }
 
+
     public void stopWaiting(){
         screen.setWaitingColor(false);
         screen.setTexturesHand();
@@ -69,6 +71,7 @@ public class Update {
 
     public void nonColorCard(){
         if(((Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) || screen.isUNO()) && !screen.isWaitingColor()){
+            log = screen.getMyGame().getDealer().lastCard();
             if(screen.getMyGame().getCurrentPlayer().throwCard(screen.getMyGame().getCurrentPlayer().getHand().get(screen.getCurrentCard()))){
                 screen.setCurrentCard(0);
                 setUNOpenalty();
@@ -91,6 +94,7 @@ public class Update {
                 screen.setTexturesHand();
             }
         }
+
     }
     public void setUNOpenalty(){
         if(screen.getMyGame().getCurrentPlayer().hasUNO() && !screen.isUNO()){

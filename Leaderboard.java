@@ -55,6 +55,9 @@ public class Leaderboard {
                     addScore(winner, card.getScore());
             }
         }
+        if(hasWinner()){
+            game.endGame();
+        }
     }
 
     public void addScore(Player player,Integer score){

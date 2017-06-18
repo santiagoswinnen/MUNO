@@ -13,6 +13,8 @@ public class Dealer {
     //Descarte. Se crea vacio
     // Contiene el mazo de cartas
     private DiscardPile discardPile;
+    /*carta para log de cartas en el mazo de descarte*/
+    private Card log;
 
     // Crea un mazo principal y de descarte.
     // Crea un nuevo Dealer.
@@ -25,6 +27,9 @@ public class Dealer {
         for (Player p: this.game.getPlayers()){
             p.emptyHand();
         }
+    }
+    public Card getLog(){
+        return log;
     }
 
     //Reparte a los jugadores las cartas.
@@ -44,7 +49,8 @@ public class Dealer {
 
     // Agrega una carta al mazo de Descarte.
     public void discardCard(Card card){
-        discardPile.throwCard(card);//DECIA ADDCARD, PUSIMOS THROWCARD
+        discardPile.throwCard(card);
+        log = card;//DECIA ADDCARD, PUSIMOS THROWCARD
     }
 
     //Coloca las cartas del mazo de descarte, en el mazo principal
@@ -76,4 +82,6 @@ public class Dealer {
     	}
     	discardCard(cardAux);	
     }
+
+
 }

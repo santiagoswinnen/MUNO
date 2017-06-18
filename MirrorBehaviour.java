@@ -15,6 +15,10 @@ public class MirrorBehaviour implements Behaviour {
         game.reverseGameFLow();
         game.getNextPlayer();
         game.getNextPlayer();
+        if(game.getDealer().getLog().isActionCard() && !game.getDealer().getLog().getName().equals("Mirror")){
+                ((ActionCard)game.getDealer().getLog()).makeAction();
+        }
     }
-
 }
+
+
