@@ -134,7 +134,7 @@ public class Update {
 
     public void roundEndCheck(){
         if (screen.getMyGame().getCurrentPlayer().getHand().size() == 0){
-            screen.getLeaderboard().updateScores();
+            screen.getMyGame().getLeaderboard().updateScores();
             screen.getMyGame().getDealer().deal();
             screen.getLeaderboard().toString();
         }
