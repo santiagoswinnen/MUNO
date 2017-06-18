@@ -49,8 +49,10 @@ public class Dealer {
 
     // Agrega una carta al mazo de Descarte.
     public void discardCard(Card card){
+        if(!discardPile.isEmpty())
+            log = lastCard();
         discardPile.throwCard(card);
-        log = card;//DECIA ADDCARD, PUSIMOS THROWCARD
+        //DECIA ADDCARD, PUSIMOS THROWCARD
     }
 
     //Coloca las cartas del mazo de descarte, en el mazo principal
