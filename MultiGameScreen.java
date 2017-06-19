@@ -1,11 +1,11 @@
 package muno.game;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+
+import java.util.ArrayList;
 
 /**
  * Created by mlund on 14/06/17.
@@ -96,7 +96,9 @@ public class MultiGameScreen extends AbstractGameScreen {
 		getFont().draw(super.batch, getMyGame().getCurrentPlayer().getName(), 15, 30);
 		getFont().draw(super.batch, getMyGame().getLeaderboard().toString(), (MyGame.WIDTH /6), (MyGame.HEIGHT /2)+100);
 		getFont().draw(super.batch, "Controls: d draw, p  pass, Arrow keys + ENTER to choose card",(MyGame.WIDTH /6), (MyGame.HEIGHT /2)+130);
-
+		if(getMyGame().getCurrentPlayer().getHand().size() == 2){
+			getFont().draw(super.batch, "Remember to press 1 to throw selected card and declare UNO!",(MyGame.WIDTH /6), (MyGame.HEIGHT /2)-50);
+		}
 		if(this.isWaitingColor()){
 			getFont().draw(super.batch, "(Choose color: r RED, y YELLOW, b BLUE, g GREEN)",(MyGame.WIDTH /6),(MyGame.HEIGHT /2)-100);
 		}

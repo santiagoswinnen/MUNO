@@ -1,7 +1,5 @@
 package muno.game;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -10,6 +8,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import java.util.ArrayList;
 
 public abstract class AbstractGameScreen extends AbstractScreen {
 	private UNOGame myGame;
@@ -31,7 +31,7 @@ public abstract class AbstractGameScreen extends AbstractScreen {
 	/* Contiene los indices para mostrar los reversos de las cartas que no son del actual */
 	private int[] positions;
 	private boolean cardDrawn;
-	private Leaderboard leaderboard;
+
 
 	public AbstractGameScreen(Game game){
 		super(game);
@@ -51,7 +51,7 @@ public abstract class AbstractGameScreen extends AbstractScreen {
 		this.isWaitingColor = false;
 		this.UNO = false;
 		this.currentCard = 0;
-		this.leaderboard= new Leaderboard(myGame);
+
 	}
 	
 	public UNOGame getMyGame() {
@@ -94,10 +94,10 @@ public abstract class AbstractGameScreen extends AbstractScreen {
 		}
 		return false;
 	}
+	public abstract void nextPlayer();
+	public abstract void setTexturesHand();
 
-	public Leaderboard getLeaderboard() {
-		return leaderboard;
-	}
+
 
 	public Game getGame() {
 		return this.game;

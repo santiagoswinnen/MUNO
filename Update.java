@@ -11,9 +11,9 @@ import com.badlogic.gdx.graphics.Texture;
 public class Update {
     /*log de la carta anterior a la last card*/
     private Card log;
-    private MultiGameScreen screen;
+    private AbstractGameScreen screen;
 
-    public Update(MultiGameScreen screen){
+    public Update(AbstractGameScreen screen){
         this.screen=screen;
     }
 
@@ -71,6 +71,25 @@ public class Update {
                 screen.setCurrentCard(screen.getCurrentCard()-1);
         }
     }
+    public void IAplay() {
+
+            ((PlayerIA) screen.getMyGame().getCurrentPlayer()).makeMove();
+            roundEndCheck();
+            if (screen.getMyGame().getDealer().lastCard().isActionCard()) {
+                if (screen.getMyGame().getDealer().lastCard().isWildCard()) {
+                    ((ActionCard) screen.getMyGame().getDealer().lastCard()).makeAction(((PlayerIA) screen.getMyGame().getCurrentPlayer()).chooseColor());
+                    screen.nextPlayer();
+
+                }
+                else{
+                    screen.nextPlayer();
+                    ((ActionCard) screen.getMyGame().getDealer().lastCard()).makeAction();
+                }
+            }
+            else{
+                screen.nextPlayer();
+            }
+    }
 
     public void nonColorCard(){
         if(((Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) || screen.isUNO()) && !screen.isWaitingColor()){
@@ -117,7 +136,7 @@ public class Update {
     }
 
     public void cardDraw(){
-        if(Gdx.input.isKeyJustPressed(Input.Keys.D) && !screen.isCardDrawn()){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.D) && !screen.isCardDrawn() && !screen.isCardDrawn()){
             screen.getMyGame().getCurrentPlayer().addCard(screen.getMyGame().getDealer().drawCard());
             screen.setCardDrawn(true);
             screen.setTexturesHand();
@@ -136,7 +155,7 @@ public class Update {
         if (screen.getMyGame().getCurrentPlayer().getHand().size() == 0){
             screen.getMyGame().getLeaderboard().updateScores();
             screen.getMyGame().getDealer().deal();
-            screen.getLeaderboard().toString();
+
         }
     }
 }

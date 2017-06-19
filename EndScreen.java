@@ -1,9 +1,7 @@
 package muno.game;
-import com.badlogic.gdx.Game;
-
 /**
  * Created by santiago on 16/06/17.
- */
+ *//*
 public class EndScreen extends AbstractGameScreen{
 
     private Leaderboard leaderboard;
@@ -33,3 +31,4 @@ public class EndScreen extends AbstractGameScreen{
         
     }
 }
+*/
