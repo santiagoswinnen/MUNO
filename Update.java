@@ -11,9 +11,9 @@ import com.badlogic.gdx.graphics.Texture;
 public class Update {
     /*log de la carta anterior a la last card*/
     private Card log;
-    GameScreen screen;
+    private AbstractGameScreen screen;
 
-    public Update(GameScreen screen){
+    public Update(AbstractGameScreen screen){
         this.screen=screen;
     }
 
@@ -24,6 +24,7 @@ public class Update {
             stopWaiting();
         }
     }
+    
     public void changeToBlue(){
         if(Gdx.input.isKeyJustPressed(Input.Keys.B)){
             screen.nextPlayer();
@@ -31,6 +32,7 @@ public class Update {
             stopWaiting();
         }
     }
+    
     public void changeToYellow(){
         if(Gdx.input.isKeyJustPressed(Input.Keys.Y)){
             screen.nextPlayer();
@@ -38,6 +40,7 @@ public class Update {
             stopWaiting();
         }
     }
+    
     public void changeToRed(){
         if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
             screen.nextPlayer();
@@ -45,7 +48,6 @@ public class Update {
             stopWaiting();
         }
     }
-
 
     public void stopWaiting(){
         screen.setWaitingColor(false);
@@ -60,6 +62,7 @@ public class Update {
                 screen.setCurrentCard(screen.getCurrentCard()+1);
         }
     }
+    
     public void moveLeft(){
         if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT) && !screen.isWaitingColor()){
             if(screen.getCurrentCard() == 0)
@@ -68,6 +71,25 @@ public class Update {
                 screen.setCurrentCard(screen.getCurrentCard()-1);
         }
     }
+    public void IAplay() {
+
+            ((PlayerIA) screen.getMyGame().getCurrentPlayer()).makeMove();
+            roundEndCheck();
+            if (screen.getMyGame().getDealer().lastCard().isActionCard()) {
+                if (screen.getMyGame().getDealer().lastCard().isWildCard()) {
+                    ((ActionCard) screen.getMyGame().getDealer().lastCard()).makeAction(((PlayerIA) screen.getMyGame().getCurrentPlayer()).chooseColor());
+                    screen.nextPlayer();
+
+                }
+                else{
+                    screen.nextPlayer();
+                    ((ActionCard) screen.getMyGame().getDealer().lastCard()).makeAction();
+                }
+            }
+            else{
+                screen.nextPlayer();
+            }
+    }
 
     public void nonColorCard(){
         if(((Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) || screen.isUNO()) && !screen.isWaitingColor()){
@@ -75,12 +97,12 @@ public class Update {
             if(screen.getMyGame().getCurrentPlayer().throwCard(screen.getMyGame().getCurrentPlayer().getHand().get(screen.getCurrentCard()))){
                 screen.setCurrentCard(0);
                 setUNOpenalty();
+                roundEndCheck();
                 if(screen.getMyGame().getDealer().lastCard().isActionCard()){
                     if(screen.getMyGame().getDealer().lastCard().isWildCard()){
                         screen.setWaitingColor(true);
                     }
                     else {
-
                         screen.nextPlayer();
                         ((ActionCard)screen.getMyGame().getDealer().lastCard()).makeAction();
                     }
@@ -89,13 +111,12 @@ public class Update {
 
                     screen.nextPlayer();
                 }
-
                 screen.settDiscard(new Texture(screen.getMyGame().getDealer().lastCard().getColor() + screen.getMyGame().getDealer().lastCard().getName() + ".png"));
                 screen.setTexturesHand();
             }
         }
-
     }
+    
     public void setUNOpenalty(){
         if(screen.getMyGame().getCurrentPlayer().hasUNO() && !screen.isUNO()){
             screen.getMyGame().getCurrentPlayer().addCard(screen.getMyGame().getDealer().drawCard());
@@ -103,6 +124,7 @@ public class Update {
         }
         screen.setUNO(false);
     }
+    
     /* declarar UNO. Tira la carta seleccionada y declara UNO!. En caso de que no tenga uno levanta dos cartas como penalizacion
 
      */
@@ -114,13 +136,12 @@ public class Update {
     }
 
     public void cardDraw(){
-        if(Gdx.input.isKeyJustPressed(Input.Keys.D) && !screen.isCardDrawn()){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.D) && !screen.isCardDrawn() && !screen.isCardDrawn()){
             screen.getMyGame().getCurrentPlayer().addCard(screen.getMyGame().getDealer().drawCard());
             screen.setCardDrawn(true);
             screen.setTexturesHand();
         }
     }
-
 
     public void pass(){
         if(Gdx.input.isKeyJustPressed(Input.Keys.P) && screen.isCardDrawn() && !screen.isWaitingColor()){
@@ -130,6 +151,11 @@ public class Update {
         }
     }
 
+    public void roundEndCheck(){
+        if (screen.getMyGame().getCurrentPlayer().getHand().size() == 0){
+            screen.getMyGame().getLeaderboard().updateScores();
+            screen.getMyGame().getDealer().deal();
 
-
+        }
+    }
 }

@@ -1,17 +1,14 @@
 package muno.game;
-import com.badlogic.gdx.Game;
-
 /**
  * Created by santiago on 16/06/17.
- */
-public class EndScreen extends AbstractScreen{
+ *//*
+public class EndScreen extends AbstractGameScreen{
 
     private Leaderboard leaderboard;
 
     public EndScreen(Game game, Leaderboard leaderboard){
         super(game);
         this.leaderboard=leaderboard;
-
     }
 
     @Override
@@ -21,19 +18,17 @@ public class EndScreen extends AbstractScreen{
 
     @Override
     public void pause() {
-        // TODO Auto-generated method stub
-
+        
     }
 
     @Override
     public void show() {
-        // TODO Auto-generated method stub
-
+        
     }
 
     @Override
     public void hide() {
-        // TODO Auto-generated method stub
-
+        
     }
 }
+*/

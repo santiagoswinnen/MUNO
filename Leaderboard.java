@@ -49,7 +49,7 @@ public class Leaderboard {
     }
 	/*actualiza los puntajes después de cada ronda*/
     public void updateScores() {
-        Player winner = getWinner();
+        Player winner = getRoundWinner();
         for(Player player : scoreboard.keySet()) {
             for(Card card : player.getHand()){
                     addScore(winner, card.getScore());
@@ -58,6 +58,12 @@ public class Leaderboard {
         if(hasWinner()){
             game.endGame();
         }
+    }
+    public Player getRoundWinner(){
+        if(game.getCurrentPlayer().getHand().size() == 0){
+            return game.getCurrentPlayer();
+        }
+        throw new UnsupportedOperationException("no round winner");
     }
 
     public void addScore(Player player,Integer score){
