@@ -55,7 +55,7 @@ public class DrawPile {
     }
     
     public void setDrawPile(ArrayList<Card> cardArray){
-        drawPile = cardArray;
+        this.drawPile = cardArray;
         shuffle();
     }
     private UNOGame getGame(){
