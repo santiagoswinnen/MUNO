@@ -39,7 +39,7 @@ public class DiscardPile {
             aux.add(getDiscardPile().remove(t));
         }
         getDiscardPile().clear();
-        getDiscardPile().add(cardAux);
+        throwCard(cardAux);
         return aux;
     }
     
