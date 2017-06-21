@@ -9,7 +9,11 @@ import java.util.Collections;
 public class DrawPile {
     private UNOGame game;
     private ArrayList<Card> drawPile;
-
+    
+    /**
+     * Se crea un DrawPile
+     * @param Game referencia a Game
+     */
     public DrawPile(UNOGame game) {
         drawPile = new ArrayList<Card>();
         this.game = game;
@@ -24,11 +28,18 @@ public class DrawPile {
     private int size(){
         return getDrawPile().size();
     }
-
+    
+     /**
+     * Metodo para mezclar el drawPile
+     */
     private void shuffle(){
         Collections.shuffle(getDrawPile());
     }
-
+    
+    /**
+     * Se resta una carta del DrawPile y se manda.
+     * @return Card ultima del arrayList.
+     */
     public Card getCard() {
         return getDrawPile().remove(getDrawPile().size() - 1);
     }
@@ -36,7 +47,10 @@ public class DrawPile {
     private ArrayList<Card> getDrawPile(){
       return this.drawPile;
     }
-
+    
+    /**
+     * Clase que se usa para crear las cartas.
+     */
     public void newDeck() {
         String[] cardName = Card.getCardNames();
         String[] cardColors = Card.getCardColors();
@@ -54,6 +68,17 @@ public class DrawPile {
         shuffle();
     }
     
+    /**
+     * El drawPile empieza a ser el ArrayList que se pasa
+     * por parametro
+     *
+     * @param cardArray Lo asigna como drawPile
+     *
+     * @deprecated Este metodo esta pensado para cuando
+     *      se acababan las cartas del Drawpile; en conjunto
+     *      con el metodo askCards del DiscardPile; se pase
+     *      el mazo de descarte menos la ultima carta al DrawPile.
+     */
     public void setDrawPile(ArrayList<Card> cardArray){
         this.drawPile = cardArray;
         shuffle();
