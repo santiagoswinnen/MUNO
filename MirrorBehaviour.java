@@ -1,9 +1,10 @@
 package muno.game;
+import java.io.Serializable;
 
 /**
  * Created by lmikolas on 16/06/17.
  */
-public class MirrorBehaviour implements Behaviour {
+public class MirrorBehaviour implements Behaviour, Serializable {
     private UNOGame game;
     MirrorBehaviour(UNOGame game){
         this.game = game;

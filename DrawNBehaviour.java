@@ -1,9 +1,11 @@
 package muno.game;
 
+import java.io.Serializable;
+
 /**
  * Created by lmikolas on 10/06/17.
  */
-public class DrawNBehaviour implements Behaviour {
+public class DrawNBehaviour implements Behaviour, Serializable{
     private UNOGame game;
     private Integer number;
 

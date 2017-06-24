@@ -1,6 +1,8 @@
 package muno.game;
 
-public class ColorableBehaviour implements Behaviour{
+import java.io.Serializable;
+
+public class ColorableBehaviour implements Behaviour, Serializable {
 	private UNOGame game;
 	ColorableBehaviour(UNOGame game){
 		this.game = game;

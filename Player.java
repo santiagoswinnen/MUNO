@@ -1,11 +1,12 @@
 package muno.game;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by lmikolas on 07/06/17.
  */
-public class Player {
+public class Player implements Serializable{
     private ArrayList<Card> hand;
     private UNOGame game;
     private String name;

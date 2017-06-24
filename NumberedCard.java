@@ -1,9 +1,11 @@
 package muno.game;
 
+import java.io.Serializable;
+
 /**
  * Created by lmikolas on 07/06/17.
  */
-public class NumberedCard extends Card {
+public class NumberedCard extends Card implements Serializable {
     private Integer number;
 
     NumberedCard(String name, Integer number, String color) {

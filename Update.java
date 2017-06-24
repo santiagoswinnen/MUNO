@@ -4,6 +4,7 @@ package muno.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import java.io.*;
 
 /**
  * Created by sswinnen on 17/06/17.
@@ -16,6 +17,44 @@ public class Update {
     public Update(AbstractGameScreen screen){
         this.screen=screen;
     }
+
+    public void saveGame(String filename) {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.S)){
+            try {
+                ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(filename));
+                os.writeObject(screen.getMyGame());
+                os.close();
+            }catch (FileNotFoundException e){
+                e.printStackTrace();
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+        }
+    }
+    public void loadGame(String filename){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.L)){
+            try{
+                ObjectInputStream is = new ObjectInputStream(new FileInputStream(filename));
+                UNOGame loadedGame = (UNOGame) is.readObject();
+                is.close();
+                screen.setMyGame(loadedGame);
+                screen.settDiscard(new Texture(screen.getMyGame().getDealer().lastCard().getColor() + screen.getMyGame().getDealer().lastCard().getName() + ".png"));
+
+                screen.setPositions(new int[screen.getMyGame().getPlayers().size() - 1]);
+                screen.setPositionsArray();
+
+                screen.setTexturesHand();
+
+            } catch(FileNotFoundException e){
+                e.printStackTrace();
+            } catch(IOException e){
+                e.printStackTrace();
+            } catch(ClassNotFoundException e){
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     public void changeToGreen(){
         if(Gdx.input.isKeyJustPressed(Input.Keys.G)){

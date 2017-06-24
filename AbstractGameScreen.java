@@ -57,6 +57,11 @@ public abstract class AbstractGameScreen extends AbstractScreen {
 	public UNOGame getMyGame() {
 		return myGame;
 	}
+
+	public void setMyGame(UNOGame savedGame) {
+		myGame = savedGame;
+	}
+
 	
 	public boolean isWaitingColor() {
 		return isWaitingColor;
@@ -94,8 +99,10 @@ public abstract class AbstractGameScreen extends AbstractScreen {
 		}
 		return false;
 	}
+  
 	public abstract void nextPlayer();
 	public abstract void setTexturesHand();
+	public abstract void setPositionsArray();
 
 
 

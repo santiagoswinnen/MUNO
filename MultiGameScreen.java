@@ -95,7 +95,7 @@ public class MultiGameScreen extends AbstractGameScreen {
 		
 		getFont().draw(super.batch, getMyGame().getCurrentPlayer().getName(), 15, 30);
 		getFont().draw(super.batch, getMyGame().getLeaderboard().toString(), (MyGame.WIDTH /6), (MyGame.HEIGHT /2)+100);
-		getFont().draw(super.batch, "Controls: d draw, p  pass, Arrow keys + ENTER to choose card",(MyGame.WIDTH /6), (MyGame.HEIGHT /2)+130);
+		getFont().draw(super.batch, "Controls: d draw, p  pass, Arrow keys + ENTER to choose card, s save, l load",(MyGame.WIDTH /6), (MyGame.HEIGHT /2)+130);
 		if(getMyGame().getCurrentPlayer().getHand().size() == 2){
 			getFont().draw(super.batch, "Remember to press 1 to throw selected card and declare UNO!",(MyGame.WIDTH /6), (MyGame.HEIGHT /2)-50);
 		}
@@ -125,7 +125,8 @@ public class MultiGameScreen extends AbstractGameScreen {
 		getUpd().cardDraw();
 		getUpd().pass();
 		getUpd().callUNO();
-
+		getUpd().saveGame("multidata.ser");
+		getUpd().loadGame("multidata.ser");
 	}
 	
 	/* Setea las positions correspondientes a los siguientes jugadores de acuerdo a su posicion
@@ -158,7 +159,7 @@ public class MultiGameScreen extends AbstractGameScreen {
 			getTexturesHand().add(t);
 		}
 	}
-	
+
 	@Override
 	public void pause() {
 		

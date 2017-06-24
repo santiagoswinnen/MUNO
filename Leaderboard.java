@@ -1,12 +1,14 @@
 package muno.game;
 
+
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 /**
  * Created by lmikolas on 08/06/17.
  */
-public class Leaderboard {
+public class Leaderboard implements Serializable {
     private Map<Player, Integer> scoreboard = new HashMap<Player, Integer>();
     private UNOGame game;
 

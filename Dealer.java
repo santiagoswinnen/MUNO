@@ -1,10 +1,13 @@
 package muno.game;
 
+import java.io.Serializable;
+
 /**
  * @author jlococo 
  */
-public class Dealer {
-    
+
+public class Dealer implements Serializable{
+    //Listado de jugadores
     private UNOGame game;
     private DrawPile drawPile;
 
@@ -34,7 +37,7 @@ public class Dealer {
     public Card getLog(){
         return log;
     }
-    
+
     /**
      * Pide las cartas a los demas jugadores.
      * Crea un mazo de descarte y un mazo para agarrar cartas

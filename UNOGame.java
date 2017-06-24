@@ -1,11 +1,11 @@
 package muno.game;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 
-public class UNOGame {
+public class UNOGame implements Serializable{
 
-	private ArrayList<Player> players;
+	private ArrayList<Player> players = new ArrayList<Player>();
 	private Dealer dealer;
 	private GameFlowIterator flow;
 	private Leaderboard leaderboard;
@@ -69,23 +69,28 @@ public class UNOGame {
 	}
 
 	/*iterator que maneja el flujo del juego*/
-	private class GameFlowIterator {
-		private Iterator<Player> iterator;
+	private class GameFlowIterator implements Serializable {
+		private int index = -1;
+		private int orientation = 1;
 		private Player currentPlayer;
 		private ArrayList<Player> players;
 
 		GameFlowIterator(ArrayList<Player> players){
 			this.players = new ArrayList<Player>();
 			this.players.addAll(players);
-			iterator = players.iterator();
 		}
 
 		public Player next(){
-			if (!iterator.hasNext()){
-				iterator = players.iterator();
+			index += 1*orientation;
+			if(index == -1){
+				index = 3;
 			}
-			currentPlayer = iterator.next();
-			return currentPlayer; 
+			if(index == 4){
+				index = 0;
+			}
+			currentPlayer =  players.get(index);
+			return currentPlayer;
+
 		}
 
 		public Player getcurrentPlayer(){
@@ -93,18 +98,7 @@ public class UNOGame {
 		}
 
 		public void reverse(){
-			ArrayList<Player> aux = new ArrayList<Player>();
-			int k = 0;
-			aux.add(currentPlayer);
-			while(k < players.size() - 1){
-				if(!iterator.hasNext())
-					iterator = players.iterator();
-				aux.add(iterator.next());
-				k++;
-			}
-			Collections.reverse(aux);
-			players = aux;
-			iterator = players.iterator();
+			orientation = orientation*(-1);
 		}
 
 		public boolean hasNext() {

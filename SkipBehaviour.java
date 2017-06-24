@@ -1,9 +1,11 @@
 package muno.game;
 
+import java.io.Serializable;
+
 /**
  * Created by lmikolas on 07/06/17.
  */
-public class SkipBehaviour implements Behaviour{
+public class SkipBehaviour implements Behaviour,Serializable {
     private UNOGame game;
 
     SkipBehaviour(UNOGame game) {

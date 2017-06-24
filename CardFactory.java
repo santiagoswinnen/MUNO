@@ -1,6 +1,8 @@
 package muno.game;
 
-public class CardFactory {
+import java.io.Serializable;
+
+public class CardFactory implements Serializable{
 	public static Card getCard(String color, String name, UNOGame game){
 		Card card;
 		/* -------- No queda mejor "return new Numbered card..."? card esta al dope */

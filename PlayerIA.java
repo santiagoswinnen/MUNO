@@ -1,9 +1,13 @@
 package muno.game;
 
+import java.io.Serializable;
+
 /**
  * Created by lmikolas on 08/06/17.
  */
-public class PlayerIA extends Player {
+
+public class PlayerIA extends Player implements Serializable {
+
     private UNOGame game;
     PlayerIA(String name, UNOGame game){
         super(name, game);

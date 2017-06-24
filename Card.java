@@ -1,9 +1,11 @@
 package muno.game;
 
+import java.io.Serializable;
+
 /**
  * Created by lmikolas on 10/06/17.
  */
-public abstract class Card {
+public abstract class Card implements Serializable{
     private String name;
     private Integer score;
     private String color;

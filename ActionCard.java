@@ -1,9 +1,12 @@
 package muno.game;
 
+import java.io.Serializable;
+
 /**
  * Created by lmikolas on 07/06/17.
  */
-public class ActionCard extends Card {
+
+public class ActionCard extends Card implements Serializable {
     private Behaviour behaviour;
     ActionCard(String name, Integer score, String color, Behaviour behaviour){
         super(name, score, color);

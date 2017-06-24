@@ -1,12 +1,13 @@
 package muno.game;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
 /**
  * Created by Lo Coco on 02/06/2017.
  */
-public class DrawPile {
+public class DrawPile implements Serializable{
     private UNOGame game;
     private ArrayList<Card> drawPile;
     
