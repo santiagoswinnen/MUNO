@@ -113,6 +113,7 @@ public class Update {
     public void IAplay() {
 
             ((PlayerIA) screen.getMyGame().getCurrentPlayer()).makeMove();
+            screen.settDiscard(new Texture(screen.getMyGame().getDealer().lastCard().getColor() + screen.getMyGame().getDealer().lastCard().getName() + ".png"));
             roundEndCheck();
             if (screen.getMyGame().getDealer().lastCard().isActionCard()) {
                 if (screen.getMyGame().getDealer().lastCard().isWildCard()) {
@@ -128,6 +129,7 @@ public class Update {
             else{
                 screen.nextPlayer();
             }
+            screen.setTexturesHand();
     }
 
     public void nonColorCard(){
