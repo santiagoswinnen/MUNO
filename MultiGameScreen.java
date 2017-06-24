@@ -97,7 +97,7 @@ public class MultiGameScreen extends AbstractGameScreen {
 		getFont().draw(super.batch, getMyGame().getLeaderboard().toString(), (MyGame.WIDTH /6), (MyGame.HEIGHT /2)+100);
 		getFont().draw(super.batch, "Controls: d draw, p  pass, Arrow keys + ENTER to choose card, s save, l load",(MyGame.WIDTH /6), (MyGame.HEIGHT /2)+130);
 		if(getMyGame().getCurrentPlayer().getHand().size() == 2){
-			getFont().draw(super.batch, "Remember to press 1 to throw selected card and declare UNO!",(MyGame.WIDTH /6), (MyGame.HEIGHT /2)-50);
+			getFont().draw(super.batch, "Remember to press 1 to throw selected card and declare UNO!",(MyGame.WIDTH /6), (MyGame.HEIGHT /2)-60);
 		}
 		if(this.isWaitingColor()){
 			getFont().draw(super.batch, "(Choose color: r RED, y YELLOW, b BLUE, g GREEN)",(MyGame.WIDTH /6),(MyGame.HEIGHT /2)-100);
