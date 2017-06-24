@@ -1,37 +1,47 @@
 package muno.game;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by lmikolas on 07/06/17.
  */
-public class Player {
+public class Player implements Serializable{
     private ArrayList<Card> hand;
     private UNOGame game;
     private String name;
-
-    Player(){};
-
-    Player(String name, UNOGame game) {
-        //if(!checkGame())
-        //    throw new IllegalArgumentException("Player is not in the game");
-        this.game = game;
-        this.name = name;
-        hand = new ArrayList<Card>();
-    }
     
+
+    public Player(){};
+
+    public Player(String name, UNOGame game) {
+
+    	hand = new ArrayList<Card>();
+    	this.game = game;
+        this.name = name;
+        
+        
+    }
+    /*Pregunta si le queda una sola carta al jugador*/
+    public boolean hasUNO(){
+        if(hand.size() == 1)
+            return true;
+        return false;
+    }
+
+    public String getName(){
+        return name;
+    }
 
     /*agrega carta a la mano*/
     public void addCard(Card card) {
-        this.getHand().add(card);
+        this.hand.add(card);
     }
 
 
     /*el jugador entrega su mano y su mano queda vacía*/
-    public ArrayList<Card> giveHand() {
-        ArrayList<Card> aux = hand;
-        hand = null;
-        return aux;
+    public void emptyHand() {
+       hand.clear();
     }
     
     /*muestra la mano el juador, pero se la queda*/
@@ -40,13 +50,15 @@ public class Player {
     }
 
     /*el jugador tira su carta en el mazo de descarte*/
-    public void throwCard(Card card) {
+    public boolean throwCard(Card card) {
         int i = hand.indexOf(card);
         if(i == -1)
             throw new IllegalArgumentException("No such card in hand");
         if(card.match(game.getDealer().lastCard())) {
             game.getDealer().discardCard(hand.remove(i));
+            return true;
         }
+        return false;
     }
 
     /*verifico que el jugador este en el juego*/
@@ -60,4 +72,10 @@ public class Player {
     public UNOGame getGame(){
     	return this.game;
     }
+
+
+    public String toString(){
+        return getName();
+    }
+
 }

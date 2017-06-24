@@ -19,8 +19,8 @@ public abstract class AbstractScreen implements Screen {
 	
 	public abstract void render(float dt);
 	public void resize(int width, int height){
+		//gamePort.update(width, height);
 	}
-	
 	public abstract void show();
 	public abstract void hide();
 	public abstract void pause();

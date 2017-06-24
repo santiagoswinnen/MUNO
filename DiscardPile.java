@@ -1,11 +1,12 @@
 package muno.game;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * @author JLoCoco
  */
-public class DiscardPile {
+public class DiscardPile implements Serializable {
     private ArrayList<Card> discardPile;
 
     public DiscardPile(){
@@ -13,7 +14,6 @@ public class DiscardPile {
     }
 
     public Card lastCard(){
-    	//ERROR
         return getDiscardPile().get(getDiscardPile().size() - 1);
     }
 
@@ -40,7 +40,7 @@ public class DiscardPile {
             aux.add(getDiscardPile().remove(t));
         }
         getDiscardPile().clear();
-        getDiscardPile().add(cardAux);
+        throwCard(cardAux);
         return aux;
     }
     

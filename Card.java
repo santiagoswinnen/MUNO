@@ -1,27 +1,21 @@
 package muno.game;
 
+import java.io.Serializable;
+
 /**
-mmm
  * Created by lmikolas on 10/06/17.
  */
-public abstract class Card {
+public abstract class Card implements Serializable{
     private String name;
     private Integer score;
     private String color;
-
-
-
+    
     private static final String [] CARD_COLORS={"black", "red", "yellow", "green", "blue"};
     private static final String [] CARD_NAMES={"Zero", "One", "Two","Three","Four",
                                                 "Five", "Six", "Seven","Eight", "Nine",
                                                     "DrawTwo","Reverse", "Skip", "Mirror","DrawFour"
                                                         , "Wild"};
     private static final Integer [] CARD_SCORES={0,1,2,3,4,5,6,7,8,9,20,50};
-
-
-
-    
-
 
     Card(String name, Integer score, String color) {
         if(!checkName(name))
@@ -75,9 +69,7 @@ public abstract class Card {
                 return true;
         }
         return false;
-
     }
-
 
     public String getColor(){
         return color;
@@ -94,7 +86,16 @@ public abstract class Card {
     public boolean isWildCard(){
         return (getName().equals("DrawFour")||getName().equals("Mirror")||getName().equals("Wild"));
     }
+    public boolean isActionCard(){
+    	return (isWildCard() || getName().equals("Reverse") || getName().equals("DrawTwo") || getName().equals("Skip"));
+    }
+    
+    public boolean isNumbered(){
+    	if(!this.isActionCard() && !this.isWildCard())
+    		return true;
+    	return false;
+    }
     
     public abstract boolean match(Card card);
-
+    
 }

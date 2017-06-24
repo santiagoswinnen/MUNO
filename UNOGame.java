@@ -1,17 +1,16 @@
 package muno.game;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 
-public class UNOGame {
+public class UNOGame implements Serializable{
 
-	private ArrayList<Player> players; //controla el flujo del juego
+	private ArrayList<Player> players = new ArrayList<Player>();
 	private Dealer dealer;
 	private GameFlowIterator flow;
-	//private Leaderboard leaderboard = new Leaderboard(this);
+	private Leaderboard leaderboard;
 
 	/*Estado del round y del juego en su totalidad respectivamente, SE VA A DISCUTIR EN EL FUTURO*/
-	private boolean UNO;
 	private boolean gameState;
 
 	public UNOGame(){
@@ -19,8 +18,13 @@ public class UNOGame {
 		dealer = new Dealer(this);
 		gameState = true;
 	}
+	
 	public Dealer getDealer(){
 		return dealer;
+	}
+	
+	public Leaderboard getLeaderboard(){
+		return leaderboard;
 	}
 
 	public Player getNextPlayer(){
@@ -36,17 +40,17 @@ public class UNOGame {
 	}
 
 	/*Setea los lugares de los jugadores para el Round de manera random*/
-	public void setPlayerPosition() {
-		Collections.shuffle(players);
-		flow = new GameFlowIterator();
-	}
+//	public void setPlayerPosition() {
+//		Collections.shuffle(players);
+//		flow = new GameFlowIterator();
+//	}
 
 	public ArrayList<Player> getPlayers(){
 		return players;
 	}
 
 	/*Devuelve si el juego termino o no*/
-	public boolean gameState(){
+	public boolean getGameState(){
 		return gameState;
 	}
 
@@ -54,35 +58,37 @@ public class UNOGame {
 		gameState=false;
 	}
 
-	/*Devuelve si algun jugador consiguio UNO!*/
-	public boolean isUNO(){
-		return UNO;
-	}
-
-	public void setUNO(boolean b){
-		UNO = true;
-	}
-	
 	public void addPlayers(ArrayList<Player> players){
+		if(this.players.size() != 0)
+			throw new UnsupportedOperationException("Players have already been added");
 		Iterator<Player> iterator = players.iterator();
 		while(iterator.hasNext())
 			this.players.add(iterator.next());
+		flow = new GameFlowIterator(players);
+		leaderboard = new Leaderboard(this);
 	}
 
 	/*iterator que maneja el flujo del juego*/
-	private class GameFlowIterator {
-		private Iterator<Player> iterator;
+	private class GameFlowIterator implements Serializable {
+		private int index = -1;
+		private int orientation = 1;
 		private Player currentPlayer;
+		private ArrayList<Player> players;
 
-		GameFlowIterator(){
-			iterator = players.iterator();
+		GameFlowIterator(ArrayList<Player> players){
+			this.players = new ArrayList<Player>();
+			this.players.addAll(players);
 		}
 
 		public Player next(){
-			if (!iterator.hasNext()){
-				iterator = players.iterator();
+			index += 1*orientation;
+			if(index == -1){
+				index = 3;
 			}
-			currentPlayer = iterator.next();
+			if(index == 4){
+				index = 0;
+			}
+			currentPlayer =  players.get(index);
 			return currentPlayer;
 		}
 
@@ -91,16 +97,11 @@ public class UNOGame {
 		}
 
 		public void reverse(){
-			ArrayList<Player> aux = new ArrayList<Player>();
-			int k = 0;
-			aux.add(currentPlayer);
-			while(k < players.size() - 1){
-				aux.add(iterator.next());
-				k++;
-			}
-			Collections.reverse(aux);
-			players = aux;
-			iterator = players.iterator();
+			orientation = orientation*(-1);
+		}
+
+		public boolean hasNext() {
+			return true;
 		}
 	}
 }

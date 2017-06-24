@@ -1,11 +1,14 @@
 package muno.game;
 
-public class ColorableBehaviour implements Behaviour{
+import java.io.Serializable;
+
+public class ColorableBehaviour implements Behaviour, Serializable {
 	private UNOGame game;
 	ColorableBehaviour(UNOGame game){
 		this.game = game;
 	}
 	public void action(String...args){
-		game.getDealer().lastCard().setColor(args[0]);
+		if(args.length ==1)
+			game.getDealer().lastCard().setColor(args[0]);
 	}
 }

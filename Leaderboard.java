@@ -1,12 +1,14 @@
+package muno.game;
+
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
-
 /**
  * Created by lmikolas on 08/06/17.
  */
-public class Leaderboard {
-    private Map<Player, Integer> scoreboard = new HashMap<>();
+public class Leaderboard implements Serializable {
+    private Map<Player, Integer> scoreboard = new HashMap<Player, Integer>();
     private UNOGame game;
 
     Leaderboard(UNOGame game) {
@@ -27,6 +29,14 @@ public class Leaderboard {
         return false;
     }
 
+    public String toString() {
+	String ret = " | ";
+	for(Player player : scoreboard.keySet()) {
+            ret += player.getName() + " score: "+ scoreboard.get(player) + " | ";
+        }
+	return ret;
+      }
+
     /*devuelve el ganador*/
     public Player getWinner(){
         if(!hasWinner()){
@@ -40,12 +50,21 @@ public class Leaderboard {
     }
 	/*actualiza los puntajes después de cada ronda*/
     public void updateScores() {
-        Player winner = getWinner();
+        Player winner = getRoundWinner();
         for(Player player : scoreboard.keySet()) {
             for(Card card : player.getHand()){
                     addScore(winner, card.getScore());
             }
         }
+        if(hasWinner()){
+            game.endGame();
+        }
+    }
+    public Player getRoundWinner(){
+        if(game.getCurrentPlayer().getHand().size() == 0){
+            return game.getCurrentPlayer();
+        }
+        throw new UnsupportedOperationException("no round winner");
     }
 
     public void addScore(Player player,Integer score){

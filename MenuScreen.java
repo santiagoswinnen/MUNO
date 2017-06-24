@@ -6,6 +6,9 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 
+/**
+ * Created by mlund on 14/06/17.
+ */
 public class MenuScreen extends AbstractScreen {
 	private Texture bg;
 	private Texture playButton;
@@ -27,24 +30,39 @@ public class MenuScreen extends AbstractScreen {
 		super.batch.begin();
 		super.batch.draw(bg, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		super.batch.draw(playButton, 0, 0);
-		if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-			game.setScreen(new GameScreen(game));
+		if(Gdx.input.isKeyJustPressed(Input.Keys.M)) { //Modo multi player
+			game.setScreen(new MultiGameScreen(game));
+			dispose();
+		}
+		if(Gdx.input.isKeyJustPressed(Input.Keys.S)) { //Modo single player
+			game.setScreen(new SingleGameScreen(game)); //ACA VA LA CLASE NUEVA
 			dispose();
 		}
 		super.batch.end();
-		
+	}
+
+	@Override
+	public void resize(int width, int height){
 		
 	}
 
 	@Override
-	public void resize(int width, int height){	}
+	public void show(){
+		
+	}
 
 	@Override
-	public void show(){	}
+	public void hide(){
+		
+	}
 
 	@Override
-	public void hide(){	}
+	public void pause(){
+		
+	}
 
 	@Override
-	public void pause(){	}
+	public void dispose() {
+		
+	}
 }

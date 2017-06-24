@@ -1,9 +1,11 @@
 package muno.game;
 
+import java.io.Serializable;
+
 /**
  * Created by lmikolas on 07/06/17.
  */
-public class ReverseBehaviour implements Behaviour {
+public class ReverseBehaviour implements Behaviour, Serializable {
     private UNOGame game;
 
     ReverseBehaviour(UNOGame game) {
@@ -12,5 +14,7 @@ public class ReverseBehaviour implements Behaviour {
     public void action(String... args) {
         game.reverseGameFLow();
         game.getNextPlayer();
+        game.getNextPlayer();
+
     }
 }
