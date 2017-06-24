@@ -5,11 +5,10 @@ import java.io.Serializable;
 /**
  * @author jlococo 
  */
+
 public class Dealer implements Serializable{
     //Listado de jugadores
     private UNOGame game;
-
-    //Extraccion
     private DrawPile drawPile;
 
     //Descarte. Se crea vacio
@@ -18,13 +17,18 @@ public class Dealer implements Serializable{
     /*carta para log de cartas en el mazo de descarte*/
     private Card log;
 
-    // Crea un mazo principal y de descarte.
-    // Crea un nuevo Dealer.
+    
+     /**
+     * Se crea un nuevo Dealer
+     * @param game Referencia a Game .
+     */
     public Dealer(UNOGame game){
         this.game = game;
     }
 
-    /*vacia las manos de los jugadores*/
+    /**
+     *vacia las manos de los jugadores
+     */
     public void askForCards(){
         for (Player p: this.game.getPlayers()){
             p.emptyHand();
@@ -34,8 +38,15 @@ public class Dealer implements Serializable{
         return log;
     }
 
-    //Reparte a los jugadores las cartas.
-    //Antes pide a los jugadores las cartas.
+    /**
+     * Pide las cartas a los demas jugadores.
+     * Crea un mazo de descarte y un mazo para agarrar cartas
+     * Reparte 7 cartas a cada jugador de la partida.
+     * Por ultimo setea la primer carta en el mazo de descarte.
+     * @deprecated se crean nuevo DrawPile y nuevo DiscardPile
+     *      debido a que deal debe llamarse en caso de que se
+     *      quiera comenzar una nueva ronda.
+     */
     public void deal (){
         askForCards();
         drawPile = new DrawPile(game);
@@ -49,7 +60,10 @@ public class Dealer implements Serializable{
         
     }
 
-    // Agrega una carta al mazo de Descarte.
+    /**
+     * Agrega una carta al mazo de Descarte.
+     * @param card Carta a agregar al mazo de descarte
+     */
     public void discardCard(Card card){
         if(!discardPile.isEmpty())
             log = lastCard();
@@ -57,27 +71,36 @@ public class Dealer implements Serializable{
         //DECIA ADDCARD, PUSIMOS THROWCARD
     }
 
-    //Coloca las cartas del mazo de descarte, en el mazo principal
+   /**
+     *Coloca las cartas del mazo de descarte, en el mazo principal
+     */
     private void setDecks(){
         drawPile.setDrawPile(discardPile.askCards());
     }
 
-    //Si el mazo principal esta vacio,
-    //transpasa las cartas del mazo de descarte
-    //al mazo principal.
-    //De todos modos, toma una carta.
+   /**
+     *Si el mazo principal esta vacio,
+     *transpasa las cartas del mazo de descarte
+     *al mazo principal.
+     *
+     *  @return una carta tomada del DrawPile
+     */
     public Card drawCard() {
         if (drawPile.isEmpty())
             setDecks();
         return drawPile.getCard();
     }
 
-    // Retorna la ultima carta del mazo de descarte
+    /**
+     *@return Card ultima carta del mazo de descarte
+     */
     public Card lastCard(){
         return discardPile.lastCard();
     }
     
-    /* Setea la 1ra carta del DiscardPile */
+    /**
+     * Setea la primer carta en el mazo Principal.
+     */
     public void setFirstCard(){
     	Card cardAux = drawCard();
     	while(cardAux.isActionCard()){

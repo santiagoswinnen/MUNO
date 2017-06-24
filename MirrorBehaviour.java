@@ -1,5 +1,4 @@
 package muno.game;
-
 import java.io.Serializable;
 
 /**

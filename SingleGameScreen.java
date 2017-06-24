@@ -136,8 +136,10 @@ public class SingleGameScreen extends AbstractGameScreen {
 		}
 		super.batch.end();
 	}
+
 	public void setPositionsArray(){
 	}
+
 	public void setTexturesHand(){
 		getTexturesHand().clear();
 		Card card;

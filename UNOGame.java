@@ -90,6 +90,7 @@ public class UNOGame implements Serializable{
 			}
 			currentPlayer =  players.get(index);
 			return currentPlayer;
+
 		}
 
 		public Player getcurrentPlayer(){

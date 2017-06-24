@@ -160,7 +160,6 @@ public class MultiGameScreen extends AbstractGameScreen {
 		}
 	}
 
-	
 	@Override
 	public void pause() {
 		
