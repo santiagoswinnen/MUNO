@@ -56,17 +56,6 @@ public class MyDiscardPileTest {
         assertSame(card2, discardPile.lastCard());
     }
 
-    /**
-     * @after deneria tener size=1; 
-     */
-    @Test
-    public void testThrowCard(){
-        DiscardPile discardPile = new DiscardPile();
-        assertEquals(getDiscardPile().size(),0);
-        Card card= new NumberedCard("Zero", 0, "red");
-        assertEquals(getDiscardPile().size(),1);
-    }
-    
     public void static Test suite(){
         return new TestSuite(MyDealerTest.class);
     }
