@@ -4,24 +4,28 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * @author JLoCoco
+ *Class that represents the discard pile.
  */
 public class DiscardPile implements Serializable {
     private ArrayList<Card> discardPile;
-
+    
+    /**Constructor method of the class. Creates a discard pile.*/
     public DiscardPile(){
         discardPile = new ArrayList<Card>();
     }
-
+    
+    /**Gets the last card of the discard pile.
+	 *
+	 *@return last card in the pile.
+	 */
     public Card lastCard(){
         return getDiscardPile().get(getDiscardPile().size() - 1);
     }
-    
+   
     /**
-     * Agrega la carta al mazo de descarte.
-     * Si la ultima carta era wildcard, le retorna su color a "black"
-     * @param card Carta a agregar al mazo.
-     */
+	 *Adds a card to the discard pile. 
+	 *If the last card was a wild card then changes its color to black before adding the new one.
+	 */
     public void throwCard(Card card){
         if (!isEmpty() && lastCard().isWildCard()){
             lastCard().setColor("black");
@@ -29,20 +33,23 @@ public class DiscardPile implements Serializable {
         getDiscardPile().add(card);
     }
     
+    /**Gets the discard pile.
+	 *
+	 *@return this.dicardPile The discard pile.
+	 */
     private ArrayList<Card> getDiscardPile(){
         return this.discardPile;
     }
     
+    /**Returns the size of the discard pile*/
     private int size(){
         return getDiscardPile().size();
     }
-
-    /**
-     *
-     * @return Un array list de Cards, con las cartas
-     *          que se encontraban en el DiscardPile menos
-     *          la ultima carta.
-     */
+   
+   	/**Removes all the cards from the discard pile except the last one.
+	 *
+	 *@return aux An array with all the cards that were on the discard pile except the last one.
+	 */
     public ArrayList<Card> askCards(){
         Card cardAux= lastCard();
         ArrayList <Card> aux = new ArrayList<Card>();
@@ -54,6 +61,7 @@ public class DiscardPile implements Serializable {
         return aux;
     }
     
+    /**Checks if the discard pile is empty*/
     public boolean isEmpty(){
     	return this.discardPile.size() == 0;
     }
