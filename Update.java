@@ -110,24 +110,23 @@ public class Update {
                 screen.setCurrentCard(screen.getCurrentCard()-1);
         }
     }
-    public void IAplay() {
-
+    public void IAplay(){
             ((PlayerIA) screen.getMyGame().getCurrentPlayer()).makeMove();
-            screen.settDiscard(new Texture(screen.getMyGame().getDealer().lastCard().getColor() + screen.getMyGame().getDealer().lastCard().getName() + ".png"));
             roundEndCheck();
-            if (screen.getMyGame().getDealer().lastCard().isActionCard()) {
-                if (screen.getMyGame().getDealer().lastCard().isWildCard()) {
-                    ((ActionCard) screen.getMyGame().getDealer().lastCard()).makeAction(((PlayerIA) screen.getMyGame().getCurrentPlayer()).chooseColor());
+            if(screen.getMyGame().getCurrentPlayer() instanceof PlayerIA) {
+                if (screen.getMyGame().getDealer().lastCard().isActionCard()) {
+                    if (screen.getMyGame().getDealer().lastCard().isWildCard()) {
+                        ((ActionCard) screen.getMyGame().getDealer().lastCard()).makeAction(((PlayerIA) screen.getMyGame().getCurrentPlayer()).chooseColor());
+                        screen.settDiscard(new Texture("black" + screen.getMyGame().getDealer().lastCard().getName() + ".png"));
+                        screen.nextPlayer();
+                    } else {
+                        screen.nextPlayer();
+                        ((ActionCard) screen.getMyGame().getDealer().lastCard()).makeAction();
+                        screen.settDiscard(new Texture(screen.getMyGame().getDealer().lastCard().getColor() + screen.getMyGame().getDealer().lastCard().getName() + ".png"));
+                    }
+                } else {
                     screen.nextPlayer();
-
                 }
-                else{
-                    screen.nextPlayer();
-                    ((ActionCard) screen.getMyGame().getDealer().lastCard()).makeAction();
-                }
-            }
-            else{
-                screen.nextPlayer();
             }
             screen.setTexturesHand();
     }
