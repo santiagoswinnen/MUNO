@@ -2,7 +2,18 @@ package muno.game;
 
 import java.io.Serializable;
 
+/**
+*Creator of the cards.
+*/
 public class CardFactory implements Serializable{
+       /**Returns a specific Card.
+	*
+	*@param color Card's color.
+	*@param name Card's name.
+	*@param game the UNOGame.
+	*@throws IllegalArgumentException when recieves an invalid card name.
+	*@return a new card.
+	*/
 	public static Card getCard(String color, String name, UNOGame game){
 		Card card;
 		/* -------- No queda mejor "return new Numbered card..."? card esta al dope */
