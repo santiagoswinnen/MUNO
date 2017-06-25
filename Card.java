@@ -17,7 +17,7 @@ public abstract class Card implements Serializable{
                                                         , "Wild"};
     private static final Integer [] CARD_SCORES={0,1,2,3,4,5,6,7,8,9,20,50};
     
-    /**Constructor of the class. Creates a new card.
+       /**Constructor of the class. Creates a new card.
 	*
 	*@param name Card's name.
 	*@param score Score that card represents.
@@ -37,11 +37,11 @@ public abstract class Card implements Serializable{
         this.color = color;
     }
     
-     /** Sets the color of a card.
+       /** Sets the color of a card.
 	*
 	*@param the color to set.
 	*@throws UnsupportedOperationException if the card is a wild card and its color can't be changed.
-    *@throws IllegalArgumentException if the color is invalid.
+        *@throws IllegalArgumentException if the color is invalid.
 	*/
     public void setColor(String color){
         if(!isWildCard()) {
@@ -64,9 +64,9 @@ public abstract class Card implements Serializable{
     }
     
     /**
-    *Checks if a name is a valid card name.
-    *@param name The name to check.
-    */ 
+     *Checks if a name is a valid card name.
+     *@param name The name to check.
+     */ 
     public boolean checkName(String name){
         for(String cardName : CARD_NAMES){
             if(cardName.equals(name))
@@ -76,9 +76,9 @@ public abstract class Card implements Serializable{
     }
     
     /**
-    *Checks if a score is valid.
-    *@param score The score to check.
-    */ 
+     *Checks if a score is valid.
+     *@param score The score to check.
+     */ 
     public boolean checkScore(Integer score){
         for(Integer aScore : CARD_SCORES){
             if(score.equals(aScore))
@@ -88,9 +88,9 @@ public abstract class Card implements Serializable{
     }
     
     /**
-    Checks if a color is a valid card color.
-    *@param color The color to check.
-    */ 
+     *Checks if a color is a valid card color.
+     *@param color The color to check.
+     */ 
     public static boolean checkColor(String color){
         for(String aColor : CARD_COLORS){
             if(aColor.equals(color))
