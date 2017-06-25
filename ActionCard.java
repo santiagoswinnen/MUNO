@@ -3,11 +3,18 @@ package muno.game;
 import java.io.Serializable;
 
 /**
- * Created by lmikolas on 07/06/17.
+ * Class that represents an action card.
  */
-
 public class ActionCard extends Card implements Serializable {
     private Behaviour behaviour;
+   
+    /**Creates a new action card.
+    *
+    *@param name Card's name.
+    *@param score Card's score.
+    *@param color Card's color.
+    *@param behaviour Card's behavior.
+    */
     ActionCard(String name, Integer score, String color, Behaviour behaviour){
         super(name, score, color);
         this.behaviour = behaviour;
@@ -17,7 +24,10 @@ public class ActionCard extends Card implements Serializable {
             behaviour.action(args);
            
     }
-
+    /**Checks if two action cards match
+	*
+	*@param card The card to compare with.
+	*/
     public boolean match(Card card){
         if(this.getColor().equals("black") ||  this.getColor().equals(card.getColor()) || this.getName().equals(card.getName())){
             return true;
