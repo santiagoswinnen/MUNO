@@ -3,6 +3,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**Class that controls the flow of the game*/
 public class UNOGame implements Serializable{
 
 	private ArrayList<Player> players = new ArrayList<Player>();
@@ -10,54 +11,83 @@ public class UNOGame implements Serializable{
 	private GameFlowIterator flow;
 	private Leaderboard leaderboard;
 
-	/*Estado del round y del juego en su totalidad respectivamente, SE VA A DISCUTIR EN EL FUTURO*/
+	
 	private boolean gameState;
 
+	/**Constructor method of the class UNOGame.*/
 	public UNOGame(){
 		players = new ArrayList<Player>();
 		dealer = new Dealer(this);
 		gameState = true;
 	}
 	
+	/**Returns the dealer*/
 	public Dealer getDealer(){
 		return dealer;
 	}
 	
+	/**Returns the leaderboard*/
 	public Leaderboard getLeaderboard(){
 		return leaderboard;
 	}
-
+       
+	/** Returns the player that is playing next.
+         *
+	 *@return flow.next() Method to get the next player in the round.
+	 */
 	public Player getNextPlayer(){
 		return flow.next();
 	}
-
+	
+	/** Changes the flow of the game from one direction to the opposite,
+	 *changing the player's turns.
+	 */
 	public void reverseGameFLow(){
 		flow.reverse();
 	}
-
+	
+	/** Returns the player that is currently playing. (whose turn is)
+	 *
+	 *@return flow.getcurrentPlayer() Method that gets the player whose turn is.
+	 */
 	public Player getCurrentPlayer(){
 		return flow.getcurrentPlayer();
 	}
 
-	/*Setea los lugares de los jugadores para el Round de manera random*/
+	/**Sets each player's place for the round randomly*/
 //	public void setPlayerPosition() {
 //		Collections.shuffle(players);
 //		flow = new GameFlowIterator();
 //	}
 
+	/**Gets the players.
+	 *
+         *@return players ArrayList with the players that are playing.
+	 */
 	public ArrayList<Player> getPlayers(){
 		return players;
 	}
 
-	/*Devuelve si el juego termino o no*/
+	/**Returns the state of the game.
+	 *
+	 *@return gameState Variable that is true if the game is still going on, 
+	 *false if it ended.
+	 */
 	public boolean getGameState(){
 		return gameState;
 	}
-
+	
+	/** Ends the game by changing the state of gameState to false*/
 	public void endGame(){
 		gameState=false;
 	}
-
+       
+	/**Adds the players.
+	 *
+         *@param players ArrayList with all the players that will play.
+	 *
+         *@throws UnsupportedOperationException if the ArrayList already has players.
+	 */
 	public void addPlayers(ArrayList<Player> players){
 		if(this.players.size() != 0)
 			throw new UnsupportedOperationException("Players have already been added");
@@ -68,7 +98,7 @@ public class UNOGame implements Serializable{
 		leaderboard = new Leaderboard(this);
 	}
 
-	/*iterator que maneja el flujo del juego*/
+	/**Iterator that controls the flow of the game*/
 	private class GameFlowIterator implements Serializable {
 		private int index = -1;
 		private int orientation = 1;
