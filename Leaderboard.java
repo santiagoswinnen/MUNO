@@ -6,21 +6,27 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 /**
- * Created by lmikolas on 08/06/17.
+ * Leaderboard of the game: contains the scores of the players.
  */
 public class Leaderboard implements Serializable {
     private Map<Player, Integer> scoreboard = new HashMap<Player, Integer>();
     private UNOGame game;
-
+    /**
+     *Constructor method of the class Leaderboard. Initializes the players' scores in 0.
+     *
+     *@param game The UNOgame that contains the players.
+     */
     Leaderboard(UNOGame game) {
         this.game = game;
         for(Player player : game.getPlayers()) {
             scoreboard.put(player, 0);
         }
     }
-
-
-    /*verifica si hay un ganador*/
+  
+   /**Verifies if there is a winner by checking the scores.
+    *
+    *@return true if there is a winner, false if not.
+    */
     public boolean hasWinner(){
         for(Integer score : scoreboard.values()){
             if(score >= 500){
@@ -29,7 +35,8 @@ public class Leaderboard implements Serializable {
         }
         return false;
     }
-
+    
+    //
     public String toString() {
 	String ret = " | ";
 	for(Player player : scoreboard.keySet()) {
@@ -38,7 +45,11 @@ public class Leaderboard implements Serializable {
 	return ret;
       }
 
-    /*devuelve el ganador*/
+    /**Returns the winner.
+     *
+     *@throws NoSuchElementException if hasWinner returns false (there's not a winner yet).
+     *@return player The player that won the game.
+     */
     public Player getWinner(){
         if(!hasWinner()){
             throw new NoSuchElementException("no winner yet");
@@ -49,7 +60,8 @@ public class Leaderboard implements Serializable {
         }
         return null;
     }
-	/*actualiza los puntajes después de cada ronda*/
+
+    /** Updates the scores after each round. */
     public void updateScores() {
         Player winner = getRoundWinner();
         for(Player player : scoreboard.keySet()) {
@@ -61,6 +73,11 @@ public class Leaderboard implements Serializable {
             game.endGame();
         }
     }
+	
+    /**Gets the winner of the round
+     *
+     *@throws UnsupportedOperationException if there is not a round winner.
+     */
     public Player getRoundWinner(){
         if(game.getCurrentPlayer().getHand().size() == 0){
             return game.getCurrentPlayer();
@@ -72,7 +89,7 @@ public class Leaderboard implements Serializable {
         scoreboard.put(player, (scoreboard.get(player) + score));
     }
 
-    /*devuelve el score del jugador pasado como argumento*/
+    /**Returns the score of the player in the parameter*/
     public Integer getScore(Player player) {
         return scoreboard.get(player);
     }
