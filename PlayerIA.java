@@ -3,9 +3,8 @@ package muno.game;
 import java.io.Serializable;
 
 /**
- * Created by lmikolas on 08/06/17.
+ * Class that represents a PC player.
  */
-
 public class PlayerIA extends Player implements Serializable {
 
     private UNOGame game;
@@ -13,9 +12,10 @@ public class PlayerIA extends Player implements Serializable {
         super(name, game);
         this.game = game;
     }
-
-
-    /*tira la primera carta que matchea, si puedo o si no simplemente levanta*/
+   
+    /**Looks for a card to throw, 
+	 *if none of them can be thrown then just gets a card.
+	 */
     public void makeMove(){
         boolean foundCard = false;
         for(int ind=0; ind<getHand().size();ind++) {
