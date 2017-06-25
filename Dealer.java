@@ -3,9 +3,9 @@ package muno.game;
 import java.io.Serializable;
 
 /**
- * @author jlococo 
+ *Class that represents the dealer of the game that controls the flow of the cards
+ *
  */
-
 public class Dealer implements Serializable{
     //Listado de jugadores
     private UNOGame game;
@@ -18,34 +18,32 @@ public class Dealer implements Serializable{
     private Card log;
 
     
-     /**
-     * Se crea un nuevo Dealer
-     * @param game Referencia a Game .
+    /**Creates a draw pile and a discard pile. 
+	 *Creates a new dealer
+	 *@param game Reference to the game.
      */
     public Dealer(UNOGame game){
         this.game = game;
     }
 
-    /**
-     *vacia las manos de los jugadores
-     */
+    /**Empties a player's hand.*/
     public void askForCards(){
         for (Player p: this.game.getPlayers()){
             p.emptyHand();
         }
     }
+    
+    //falta comentar
     public Card getLog(){
         return log;
     }
 
-    /**
-     * Pide las cartas a los demas jugadores.
-     * Crea un mazo de descarte y un mazo para agarrar cartas
-     * Reparte 7 cartas a cada jugador de la partida.
-     * Por ultimo setea la primer carta en el mazo de descarte.
-     * @deprecated se crean nuevo DrawPile y nuevo DiscardPile
-     *      debido a que deal debe llamarse en caso de que se
-     *      quiera comenzar una nueva ronda.
+    /**Ask the players for the cards. 
+     *Creates a draw pile and a discard pile.
+     *Deals seven cards to each player.
+     *Sets the first card in the discard pile.
+     *@deprecated a new DrawPile and DiscardPile are created 
+     *  because deal must be called in case of the start of a new round.
      */
     public void deal (){
         askForCards();
@@ -60,10 +58,10 @@ public class Dealer implements Serializable{
         
     }
 
-    /**
-     * Agrega una carta al mazo de Descarte.
-     * @param card Carta a agregar al mazo de descarte
-     */
+   /**Adds a card to the discard pile.
+	*
+	*@param card The card to be added.
+	*/
     public void discardCard(Card card){
         if(!discardPile.isEmpty())
             log = lastCard();
@@ -71,36 +69,28 @@ public class Dealer implements Serializable{
         //DECIA ADDCARD, PUSIMOS THROWCARD
     }
 
-   /**
-     *Coloca las cartas del mazo de descarte, en el mazo principal
-     */
+   /**Puts the Discard Pile's cards into the Draw Pile*/
     private void setDecks(){
         drawPile.setDrawPile(discardPile.askCards());
     }
 
-   /**
-     *Si el mazo principal esta vacio,
-     *transpasa las cartas del mazo de descarte
-     *al mazo principal.
-     *
-     *  @return una carta tomada del DrawPile
-     */
+   /**If the draw pile is empty then puts the cards from the DrawPile. 
+	*   Anyway gets a card.
+	*
+	*@return a card from the DrawPile. 
+	*/
     public Card drawCard() {
         if (drawPile.isEmpty())
             setDecks();
         return drawPile.getCard();
     }
 
-    /**
-     *@return Card ultima carta del mazo de descarte
-     */
+   /**Returns the last card in the DiscardPile*/
     public Card lastCard(){
         return discardPile.lastCard();
     }
     
-    /**
-     * Setea la primer carta en el mazo Principal.
-     */
+    /**Sets the first card in the DiscardPile*/
     public void setFirstCard(){
     	Card cardAux = drawCard();
     	while(cardAux.isActionCard()){
