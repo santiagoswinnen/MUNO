@@ -25,9 +25,10 @@ public class ActionCard extends Card implements Serializable {
            
     }
     /**Checks if two action cards match
-	*
-	*@param card The card to compare with.
-	*/
+    *
+    *@param card The card to compare with.
+    *@return true if the cards match.
+    */
     public boolean match(Card card){
         if(this.getColor().equals("black") ||  this.getColor().equals(card.getColor()) || this.getName().equals(card.getName())){
             return true;
