@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Class that represents a player and its behaivour.
+ * Created by lmikolas on 07/06/17.
  */
 public class Player implements Serializable{
     private ArrayList<Card> hand;
@@ -13,11 +13,7 @@ public class Player implements Serializable{
     
 
     public Player(){};
-    
-    /**Constructor method of the class.
-     *@param name Player's name
-     *@param game Reference to the MUNO game.
-     */
+
     public Player(String name, UNOGame game) {
 
     	hand = new ArrayList<Card>();
@@ -26,48 +22,34 @@ public class Player implements Serializable{
         
         
     }
-   
-    /**Returns true if the player has only one card left*/
+    /*Pregunta si le queda una sola carta al jugador*/
     public boolean hasUNO(){
         if(hand.size() == 1)
             return true;
         return false;
     }
-    
-    /**Returns the name of the player.
-     *@return name Player's name.
-     */
+
     public String getName(){
         return name;
     }
 
-    /**Adds a card to a player's hand
-     *
-     *@param card Card to be added
-     */
+    /*agrega carta a la mano*/
     public void addCard(Card card) {
         this.hand.add(card);
     }
 
 
-    /**Leaves a player with no cards in his hand.*/
+    /*el jugador entrega su mano y su mano queda vacía*/
     public void emptyHand() {
        hand.clear();
     }
     
-   /**Shows the hand of a player.
-    *
-    *@return hand Player's hand 
-    */
+    /*muestra la mano el juador, pero se la queda*/
      public ArrayList<Card> getHand() {
         return hand;
     }
 
-   /**Removes card from a player's hand.
-    *
-    *@param card The card that the player is throwing. Will be removed from his hand.
-    *@throws IllegalArgumentException if the card to be removed is not in the player's hand.
-    */
+    /*el jugador tira su carta en el mazo de descarte*/
     public boolean throwCard(Card card) {
         int i = hand.indexOf(card);
         if(i == -1)
@@ -79,10 +61,7 @@ public class Player implements Serializable{
         return false;
     }
 
-    /**Checks that the player is in the game
-     *
-     *@return true if the player is in the game, false if not.
-     */
+    /*verifico que el jugador este en el juego*/
     public boolean checkGame(){
         if(game.getPlayers().contains(this)){
             return true;
@@ -90,7 +69,6 @@ public class Player implements Serializable{
         return false;
     }
     
-    /**Returns the UNOgame*/
     public UNOGame getGame(){
     	return this.game;
     }

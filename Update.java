@@ -14,26 +14,27 @@ public class Update {
     private Card log;
     private AbstractGameScreen screen;
 
-    public Update(AbstractGameScreen screen){
-        this.screen=screen;
+    public Update(AbstractGameScreen screen) {
+        this.screen = screen;
     }
 
     public void saveGame(String filename) {
-        if(Gdx.input.isKeyJustPressed(Input.Keys.S)){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
             try {
                 ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(filename));
                 os.writeObject(screen.getMyGame());
                 os.close();
-            }catch (FileNotFoundException e){
+            } catch (FileNotFoundException e) {
                 e.printStackTrace();
-            }catch(IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
-    public void loadGame(String filename){
-        if(Gdx.input.isKeyJustPressed(Input.Keys.L)){
-            try{
+
+    public void loadGame(String filename) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.L)) {
+            try {
                 ObjectInputStream is = new ObjectInputStream(new FileInputStream(filename));
                 UNOGame loadedGame = (UNOGame) is.readObject();
                 is.close();
@@ -45,90 +46,93 @@ public class Update {
 
                 screen.setTexturesHand();
 
-            } catch(FileNotFoundException e){
+            } catch (FileNotFoundException e) {
                 e.printStackTrace();
-            } catch(IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
-            } catch(ClassNotFoundException e){
+            } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
         }
     }
 
 
-    public void changeToGreen(){
-        if(Gdx.input.isKeyJustPressed(Input.Keys.G)){
+    public void changeToGreen() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.G)) {
             screen.nextPlayer();
-            ((ActionCard)(screen.getMyGame().getDealer().lastCard())).makeAction("green");
-            stopWaiting();
-        }
-    }
-    
-    public void changeToBlue(){
-        if(Gdx.input.isKeyJustPressed(Input.Keys.B)){
-            screen.nextPlayer();
-            ((ActionCard)(screen.getMyGame().getDealer().lastCard())).makeAction("blue");
-            stopWaiting();
-        }
-    }
-    
-    public void changeToYellow(){
-        if(Gdx.input.isKeyJustPressed(Input.Keys.Y)){
-            screen.nextPlayer();
-            ((ActionCard)(screen.getMyGame().getDealer().lastCard())).makeAction("yellow");
-            stopWaiting();
-        }
-    }
-    
-    public void changeToRed(){
-        if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
-            screen.nextPlayer();
-            ((ActionCard)(screen.getMyGame().getDealer().lastCard())).makeAction("red");
+            ((ActionCard) (screen.getMyGame().getDealer().lastCard())).makeAction("green");
             stopWaiting();
         }
     }
 
-    public void stopWaiting(){
+    public void changeToBlue() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.B)) {
+            screen.nextPlayer();
+            ((ActionCard) (screen.getMyGame().getDealer().lastCard())).makeAction("blue");
+            stopWaiting();
+        }
+    }
+
+    public void changeToYellow() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.Y)) {
+            screen.nextPlayer();
+            ((ActionCard) (screen.getMyGame().getDealer().lastCard())).makeAction("yellow");
+            stopWaiting();
+        }
+    }
+
+    public void changeToRed() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+            screen.nextPlayer();
+            ((ActionCard) (screen.getMyGame().getDealer().lastCard())).makeAction("red");
+            stopWaiting();
+        }
+    }
+
+    public void stopWaiting() {
         screen.setWaitingColor(false);
         screen.setTexturesHand();
     }
 
-    public void moveRight(){
-        if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT) && !screen.isWaitingColor()){
-            if(screen.getCurrentCard() == screen.getMyGame().getCurrentPlayer().getHand().size() - 1)
+    public void moveRight() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT) && !screen.isWaitingColor()) {
+            if (screen.getCurrentCard() == screen.getMyGame().getCurrentPlayer().getHand().size() - 1)
                 screen.setCurrentCard(0);
             else
-                screen.setCurrentCard(screen.getCurrentCard()+1);
+                screen.setCurrentCard(screen.getCurrentCard() + 1);
         }
     }
-    
-    public void moveLeft(){
-        if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT) && !screen.isWaitingColor()){
-            if(screen.getCurrentCard() == 0)
+
+    public void moveLeft() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT) && !screen.isWaitingColor()) {
+            if (screen.getCurrentCard() == 0)
                 screen.setCurrentCard(screen.getMyGame().getCurrentPlayer().getHand().size() - 1);
             else
-                screen.setCurrentCard(screen.getCurrentCard()-1);
+                screen.setCurrentCard(screen.getCurrentCard() - 1);
         }
     }
-    public void IAplay(){
-            ((PlayerIA) screen.getMyGame().getCurrentPlayer()).makeMove();
+
+    public void IAplay() {
+        if (((PlayerIA) screen.getMyGame().getCurrentPlayer()).makeMove()) {
             roundEndCheck();
-            if(screen.getMyGame().getCurrentPlayer() instanceof PlayerIA) {
-                if (screen.getMyGame().getDealer().lastCard().isActionCard()) {
-                    if (screen.getMyGame().getDealer().lastCard().isWildCard()) {
-                        ((ActionCard) screen.getMyGame().getDealer().lastCard()).makeAction(((PlayerIA) screen.getMyGame().getCurrentPlayer()).chooseColor());
-                        screen.settDiscard(new Texture("black" + screen.getMyGame().getDealer().lastCard().getName() + ".png"));
-                        screen.nextPlayer();
-                    } else {
-                        screen.nextPlayer();
-                        ((ActionCard) screen.getMyGame().getDealer().lastCard()).makeAction();
-                        screen.settDiscard(new Texture(screen.getMyGame().getDealer().lastCard().getColor() + screen.getMyGame().getDealer().lastCard().getName() + ".png"));
-                    }
+            if (screen.getMyGame().getDealer().lastCard().isActionCard()) {
+                if (screen.getMyGame().getDealer().lastCard().isWildCard()) {
+                    ((ActionCard) screen.getMyGame().getDealer().lastCard()).makeAction(((PlayerIA) screen.getMyGame().getCurrentPlayer()).chooseColor());
+                    screen.nextPlayer();
+                    screen.settDiscard(new Texture("black" + screen.getMyGame().getDealer().lastCard().getName() + ".png"));
                 } else {
                     screen.nextPlayer();
+                    ((ActionCard) screen.getMyGame().getDealer().lastCard()).makeAction();
+                    screen.settDiscard(new Texture(screen.getMyGame().getDealer().lastCard().getColor() + screen.getMyGame().getDealer().lastCard().getName() + ".png"));
                 }
+            } else {
+                screen.settDiscard(new Texture(screen.getMyGame().getDealer().lastCard().getColor() + screen.getMyGame().getDealer().lastCard().getName() + ".png"));
+                screen.nextPlayer();
             }
             screen.setTexturesHand();
+        } else {
+            screen.nextPlayer();
+        }
     }
 
     public void nonColorCard(){
