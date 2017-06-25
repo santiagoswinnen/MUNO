@@ -13,26 +13,26 @@ public class SingleGameScreen extends AbstractGameScreen {
 
 	public SingleGameScreen(Game game){
 		super(game);
-		
+
 		Player player1 = new Player("Player 1", getMyGame());
 		PlayerIA player2 = new PlayerIA("PlayerIA 2", getMyGame());
 		PlayerIA player3 = new PlayerIA("PlayerIA 3", getMyGame());
 		PlayerIA player4 = new PlayerIA("PlayerIA 4", getMyGame());
-		
+
 		ArrayList<Player> players = new ArrayList<Player>();
-		
+
 		players.add(player1);
 		players.add(player2);
 		players.add(player3);
 		players.add(player4);
-		
+
 		getMyGame().addPlayers(players);
-		
+
 		getMyGame().getDealer().deal();
 		settDiscard(new Texture(getMyGame().getDealer().lastCard().getColor() + getMyGame().getDealer().lastCard().getName() + ".png"));
-		
+
 		setPositions(new int[getMyGame().getPlayers().size() - 1]);
-		
+
 		nextPlayer();
 		setTexturesHand();
 		setUpd(new Update(this));
@@ -136,10 +136,8 @@ public class SingleGameScreen extends AbstractGameScreen {
 		}
 		super.batch.end();
 	}
-
 	public void setPositionsArray(){
 	}
-
 	public void setTexturesHand(){
 		getTexturesHand().clear();
 		Card card;
@@ -152,16 +150,16 @@ public class SingleGameScreen extends AbstractGameScreen {
 	}
 	@Override
 	public void show() {
-		
+
 	}
 
 	@Override
 	public void hide() {
-		
+
 	}
 
 	@Override
 	public void pause() {
-		
+
 	}
 }
