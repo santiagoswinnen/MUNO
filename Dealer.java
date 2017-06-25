@@ -19,8 +19,8 @@ public class Dealer implements Serializable{
 
     
     /**Creates a draw pile and a discard pile. 
-	 *Creates a new dealer
-	 *@param game Reference to the game.
+     *Creates a new dealer
+     *@param game Reference to the game.
      */
     public Dealer(UNOGame game){
         this.game = game;
