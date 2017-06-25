@@ -5,53 +5,52 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Created by Lo Coco on 02/06/2017.
+ * Class that represents the draw pile of the UNO game.
  */
 public class DrawPile implements Serializable{
     private UNOGame game;
     private ArrayList<Card> drawPile;
     
-    /**
-     * Se crea un DrawPile
-     * @param Game referencia a Game
-     */
+   /** Constructor method of the class. Creates the draw pile.
+    *@param game Reference to the game.
+    */
     public DrawPile(UNOGame game) {
         drawPile = new ArrayList<Card>();
         this.game = game;
         newDeck();
         
     }
-
+    
+    /**Checks if the draw pile is empty
+	 *
+	 *@return true if the pile is empty, false if not. */
     public boolean isEmpty(){
         return size() == 0;
     }
-
+    
+    /** Returns the size of the draw pile*/
     private int size(){
         return getDrawPile().size();
     }
     
-     /**
-     * Metodo para mezclar el drawPile
-     */
+    /**Method to shuffle the cards of the draw pile*/ 
     private void shuffle(){
         Collections.shuffle(getDrawPile());
     }
     
-    /**
-     * Se resta una carta del DrawPile y se manda.
-     * @return Card ultima del arrayList.
+    /** Gets a card from the draw pile, removing the card from it.
+     *@return last card in the arraylist
      */
     public Card getCard() {
         return getDrawPile().remove(getDrawPile().size() - 1);
     }
     
+    /**Method to get the draw pile*/
     private ArrayList<Card> getDrawPile(){
       return this.drawPile;
     }
     
-    /**
-     * Clase que se usa para crear las cartas.
-     */
+   /**Creates a new deck of Muno Cards*/
     public void newDeck() {
         String[] cardName = Card.getCardNames();
         String[] cardColors = Card.getCardColors();
@@ -70,20 +69,21 @@ public class DrawPile implements Serializable{
     }
     
     /**
-     * El drawPile empieza a ser el ArrayList que se pasa
-     * por parametro
+     * Receives an array of cards and sets the drawpile, then shuffles the cards.
+	 *
+	 *@param cardArray ArrayList of cards to set the drawpile.
+     * 
      *
-     * @param cardArray Lo asigna como drawPile
-     *
-     * @deprecated Este metodo esta pensado para cuando
-     *      se acababan las cartas del Drawpile; en conjunto
-     *      con el metodo askCards del DiscardPile; se pase
-     *      el mazo de descarte menos la ultima carta al DrawPile.
+     *@deprecated This method is for when the cards of the
+     *      Drawpile are finished; 
+     *      along the method askCards of the DiscardPile;
+     *      
      */
     public void setDrawPile(ArrayList<Card> cardArray){
         this.drawPile = cardArray;
         shuffle();
     }
+    
     private UNOGame getGame(){
         return this.game;
     }
