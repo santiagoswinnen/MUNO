@@ -14,8 +14,8 @@ public class PlayerIA extends Player implements Serializable {
     }
    
     /**Looks for a card to throw, 
-	 *if none of them can be thrown then just gets a card.
-	 */
+     *if none of them can be thrown then just gets a card.
+     */
     public void makeMove(){
         boolean foundCard = false;
         for(int ind=0; ind<getHand().size();ind++) {
