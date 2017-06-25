@@ -35,16 +35,16 @@ public class Player implements Serializable{
     }
     
     /**Returns the name of the player.
-	 *@return name Player's name.
-	 */
+     *@return name Player's name.
+     */
     public String getName(){
         return name;
     }
 
     /**Adds a card to a player's hand
-	 *
-	 *@param card Card to be added
-	 */
+     *
+     *@param card Card to be added
+     */
     public void addCard(Card card) {
         this.hand.add(card);
     }
@@ -58,7 +58,7 @@ public class Player implements Serializable{
    /**Shows the hand of a player.
     *
     *@return hand Player's hand 
-	*/
+    */
      public ArrayList<Card> getHand() {
         return hand;
     }
@@ -80,9 +80,9 @@ public class Player implements Serializable{
     }
 
     /**Checks that the player is in the game
-	 *
+     *
      *@return true if the player is in the game, false if not.
-	 */
+     */
     public boolean checkGame(){
         if(game.getPlayers().contains(this)){
             return true;
