@@ -15,17 +15,17 @@ public class DiscardPile implements Serializable {
     }
     
     /**Gets the last card of the discard pile.
-	 *
-	 *@return last card in the pile.
-	 */
+     *
+     *@return last card in the pile.
+     */
     public Card lastCard(){
         return getDiscardPile().get(getDiscardPile().size() - 1);
     }
    
     /**
-	 *Adds a card to the discard pile. 
-	 *If the last card was a wild card then changes its color to black before adding the new one.
-	 */
+     *Adds a card to the discard pile. 
+     *If the last card was a wild card then changes its color to black before adding the new one.
+     */
     public void throwCard(Card card){
         if (!isEmpty() && lastCard().isWildCard()){
             lastCard().setColor("black");
@@ -34,9 +34,9 @@ public class DiscardPile implements Serializable {
     }
     
     /**Gets the discard pile.
-	 *
-	 *@return this.dicardPile The discard pile.
-	 */
+     *
+     *@return this.dicardPile The discard pile.
+     */
     private ArrayList<Card> getDiscardPile(){
         return this.discardPile;
     }
