@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Created by lmikolas on 07/06/17.
+ * Class that represents a player and its behaivour.
  */
 public class Player implements Serializable{
     private ArrayList<Card> hand;
@@ -13,7 +13,11 @@ public class Player implements Serializable{
     
 
     public Player(){};
-
+    
+    /**Constructor method of the class.
+     *@param name Player's name
+     *@param game Reference to the MUNO game.
+     */
     public Player(String name, UNOGame game) {
 
     	hand = new ArrayList<Card>();
@@ -22,34 +26,48 @@ public class Player implements Serializable{
         
         
     }
-    /*Pregunta si le queda una sola carta al jugador*/
+   
+    /**Returns true if the player has only one card left*/
     public boolean hasUNO(){
         if(hand.size() == 1)
             return true;
         return false;
     }
-
+    
+    /**Returns the name of the player.
+	 *@return name Player's name.
+	 */
     public String getName(){
         return name;
     }
 
-    /*agrega carta a la mano*/
+    /**Adds a card to a player's hand
+	 *
+	 *@param card Card to be added
+	 */
     public void addCard(Card card) {
         this.hand.add(card);
     }
 
 
-    /*el jugador entrega su mano y su mano queda vacía*/
+    /**Leaves a player with no cards in his hand.*/
     public void emptyHand() {
        hand.clear();
     }
     
-    /*muestra la mano el juador, pero se la queda*/
+   /**Shows the hand of a player.
+    *
+    *@return hand Player's hand 
+	*/
      public ArrayList<Card> getHand() {
         return hand;
     }
 
-    /*el jugador tira su carta en el mazo de descarte*/
+   /**Removes card from a player's hand.
+    *
+    *@param card The card that the player is throwing. Will be removed from his hand.
+    *@throws IllegalArgumentException if the card to be removed is not in the player's hand.
+    */
     public boolean throwCard(Card card) {
         int i = hand.indexOf(card);
         if(i == -1)
@@ -61,7 +79,10 @@ public class Player implements Serializable{
         return false;
     }
 
-    /*verifico que el jugador este en el juego*/
+    /**Checks that the player is in the game
+	 *
+     *@return true if the player is in the game, false if not.
+	 */
     public boolean checkGame(){
         if(game.getPlayers().contains(this)){
             return true;
@@ -69,6 +90,7 @@ public class Player implements Serializable{
         return false;
     }
     
+    /**Returns the UNOgame*/
     public UNOGame getGame(){
     	return this.game;
     }
