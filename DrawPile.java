@@ -22,8 +22,9 @@ public class DrawPile implements Serializable{
     }
     
     /**Checks if the draw pile is empty
-	 *
-	 *@return true if the pile is empty, false if not. */
+     *
+     *@return true if the pile is empty, false if not. 
+     */
     public boolean isEmpty(){
         return size() == 0;
     }
@@ -70,8 +71,8 @@ public class DrawPile implements Serializable{
     
     /**
      * Receives an array of cards and sets the drawpile, then shuffles the cards.
-	 *
-	 *@param cardArray ArrayList of cards to set the drawpile.
+     *
+     *@param cardArray ArrayList of cards to set the drawpile.
      * 
      *
      *@deprecated This method is for when the cards of the
