@@ -1,4 +1,4 @@
-package Test;
+package test;
 
 import muno.game.Leaderboard;
 import muno.game.Player;
