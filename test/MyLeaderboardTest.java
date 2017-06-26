@@ -1,5 +1,3 @@
-package test;
-
 import muno.game.Leaderboard;
 import muno.game.Player;
 import muno.game.UNOGame;

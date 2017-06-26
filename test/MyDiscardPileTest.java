@@ -3,6 +3,7 @@ package test;
 import muno.game.Card;
 import muno.game.DiscardPile;
 import muno.game.NumberedCard;
+import muno.game.Player;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -18,6 +19,7 @@ public class MyDiscardPileTest {
     public void testLastCardWithOneCard() {
         DiscardPile discardPile = new DiscardPile();
         Card card= new NumberedCard("Zero", 0, "red");
+        discardPile.throwCard(card);
         assertSame(card, discardPile.lastCard());
     }
     
@@ -38,7 +40,7 @@ public class MyDiscardPileTest {
     /**
      * Se verifica que este tomando bien las cartas
      */
-    
+
     @Test
     public void testAskCardsWithACard(){
         DiscardPile discardPile = new DiscardPile();
@@ -47,7 +49,7 @@ public class MyDiscardPileTest {
         assertNull(discardPile.askCards());
         assertSame(card, discardPile.lastCard());
     }
-    
+
     /**
      * Se verifica que con dos cartas toma 
      * la que se encuentra abajo y deja la
@@ -71,8 +73,7 @@ public class MyDiscardPileTest {
     public void testThrowCard(){
         DiscardPile discardPile = new DiscardPile();
         assertEquals(discardPile.size(),0);
-        Card card= new NumberedCard("Zero", 0, "red");
-        assertEquals(discardPile.size(),1);
+
     }
     
 
