@@ -15,7 +15,8 @@ public class NumberedCard extends Card implements Serializable {
      *param color Card's color
      *param number Card's number
      */
-    NumberedCard(String name, Integer number, String color) {
+
+    public NumberedCard(String name, Integer number, String color) {
         super(name, number, color);
         if(number < 0 || number > 9)
             throw new IllegalArgumentException("Not valid number for card.");

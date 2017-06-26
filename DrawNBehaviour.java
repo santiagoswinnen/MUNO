@@ -10,7 +10,7 @@ public class DrawNBehaviour implements Behaviour, Serializable{
     private Integer number;
 
 
-    DrawNBehaviour(UNOGame game, Integer number){
+    public DrawNBehaviour(UNOGame game, Integer number){
         this.game = game;
         this.number = number;
 

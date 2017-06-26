@@ -1,4 +1,12 @@
-package muno.game;
+package Test;
+
+import muno.game.Card;
+import muno.game.DiscardPile;
+import muno.game.NumberedCard;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
 /**
  * @author jlococo
  */
@@ -30,16 +38,16 @@ public class MyDiscardPileTest {
     /**
      * Se verifica que este tomando bien las cartas
      */
-    
+    /*
     @Test
     public void testAskCardsWithACard(){
         DiscardPile discardPile = new DiscardPile();
         Card card= new NumberedCard("Zero", 0, "red");
-        discardPile.throwCard(card1);
-        assertNull(askCards());
+        discardPile.throwCard(card);
+        assertNull(discardPile.askCards());
         assertSame(card, discardPile.lastCard());
     }
-
+    */
     /**
      * Se verifica que con dos cartas toma 
      * la que se encuentra abajo y deja la
@@ -52,14 +60,20 @@ public class MyDiscardPileTest {
         Card card2= new NumberedCard("Zero", 0, "blue");
         discardPile.throwCard(card);
         discardPile.throwCard(card2);
-        assertNotNull(askCards());
+        assertNotNull(discardPile.askCards());
         assertSame(card2, discardPile.lastCard());
     }
 
-    public void static Test suite(){
-        return new TestSuite(MyDealerTest.class);
+    /**
+     * @after deneria tener size=1; 
+     */
+    @Test
+    public void testThrowCard(){
+        DiscardPile discardPile = new DiscardPile();
+        assertEquals(discardPile.size(),0);
+        Card card= new NumberedCard("Zero", 0, "red");
+        assertEquals(discardPile.size(),1);
     }
-    public static void main(String[] args){
-        junit.textui.TestRunner.run(suite());
-    }
+    
+
 }

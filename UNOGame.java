@@ -47,6 +47,7 @@ public class UNOGame implements Serializable{
 		return flow.getcurrentPlayer();
 	}
 
+
 	/**Sets each player's place for the round randomly*/
 //	public void setPlayerPosition() {
 //		Collections.shuffle(players);
@@ -69,7 +70,7 @@ public class UNOGame implements Serializable{
 	
 	/** Ends the game by changing the state of gameState to false*/
 	public void endGame(){
-		gameState=false;
+		gameState = false;
 	}
 
 	/**Adds the players.

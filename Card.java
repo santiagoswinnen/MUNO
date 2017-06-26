@@ -25,7 +25,7 @@ public abstract class Card implements Serializable{
 	*@throws IllegalArgumentException if one of the parameters is invalid.
 	*
 	*/
-    Card(String name, Integer score, String color) {
+    public Card(String name, Integer score, String color) {
         if(!checkName(name))
             throw new IllegalArgumentException("not valid name");
         else if(!checkColor(color))
@@ -67,7 +67,7 @@ public abstract class Card implements Serializable{
      *Checks if a name is a valid card name.
      *@param name The name to check.
      */ 
-    public boolean checkName(String name){
+    public static boolean checkName(String name){
         for(String cardName : CARD_NAMES){
             if(cardName.equals(name))
                 return true;
@@ -79,7 +79,7 @@ public abstract class Card implements Serializable{
      *Checks if a score is valid.
      *@param score The score to check.
      */ 
-    public boolean checkScore(Integer score){
+    public static boolean checkScore(Integer score){
         for(Integer aScore : CARD_SCORES){
             if(score.equals(aScore))
                 return true;

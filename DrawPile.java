@@ -51,7 +51,7 @@ public class DrawPile implements Serializable{
       return this.drawPile;
     }
     
-   /**Creates a new deck of Muno Cards*/
+   /**Creates a new deck of Muno Card*/
     public void newDeck() {
         String[] cardName = Card.getCardNames();
         String[] cardColors = Card.getCardColors();

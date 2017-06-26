@@ -9,15 +9,15 @@ import java.io.Serializable;
 public class PlayerIA extends Player implements Serializable {
 
     private UNOGame game;
-    
     /**Creates a new PlayerIA.
      *@param name Player's name
      *@game The Muno Game.
      */
-    PlayerIA(String name, UNOGame game){
+    public PlayerIA(String name, UNOGame game){
         super(name, game);
         this.game = game;
     }
+
 
     /**Looks for a card to throw
      * if none of them can be thrown then just gets a card.
@@ -38,7 +38,7 @@ public class PlayerIA extends Player implements Serializable {
             return false;
         }
     }
-    
+
     /**Chooses a color randomly*/
     public String chooseColor(){
         int i = 1 + (int)(Math.random() * ((4 - 1)+ 1));

@@ -15,7 +15,7 @@ public class ActionCard extends Card implements Serializable {
     *@param color Card's color.
     *@param behaviour Card's behavior.
     */
-    ActionCard(String name, Integer score, String color, Behaviour behaviour){
+    public ActionCard(String name, Integer score, String color, Behaviour behaviour){
         super(name, score, color);
         this.behaviour = behaviour;
     }
