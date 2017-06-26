@@ -42,7 +42,7 @@ public class UNOGame implements Serializable {
 		flow.reverse();
 	}
 
-	/**Returns the player that is currently playing, whose turn is */
+	/**Returns the player that is currently playing, whose turn is. */
 	public Player getCurrentPlayer() {
 		return flow.getcurrentPlayer();
 	}
@@ -90,7 +90,7 @@ public class UNOGame implements Serializable {
 		private ArrayList<Player> players;
 		
 	   /** Creates a new GameFlowIterator */
-		GameFlowIterator(ArrayList<Player> players) {
+	    public GameFlowIterator(ArrayList<Player> players) {
 			this.players = new ArrayList<Player>();
 			this.players.addAll(players);
 		}

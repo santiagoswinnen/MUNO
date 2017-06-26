@@ -3,7 +3,7 @@ package muno.game;
 import java.io.Serializable;
 
 /**
- * Created by lmikolas on 07/06/17.
+ * Behaviour to reverse the flow of the game
  */
 public class ReverseBehaviour implements Behaviour, Serializable {
 	

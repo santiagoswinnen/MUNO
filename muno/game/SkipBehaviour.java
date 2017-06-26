@@ -3,7 +3,7 @@ package muno.game;
 import java.io.Serializable;
 
 /**
- * Created by lmikolas on 07/06/17.
+ * Behaviour to skip the game.
  */
 public class SkipBehaviour implements Behaviour, Serializable {
 	

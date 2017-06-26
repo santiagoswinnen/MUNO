@@ -52,7 +52,9 @@ public class DiscardPile implements Serializable {
 	*  @return aux An array with all the cards that were on the discard pile except the last one.
 	*/
     public ArrayList<Card> askCards() {
-        Card cardAux= lastCard();
+        if (size() == 1 || isEmpty() )
+        	return null;
+    	Card cardAux= lastCard();
         ArrayList <Card> aux = new ArrayList<Card>();
         for (int t = 0 ; t < size() - 2; t++) {
             aux.add(getDiscardPile().remove(t));

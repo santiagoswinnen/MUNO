@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 /**
- * Created by mlund on 14/06/17.
+ * Screen that shows the menu.
  */
 public class MenuScreen extends AbstractScreen {
 	

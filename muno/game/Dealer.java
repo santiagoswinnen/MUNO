@@ -27,6 +27,7 @@ public class Dealer implements Serializable{
         }
     }
     
+   /** Returns the second to last played card*/
     public Card getLog() {
         return log;
     }
@@ -35,11 +36,8 @@ public class Dealer implements Serializable{
      * Creates a draw pile and a discard pile.
      * Deals seven cards to each player.
      * Sets the first card in the discard pile.
-     * 
-     * @deprecated a new DrawPile and DiscardPile are created 
-     * 	because deal must be called in case of the start of a new round.
+     * A new DrawPile and DiscardPile are created because deal must be called in case of the start of a new round.
      */
-    @Deprecated
     public void deal () {
         askForCards();
         drawPile = new DrawPile(game);

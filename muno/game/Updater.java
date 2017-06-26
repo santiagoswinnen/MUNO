@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import java.io.*;
 
 /**
- * Created by sswinnen on 17/06/17.
+ * Updates the screen.
  */
 public class Updater {
 	
@@ -18,6 +18,10 @@ public class Updater {
         this.screen = screen;
     }
 
+   /** Method the save the game.
+    * 
+    *  @param filename File name to save the game with.
+    */
     public void saveGame(String filename) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
             try {
@@ -31,7 +35,11 @@ public class Updater {
             }
         }
     }
-
+    
+    /** Method to load the game.
+     * 
+     *  @param filename Name of the game to load.
+     */
     public void loadGame(String filename) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.L)) {
             try {
@@ -60,7 +68,8 @@ public class Updater {
             }
         }
     }
-
+    
+   /** If the player presses G then changes the action card color to green*/
     public void changeToGreen() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.G)) {
             screen.nextPlayer();
@@ -68,7 +77,8 @@ public class Updater {
             stopWaiting();
         }
     }
-
+    
+   /** If the player presses B then changes the action card color to blue*/
     public void changeToBlue() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.B)) {
             screen.nextPlayer();
@@ -76,7 +86,8 @@ public class Updater {
             stopWaiting();
         }
     }
-
+    
+    /** If the player presses Y then changes the action card color to yellow*/ 
     public void changeToYellow() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.Y)) {
             screen.nextPlayer();
@@ -85,6 +96,7 @@ public class Updater {
         }
     }
 
+    /** If the player presses R then changes the action card color to red*/
     public void changeToRed() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
             screen.nextPlayer();
@@ -97,7 +109,8 @@ public class Updater {
         screen.setWaitingColor(false);
         screen.setTexturesHand();
     }
-
+    
+    /** Moves the graphic pointer in the screen to the card in the right*/
     public void moveRight() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT) && !screen.isWaitingColor()) {
             if (screen.getCurrentCard() == screen.getMyGame().getCurrentPlayer().getHand().size() - 1)
@@ -106,7 +119,8 @@ public class Updater {
                 screen.setCurrentCard(screen.getCurrentCard() + 1);
         }
     }
-
+    
+    /** Moves the graphic pointer in the screen to the card in the left*/
     public void moveLeft() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT) && !screen.isWaitingColor()) {
             if (screen.getCurrentCard() == 0)
@@ -139,8 +153,9 @@ public class Updater {
             screen.nextPlayer();
         }
     }
-
-    public void nonColorCard() {
+    
+    /** When a player throws a card this method makes all the validations to continue correctly with the game*/
+    public void makeTurn() {
         if(((Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) || screen.isUNO()) && !screen.isWaitingColor()) {
             log = screen.getMyGame().getDealer().lastCard();
             if(screen.getMyGame().getCurrentPlayer().throwCard(screen.getMyGame().getCurrentPlayer().getHand().get(screen.getCurrentCard()))){
@@ -166,6 +181,7 @@ public class Updater {
         screen.setPositionsArray();
     }
     
+   /** Adds two cards to a player's hand as a penalty when had UNO and didn't call it.*/
     public void setUNOpenalty() {
         if(screen.getMyGame().getCurrentPlayer().hasUNO() && !screen.isUNO()) {
             screen.getMyGame().getCurrentPlayer().addCard(screen.getMyGame().getDealer().drawCard());
@@ -174,6 +190,7 @@ public class Updater {
         screen.setUNO(false);
     }
     
+   /** Method to allow the players to call UNO when they have only one card left*/ 
     public void callUNO() {
         if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_1) && !screen.isWaitingColor() ) {
             screen.setUNO(true);

@@ -8,9 +8,9 @@ import com.badlogic.gdx.graphics.Texture;
 import java.util.ArrayList;
 
 /**
- * Created by mlund on 14/06/17.
+ * Screen for multiplayer mode.
  */
-public class MultiGameScreen extends AbstractGameScreen {
+ public class MultiGameScreen extends AbstractGameScreen {
 	
 	public MultiGameScreen(Game game) {
 		super(game);
@@ -59,7 +59,8 @@ public class MultiGameScreen extends AbstractGameScreen {
 
 		getBatch().end();
 	}
-
+	
+	/**If the game ended sets an EndScreen otherwise updates the MultiPlayerScreen*/
 	public void update() {
 		if(getMyGame().getGameState() ==  false)
 			game.setScreen(new EndScreen(game, getMyGame().getLeaderboard(), getMyGame().getPlayers()));
@@ -72,7 +73,7 @@ public class MultiGameScreen extends AbstractGameScreen {
 		}
 		getUpd().moveLeft();
 		getUpd().moveRight();
-		getUpd().nonColorCard();
+		getUpd().makeTurn();
 		getUpd().cardDraw();
 		getUpd().pass();
 		getUpd().callUNO();

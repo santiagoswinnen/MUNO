@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 /**
- * Created by santiago on 16/06/17.
+ * Screen that is shown when the game ends (gameState is false).
  */
 public class EndScreen extends AbstractScreen {
 	

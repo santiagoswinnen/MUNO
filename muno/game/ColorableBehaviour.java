@@ -2,6 +2,7 @@ package muno.game;
 
 import java.io.Serializable;
 
+/** Behaviour to color cards.*/
 public class ColorableBehaviour implements Behaviour, Serializable {
 	
 	private UNOGame game;

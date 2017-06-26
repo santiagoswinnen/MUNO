@@ -69,20 +69,16 @@ public class DrawPile implements Serializable {
     }
     
    /**
-    * Receives an array of cards and sets the drawpile, then shuffles the cards.
-    *
-    * @param cardArray ArrayList of cards to set the drawpile.
-    * 
-    * @deprecated This method is for when the cards of the
-    *      Drawpile are finished; 
-    *      along the method askCards of the DiscardPile;   
+    * Receives an array of cards and sets the DrawPile, then shuffles the cards.
+    * This method is for when the cards of the DrawPile are finished, along with the method askCards of the DiscardPile; 
+    * @param cardArray ArrayList of cards to set the DrawPile.  
     */
-    @Deprecated
     public void setDrawPile(ArrayList<Card> cardArray) {
         this.drawPile = cardArray;
         shuffle();
     }
     
+    /** Returns a reference to the game*/
     private UNOGame getGame() {
         return this.game;
     }   

@@ -3,13 +3,17 @@ package muno.game;
 import java.io.Serializable;
 
 /**
- * Created by lmikolas on 10/06/17.
+ * Behaviour that draws a specific number of cards
  */
 public class DrawNBehaviour implements Behaviour, Serializable {
 	
     private UNOGame game;
     private Integer number;
 
+    /** Draws a number of cards.
+     * @param game Reference to the game
+     * @param number Number of cards to draw
+     */
     public DrawNBehaviour(UNOGame game, Integer number) {
         this.game = game;
         this.number = number;

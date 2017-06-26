@@ -102,6 +102,7 @@ public abstract class Card implements Serializable {
         return (getName().equals("DrawFour")||getName().equals("Mirror")||getName().equals("Wild"));
     }
     
+    /** Returns true if the card is an ActionCard*/
     public boolean isActionCard() {
     	return (isWildCard() || getName().equals("Reverse") || getName().equals("DrawTwo") || getName().equals("Skip"));
     }

@@ -84,6 +84,11 @@ public class Leaderboard implements Serializable {
         throw new UnsupportedOperationException("no round winner");
     }
 
+    /** Adds score to a player
+     * 
+     * @param player The player to add the score to.
+     * @param score The score to add.
+     */
     public void addScore(Player player,Integer score) {
         scoreboard.put(player, (scoreboard.get(player) + score));
     }
@@ -93,6 +98,7 @@ public class Leaderboard implements Serializable {
         return scoreboard.get(player);
     }
     
+   /** Gets a player's score*/
     public Integer getScore(int index) {
     	return scoreboard.get(game.getPlayers().get(index));
     }

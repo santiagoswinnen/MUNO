@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 import java.util.ArrayList;
 
+/** Screen for single player mode*/
 public class SingleGameScreen extends AbstractGameScreen {
 
 	boolean IAplayed;
@@ -60,7 +61,7 @@ public class SingleGameScreen extends AbstractGameScreen {
 
 		getBatch().end();
 	}
-	
+	/** Checks if the game has ended, then sets the EndScreen, else updates the SingleGameScreen.*/
 	public void update() {
 		if(getMyGame().getGameState() ==  false) {
 			game.setScreen(new EndScreen(game, getMyGame().getLeaderboard(), getMyGame().getPlayers()));
@@ -78,7 +79,7 @@ public class SingleGameScreen extends AbstractGameScreen {
 			}
 			getUpd().moveLeft();
 			getUpd().moveRight();
-			getUpd().nonColorCard();
+			getUpd().makeTurn();
 			getUpd().cardDraw();
 			getUpd().pass();
 			getUpd().callUNO();
