@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Set;
 /**
  * Leaderboard of the game: contains the scores of the players.
  */
@@ -16,8 +17,7 @@ public class Leaderboard implements Serializable {
      *
      *@param game The UNOgame that contains the players.
      */
-
-    public Leaderboard(UNOGame game) {
+    Leaderboard(UNOGame game) {
         this.game = game;
         for(Player player : game.getPlayers()) {
             scoreboard.put(player, 0);
@@ -94,6 +94,8 @@ public class Leaderboard implements Serializable {
     public Integer getScore(Player player) {
         return scoreboard.get(player);
     }
-
-
+    
+    public Integer getScore(int index) {
+    	return scoreboard.get(game.getPlayers().get(index));
+    }
 }

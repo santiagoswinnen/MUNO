@@ -159,6 +159,7 @@ public class Update {
                 screen.setTexturesHand();
             }
         }
+        screen.setPositionsArray();
     }
     
     public void setUNOpenalty(){
