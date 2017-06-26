@@ -42,7 +42,7 @@ public class DiscardPile implements Serializable {
     }
     
     /**Returns the size of the discard pile*/
-    private int size(){
+    public int size(){
         return getDiscardPile().size();
     }
    

@@ -39,11 +39,6 @@ public class UNOGame implements Serializable{
 		return flow.getcurrentPlayer();
 	}
 
-	/*Setea los lugares de los jugadores para el Round de manera random*/
-//	public void setPlayerPosition() {
-//		Collections.shuffle(players);
-//		flow = new GameFlowIterator();
-//	}
 
 	public ArrayList<Player> getPlayers(){
 		return players;
@@ -55,7 +50,7 @@ public class UNOGame implements Serializable{
 	}
 
 	public void endGame(){
-		gameState=false;
+		gameState = false;
 	}
 
 	public void addPlayers(ArrayList<Player> players){

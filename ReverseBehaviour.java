@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class ReverseBehaviour implements Behaviour, Serializable {
     private UNOGame game;
 
-    ReverseBehaviour(UNOGame game) {
+    public ReverseBehaviour(UNOGame game) {
         this.game = game;
     }
     public void action(String... args) {

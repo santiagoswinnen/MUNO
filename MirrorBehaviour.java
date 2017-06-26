@@ -6,7 +6,7 @@ import java.io.Serializable;
  */
 public class MirrorBehaviour implements Behaviour, Serializable {
     private UNOGame game;
-    MirrorBehaviour(UNOGame game){
+    public MirrorBehaviour(UNOGame game){
         this.game = game;
     }
 
