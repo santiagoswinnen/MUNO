@@ -50,68 +50,20 @@ public class MultiGameScreen extends AbstractGameScreen {
 		
 		super.batch.begin();
 		
-		/* Dibujo las cartas del jugador actual */
-		for(int i = 0; i < getTexturesHand().size(); i++){
-			if(getTexturesHand().size() == 1){
-				super.batch.draw(getTexturesHand().get(i), 512 - getTexturesHand().get(i).getWidth()*0.3f / 2, 25, getTexturesHand().get(i).getWidth()*0.3f, getTexturesHand().get(i).getHeight()*0.3f);
-				super.batch.draw(getArrow(), 490, 140, 45, 50);
-			}
-			else {
-				super.batch.draw(getTexturesHand().get(i), 150 + i*641/(getTexturesHand().size() - 1), 25, getTexturesHand().get(i).getWidth()*0.3f, getTexturesHand().get(i).getHeight()*0.3f);
-				super.batch.draw(getArrow(), 165 + getCurrentCard() * 641 / (getTexturesHand().size() - 1), 140, 45, 50);
-			}
-		}
+		drawPlayerHand();
+		drawSideHand(gettRight(), 0, 904);
+		drawSideHand(gettLeft(), 2, 10);
+		drawFrontHand();
 		
-		/* Dibujo las cartas de los jugadores a la derecha, enfrente e izquierda del currentPlayer */
-		for(int i = 0; i < getMyGame().getPlayers().get(getPositions()[0]).getHand().size(); i++){
-			if(getMyGame().getPlayers().get(getPositions()[0]).getHand().size() == 1){
-				super.batch.draw(gettRight(), 904, 287.5f, 110, 75);
-			}
-			else
-				super.batch.draw(gettRight(), 904, 70 + i*435/(getMyGame().getPlayers().get(getPositions()[0]).getHand().size() - 1), 110, 75);
-		}
-		
-		for(int i = 0; i < getMyGame().getPlayers().get(getPositions()[1]).getHand().size(); i++){
-			if(getMyGame().getPlayers().get(getPositions()[1]).getHand().size() == 1){
-				super.batch.draw(gettUpside(), 474.5f, 515, 75, 110);
-			}
-			else
-				super.batch.draw(gettUpside(), 150 + i*641/(getMyGame().getPlayers().get(getPositions()[1]).getHand().size() - 1), 515, 75, 110);
-		}
-		
-		for(int i = 0; i < getMyGame().getPlayers().get(getPositions()[2]).getHand().size(); i++){
-			if(getMyGame().getPlayers().get(getPositions()[2]).getHand().size() == 1){
-				super.batch.draw(gettLeft(), 10, 287.5f, 110, 75);
-			}
-			else
-				super.batch.draw(gettLeft(), 10, 70 + i*435/(getMyGame().getPlayers().get(getPositions()[2]).getHand().size() - 1), 110, 75);
-		}
-		
-		/* Dibujo DrawPile */
-		super.batch.draw(gettDraw(), (MyGame.WIDTH / 2) - 95, (MyGame.HEIGHT / 2) - 55, 75, 110);
-		
-		/* Dibujo DiscardPile */
-		super.batch.draw(gettDiscard(), (MyGame.WIDTH / 2) + 20, (MyGame.HEIGHT / 2) - 55, 75, 110);
-		
-		getFont().draw(super.batch, getMyGame().getCurrentPlayer().getName(), 15, 30);
-		getFont().draw(super.batch, getMyGame().getLeaderboard().toString(), (MyGame.WIDTH /6), (MyGame.HEIGHT /2)+100);
-		getFont().draw(super.batch, "Controls: d draw, p  pass, Arrow keys + ENTER to choose card, s save, l load",(MyGame.WIDTH /6), (MyGame.HEIGHT /2)+130);
-		if(getMyGame().getCurrentPlayer().getHand().size() == 2){
-			getFont().draw(super.batch, "Remember to press 1 to throw selected card and declare UNO!",(MyGame.WIDTH /6), (MyGame.HEIGHT /2)-60);
-		}
-		if(this.isWaitingColor()){
-			getFont().draw(super.batch, "(Choose color: r RED, y YELLOW, b BLUE, g GREEN)",(MyGame.WIDTH /6),(MyGame.HEIGHT /2)-100);
-		}
-		else {
-			getFont().draw(super.batch, getMyGame().getDealer().lastCard().getColor(),(MyGame.WIDTH /2), (MyGame.HEIGHT /2)-100);
-		}
+		drawData();
+
 		super.batch.end();
 	}
 
 	public void update() {
-//		if(myGame.getGameState() ==  false){
-//			setScreen(new EndScreen(game));
-//		}
+		if(getMyGame().getGameState() ==  false){
+			game.setScreen(new EndScreen(game, getMyGame().getLeaderboard(), getMyGame().getPlayers()));
+		}
 
 		if(this.isWaitingColor()){
 			getUpd().changeToRed();
@@ -127,6 +79,28 @@ public class MultiGameScreen extends AbstractGameScreen {
 		getUpd().callUNO();
 		getUpd().saveGame("multidata.ser");
 		getUpd().loadGame("multidata.ser");
+	}
+	
+	public void drawSideHand(Texture t, int index, int n){
+		int size = getMyGame().getPlayers().get(getPositions()[index]).getHand().size();
+		for(int i = 0; i < size; i++){
+			if(size == 1){
+				super.batch.draw(t, n, 287.5f, 110, 75);
+			}
+			else
+				super.batch.draw(t, n, 70 + i*435/(size - 1), 110, 75);
+		}
+	}
+	
+	public void drawFrontHand(){
+		int size = getMyGame().getPlayers().get(getPositions()[1]).getHand().size();
+		for(int i = 0; i < size; i++){
+			if(size == 1){
+				super.batch.draw(gettUpside(), 474.5f, 515, 75, 110);
+			}
+			else
+				super.batch.draw(gettUpside(), 150 + i*641/(size - 1), 515, 75, 110);
+		}
 	}
 	
 	/* Setea las positions correspondientes a los siguientes jugadores de acuerdo a su posicion

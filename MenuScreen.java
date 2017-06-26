@@ -3,20 +3,24 @@ package muno.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 /**
  * Created by mlund on 14/06/17.
  */
 public class MenuScreen extends AbstractScreen {
 	private Texture bg;
-	private Texture playButton;
+	private BitmapFont font;
 	
 	public MenuScreen(Game game){
 		super(game);
 		bg = new Texture("screen.jpg");
-		playButton = new Texture("playbutton.png");
+        this.font = new BitmapFont();
+        this.font.setColor(Color.WHITE);
+		this.font.getData().setScale(1.4f);
 	}
 
 	@Override
@@ -29,7 +33,9 @@ public class MenuScreen extends AbstractScreen {
 		
 		super.batch.begin();
 		super.batch.draw(bg, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		super.batch.draw(playButton, 0, 0);
+		
+		font.draw(super.batch, "Press \"S\" for Singleplayer Mode or \"M\" for Multiplayer Mode", 240, 70);
+
 		if(Gdx.input.isKeyJustPressed(Input.Keys.M)) { //Modo multi player
 			game.setScreen(new MultiGameScreen(game));
 			dispose();
