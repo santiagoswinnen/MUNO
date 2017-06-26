@@ -38,7 +38,7 @@ public class MyDiscardPileTest {
     /**
      * Se verifica que este tomando bien las cartas
      */
-    /*
+    
     @Test
     public void testAskCardsWithACard(){
         DiscardPile discardPile = new DiscardPile();
@@ -47,7 +47,7 @@ public class MyDiscardPileTest {
         assertNull(discardPile.askCards());
         assertSame(card, discardPile.lastCard());
     }
-    */
+    
     /**
      * Se verifica que con dos cartas toma 
      * la que se encuentra abajo y deja la
