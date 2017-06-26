@@ -16,6 +16,7 @@ public class Leaderboard implements Serializable {
      *
      *@param game The UNOgame that contains the players.
      */
+
     public Leaderboard(UNOGame game) {
         this.game = game;
         for(Player player : game.getPlayers()) {
