@@ -5,7 +5,8 @@ import java.io.Serializable;
 /**
  * Created by lmikolas on 07/06/17.
  */
-public class SkipBehaviour implements Behaviour,Serializable {
+public class SkipBehaviour implements Behaviour, Serializable {
+	
     private UNOGame game;
 
     public SkipBehaviour(UNOGame game) {
@@ -14,4 +15,5 @@ public class SkipBehaviour implements Behaviour,Serializable {
     public void action(String... args) {
         game.getNextPlayer();
     }
+    
 }

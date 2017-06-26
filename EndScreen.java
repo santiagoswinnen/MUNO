@@ -12,13 +12,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 /**
  * Created by santiago on 16/06/17.
  */
-public class EndScreen extends AbstractScreen{
+public class EndScreen extends AbstractScreen {
 	
     private Leaderboard leaderboard;
     private ArrayList<Player> players;
     private BitmapFont font;
 
-    public EndScreen(Game game, Leaderboard leaderboard, ArrayList<Player> players){
+    public EndScreen(Game game, Leaderboard leaderboard, ArrayList<Player> players) {
         super(game);
         this.leaderboard = leaderboard;
         this.players = players;
@@ -28,34 +28,26 @@ public class EndScreen extends AbstractScreen{
     }
 
     @Override
-    public void render(float dt){
+    public void render(float dt) {
     	Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		super.batch.begin();
-    	font.draw(super.batch, "RESULT", 470, 500);
-    	for(int i = 0; i < 4; i++) //Players size no puedo acceder
-    		font.draw(super.batch, players.get(i).getName() + ": .............. " + leaderboard.getScore(i), 415, 450 - 30 * i);
-    	font.draw(super.batch, leaderboard.getWinner().getName() + " WINS!", 460, 300);
+		getBatch().begin();
+		
+    	font.draw(getBatch(), "RESULT", 470, 500);
+    	for(int i = 0; i < 4; i++) {
+    		font.draw(getBatch(), players.get(i).getName() + ": .............. "
+    				+ leaderboard.getScore(i), 415, 450 - 30 * i);
+    	}
+    	
+    	font.draw(getBatch(), leaderboard.getWinner().getName() + " WINS!", 460, 300);
+    	
     	if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
     		game.setScreen(new MenuScreen(game));
     		dispose();
     	}
-    	super.batch.end();
+    	
+    	getBatch().end();
     }
-
-    @Override
-    public void pause() {
-        
-    }
-
-    @Override
-    public void show() {
-        
-    }
-
-    @Override
-    public void hide() {
-        
-    }
+    
 }

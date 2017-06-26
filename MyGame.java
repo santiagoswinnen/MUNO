@@ -7,12 +7,8 @@ public class MyGame extends Game {
 	public static final int HEIGHT = 650;
 	
 	@Override
-	public void create(){
+	public void create() {
 		setScreen(new MenuScreen(this));
 	}
-
-	@Override
-	public void render(){
-		super.render();
-	}
+	
 }

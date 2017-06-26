@@ -1,23 +1,28 @@
 package muno.game;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
-import java.util.ArrayList;
 
 public abstract class AbstractGameScreen extends AbstractScreen {
+	
 	private UNOGame myGame;
-	private Update upd;
-	/* para saber si se espera input de color*/
+	private Updater upd;
+	/** Whether or not the game is waiting Color input */
 	private boolean isWaitingColor;
-	/* PARA saber si el current player dijo que tenia uno*/
+	/** Whether current player declared UNO or not */
 	private boolean UNO;
+	/** Whether current player drew a card or not */
+	private boolean cardDrawn;
+	/** Selected card index within the player's hand */
+	private int currentCard;
+    /** Player's order regarding current player so as to print the amount of cards they have in hand */
+	private int[] positions;
 	private ArrayList<Texture> texturesHand;
 	private Texture tDraw;
 	private Texture tRight;
@@ -27,14 +32,8 @@ public abstract class AbstractGameScreen extends AbstractScreen {
 	private Texture arrow;
 	private BitmapFont font;
 	private BitmapFont font2;
-	/* Indice de la carta seleccionada en la mano del jugador actual */
-	private int currentCard;
-	/* Contiene los indices para mostrar los reversos de las cartas que no son del actual */
-	private int[] positions;
-	private boolean cardDrawn;
-
-
-	public AbstractGameScreen(Game game){
+	
+	public AbstractGameScreen(Game game) {
 		super(game);
 		
 		this.myGame = new UNOGame();
@@ -56,69 +55,56 @@ public abstract class AbstractGameScreen extends AbstractScreen {
 		this.isWaitingColor = false;
 		this.UNO = false;
 		this.currentCard = 0;
-
 	}
-	
-	public UNOGame getMyGame() {
-		return myGame;
-	}
-
-	public void setMyGame(UNOGame savedGame) {
-		myGame = savedGame;
-	}
-
 	
 	public boolean isWaitingColor() {
 		return isWaitingColor;
 	}
 
-	public void setUNO(boolean bool){
-		UNO = bool;
+	public void setUNO(boolean bool) {
+		this.UNO = bool;
 	}
 	
-	/*devuelve true si un jugador declaro uno*/
-	public boolean isUNO(){
+	public boolean isUNO() {
 		return UNO;
 	}
 
-	public void setWaitingColor(boolean waitingColor) {
-		isWaitingColor = waitingColor;
+	public void setWaitingColor(boolean bool) {
+		this.isWaitingColor = bool;
 	}
 
-	public boolean chooseColor(){
-		if(Gdx.input.isKeyJustPressed(Input.Keys.B)){
+	public boolean chooseColor() {
+		if(Gdx.input.isKeyJustPressed(Input.Keys.B)) {
 			myGame.getDealer().lastCard().setColor("blue");
 			return true;
 		}
-		if(Gdx.input.isKeyJustPressed(Input.Keys.G)){
+		else if(Gdx.input.isKeyJustPressed(Input.Keys.G)) {
 			myGame.getDealer().lastCard().setColor("green");
 			return true;
 		}
-		if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
+		else if(Gdx.input.isKeyJustPressed(Input.Keys.R)) {
 			myGame.getDealer().lastCard().setColor("red");
 			return true;
 		}
-		if(Gdx.input.isKeyJustPressed(Input.Keys.Y)){
+		else if(Gdx.input.isKeyJustPressed(Input.Keys.Y)) {
 			myGame.getDealer().lastCard().setColor("yellow");
 			return true;
 		}
 		return false;
 	}
   
-	public abstract void nextPlayer();
-	public abstract void setTexturesHand();
-	public abstract void setPositionsArray();
-	
-	public void drawPlayerHand(){
-		/* Dibujo las cartas del jugador actual */
-		for(int i = 0; i < getTexturesHand().size(); i++){
-			if(getTexturesHand().size() == 1){
-				super.batch.draw(getTexturesHand().get(i), 512 - getTexturesHand().get(i).getWidth()*0.3f / 2, 25, getTexturesHand().get(i).getWidth()*0.3f, getTexturesHand().get(i).getHeight()*0.3f);
-				super.batch.draw(getArrow(), 490, 140, 45, 50);
+	/** Draw current player's hand */
+	public void drawPlayerHand() {
+		for(int i = 0; i < getTexturesHand().size(); i++) {
+			if(getTexturesHand().size() == 1) {
+				getBatch().draw(getTexturesHand().get(i), 512 - getTexturesHand().get(i).getWidth()*0.3f / 2, 25,
+						getTexturesHand().get(i).getWidth()*0.3f, getTexturesHand().get(i).getHeight()*0.3f);
+				getBatch().draw(getArrow(), 490, 140, 45, 50);
 			}
 			else {
-				super.batch.draw(getTexturesHand().get(i), 150 + i*641/(getTexturesHand().size() - 1), 25, getTexturesHand().get(i).getWidth()*0.3f, getTexturesHand().get(i).getHeight()*0.3f);
-				super.batch.draw(getArrow(), 165 + getCurrentCard() * 641 / (getTexturesHand().size() - 1), 140, 45, 50);
+				getBatch().draw(getTexturesHand().get(i), 150 + i*641/(getTexturesHand().size() - 1), 25,
+						getTexturesHand().get(i).getWidth()*0.3f, getTexturesHand().get(i).getHeight()*0.3f);
+				getBatch().draw(getArrow(), 165 + getCurrentCard() * 641 / (getTexturesHand().size() - 1), 140, 45, 50);
 			}
 		}
 	}
@@ -126,45 +112,48 @@ public abstract class AbstractGameScreen extends AbstractScreen {
 	public abstract void drawSideHand(Texture t, int index, int n);
 	public abstract void drawFrontHand();
 
-	public void drawData(){
-		/* Dibujo DrawPile */
-		super.batch.draw(gettDraw(), (MyGame.WIDTH / 2) - 95, (MyGame.HEIGHT / 2) - 55, 75, 110);
+	public void drawData() {
+		/** Draw card back as DrawPile */
+		getBatch().draw(getTDraw(), (MyGame.WIDTH / 2) - 95, (MyGame.HEIGHT / 2) - 55, 75, 110);
 		
-		/* Dibujo DiscardPile */
-		super.batch.draw(gettDiscard(), (MyGame.WIDTH / 2) + 20, (MyGame.HEIGHT / 2) - 55, 75, 110);
+		/** Draw last card from DiscardPile */
+		getBatch().draw(getTDiscard(), (MyGame.WIDTH / 2) + 20, (MyGame.HEIGHT / 2) - 55, 75, 110);
 		
-		getFont().draw(super.batch, getMyGame().getCurrentPlayer().getName(), 15, 30);
-		getFont2().draw(super.batch, getMyGame().getLeaderboard().toString(), (MyGame.WIDTH / 7), (MyGame.HEIGHT / 2) + 100);
-		getFont().draw(super.batch, "Controls: \"D\" draw, \"P\" pass, Arrow keys + \"ENTER\" to choose card, \"S\" save, \"L\" load", (MyGame.WIDTH /7), (MyGame.HEIGHT /2)+130);
-		if(getMyGame().getCurrentPlayer().getHand().size() == 2){
-			getFont().draw(super.batch, "Remember to press 1 to throw selected card and declare UNO!", (MyGame.WIDTH /6), (MyGame.HEIGHT /3));
+		getFont().draw(getBatch(), getMyGame().getCurrentPlayer().getName(), 15, 30);
+		getFont2().draw(getBatch(), getMyGame().getLeaderboard().toString(), (MyGame.WIDTH / 7),
+				(MyGame.HEIGHT / 2) + 100);
+		getFont().draw(getBatch(), "Controls: \"D\" draw, \"P\" pass, Arrow keys + \"ENTER\" to choose card,"
+				+ "\"S\" save, \"L\" load", (MyGame.WIDTH /7), (MyGame.HEIGHT /2)+130);
+		
+		if(getMyGame().getCurrentPlayer().getHand().size() == 2) {
+			getFont().draw(getBatch(), "Remember to press 1 to throw selected card and declare UNO!",
+					(MyGame.WIDTH /6), (MyGame.HEIGHT /3));
 		}
-		if(this.isWaitingColor()){
-			getFont().draw(super.batch, "Choose color: \"R\" RED, \"Y\" YELLOW, \"B\" BLUE, \"G\" GREEN", (MyGame.WIDTH /6), (MyGame.HEIGHT / 2) - 100);
+		
+		if(this.isWaitingColor()) {
+			getFont().draw(getBatch(), "Choose color: \"R\" RED, \"Y\" YELLOW, \"B\" BLUE, \"G\" GREEN",
+					(MyGame.WIDTH /6), (MyGame.HEIGHT / 2) - 100);
 		}
 		else {
-			getFont().draw(super.batch, getMyGame().getDealer().lastCard().getColor(), (MyGame.WIDTH / 2) + 150, (MyGame.HEIGHT / 2) + 10);
+			getFont().draw(getBatch(), getMyGame().getDealer().lastCard().getColor(),
+					(MyGame.WIDTH / 2) + 150, (MyGame.HEIGHT / 2) + 10);
 		}
 	}
-
-	public Game getGame() {
-		return this.game;
+	
+	public int[] getPositions() {
+		return positions;
 	}
 
-	public void setGame(Game game) {
-		this.game = game;
+	public void setPositions(int[] positions) {
+		this.positions = positions;
+	}
+	
+	public UNOGame getMyGame() {
+		return myGame;
 	}
 
-	public SpriteBatch getBatch() {
-		return batch;
-	}
-
-	public void setBatch(SpriteBatch batch) {
-		this.batch = batch;
-	}
-
-	public OrthographicCamera getGameCam() {
-		return this.gameCam;
+	public void setMyGame(UNOGame savedGame) {
+		this.myGame = savedGame;
 	}
 
 	public ArrayList<Texture> getTexturesHand() {
@@ -175,27 +164,27 @@ public abstract class AbstractGameScreen extends AbstractScreen {
 		this.texturesHand = texturesHand;
 	}
 
-	public Texture gettDraw() {
+	public Texture getTDraw() {
 		return tDraw;
 	}
 
-	public Texture gettRight() {
+	public Texture getTRight() {
 		return tRight;
 	}
 
-	public Texture gettUpside() {
+	public Texture getTUpside() {
 		return tUpside;
 	}
 
-	public Texture gettLeft() {
+	public Texture getTLeft() {
 		return tLeft;
 	}
 
-	public Texture gettDiscard() {
+	public Texture getTDiscard() {
 		return tDiscard;
 	}
 
-	public void settDiscard(Texture tDiscard) {
+	public void setTDiscard(Texture tDiscard) {
 		this.tDiscard = tDiscard;
 	}
 
@@ -219,14 +208,6 @@ public abstract class AbstractGameScreen extends AbstractScreen {
 		this.currentCard = currentCard;
 	}
 
-	public int[] getPositions() {
-		return positions;
-	}
-
-	public void setPositions(int[] positions) {
-		this.positions = positions;
-	}
-
 	public boolean isCardDrawn() {
 		return cardDrawn;
 	}
@@ -235,16 +216,18 @@ public abstract class AbstractGameScreen extends AbstractScreen {
 		this.cardDrawn = cardDrawn;
 	}
 
-	public Update getUpd() {
+	public Updater getUpd() {
 		return upd;
 	}
 
-	public void setUpd(Update upd) {
+	public void setUpd(Updater upd) {
 		this.upd = upd;
 	}
 	
+	public abstract void setPositionsArray();
+	public abstract void nextPlayer();
+	public abstract void setTexturesHand();
+	
 	public abstract void render(float dt);
 	
-	public void resize(int width, int height){
-	}
 }

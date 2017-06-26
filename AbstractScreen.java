@@ -5,31 +5,44 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+/**
+ * Created by mlund on 14/06/17.
+ */
 public abstract class AbstractScreen implements Screen {
+	
 	protected Game game;
-	public SpriteBatch batch;
+	private SpriteBatch batch;
 	protected OrthographicCamera gameCam;
 	
-	public AbstractScreen(Game game){
+	public AbstractScreen(Game game) {
 		this.game = game;
-		batch = new SpriteBatch();
-		gameCam = new OrthographicCamera();
-		gameCam.setToOrtho(false, MyGame.WIDTH, MyGame.HEIGHT);
+		this.batch = new SpriteBatch();
+		this.gameCam = new OrthographicCamera();
+		this.gameCam.setToOrtho(false, MyGame.WIDTH, MyGame.HEIGHT);
+	}
+	
+	public SpriteBatch getBatch() {
+		return batch;
 	}
 	
 	public abstract void render(float dt);
-	public void resize(int width, int height){
-		//gamePort.update(width, height);
-	}
-	public abstract void show();
-	public abstract void hide();
-	public abstract void pause();
 	
-	public void resume(){
-		
+	public void show() {
 	}
 	
-	public void dispose(){
-		
+	public void hide() {
 	}
+	
+	public void pause() {
+	}
+	
+	public void dispose() {
+	}
+	
+	public void resize(int width, int height) {
+	}
+	
+	public void resume() {
+	}
+	
 }

@@ -11,7 +11,7 @@ public class SingleGameScreen extends AbstractGameScreen {
 
 	boolean IAplayed;
 
-	public SingleGameScreen(Game game){
+	public SingleGameScreen(Game game) {
 		super(game);
 
 		Player player1 = new Player("Player 1", getMyGame());
@@ -20,25 +20,22 @@ public class SingleGameScreen extends AbstractGameScreen {
 		PlayerIA player4 = new PlayerIA("IA Player 4", getMyGame());
 
 		ArrayList<Player> players = new ArrayList<Player>();
-
 		players.add(player1);
 		players.add(player2);
 		players.add(player3);
 		players.add(player4);
-
 		getMyGame().addPlayers(players);
 
 		getMyGame().getDealer().deal();
-		settDiscard(new Texture(getMyGame().getDealer().lastCard().getColor() + getMyGame().getDealer().lastCard().getName() + ".png"));
-
-		setPositions(new int[getMyGame().getPlayers().size() - 1]);
+		Card lastCard = getMyGame().getDealer().lastCard();
+		setTDiscard(new Texture(lastCard.getColor() + lastCard.getName() + ".png"));
 
 		nextPlayer();
 		setTexturesHand();
-		setUpd(new Update(this));
+		setUpd(new Updater(this));
 	}
 
-	public void nextPlayer(){
+	public void nextPlayer() {
 		getMyGame().getNextPlayer();
 		setCardDrawn(false);
 	}
@@ -48,24 +45,24 @@ public class SingleGameScreen extends AbstractGameScreen {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		gameCam.update();
-		super.batch.setProjectionMatrix(gameCam.combined);
+		getBatch().setProjectionMatrix(gameCam.combined);
 
 		this.update();
 
-		super.batch.begin();
+		getBatch().begin();
 		
 		drawPlayerHand();
-		drawSideHand(gettRight(), 1, 904);
+		drawSideHand(getTRight(), 1, 904);
 		drawFrontHand();
-		drawSideHand(gettLeft(), 3, 10);
+		drawSideHand(getTLeft(), 3, 10);
 		
 		drawData();
 
-		super.batch.end();
+		getBatch().end();
 	}
 	
 	public void update() {
-		if(getMyGame().getGameState() ==  false){
+		if(getMyGame().getGameState() ==  false) {
 			game.setScreen(new EndScreen(game, getMyGame().getLeaderboard(), getMyGame().getPlayers()));
 		}
 		
@@ -90,54 +87,38 @@ public class SingleGameScreen extends AbstractGameScreen {
 		}
 	}
 	
-	public void drawSideHand(Texture t, int index, int n){
+	public void drawSideHand(Texture t, int index, int n) {
 		int size = getMyGame().getPlayers().get(index).getHand().size();
-		for(int i = 0; i < size; i++){
-			if(size == 1){
-				super.batch.draw(t, n, 287.5f, 110, 75);
-			}
+		for(int i = 0; i < size; i++) {
+			if(size == 1)
+				getBatch().draw(t, n, 287.5f, 110, 75);
 			else
-				super.batch.draw(t, n, 70 + i*435/(size - 1), 110, 75);
+				getBatch().draw(t, n, 70 + i*435/(size - 1), 110, 75);
 		}
 	}
 	
-	public void drawFrontHand(){
+	public void drawFrontHand() {
 		int size = getMyGame().getPlayers().get(2).getHand().size();
-		for(int i = 0; i < size; i++){
-			if(size == 1){
-				super.batch.draw(gettUpside(), 474.5f, 515, 75, 110);
-			}
+		for(int i = 0; i < size; i++) {
+			if(size == 1)
+				getBatch().draw(getTUpside(), 474.5f, 515, 75, 110);
 			else
-				super.batch.draw(gettUpside(), 150 + i*641/(size - 1), 515, 75, 110);
+				getBatch().draw(getTUpside(), 150 + i*641/(size - 1), 515, 75, 110);
 		}
 	}
 	
-	public void setPositionsArray(){
-	}
-	
-	public void setTexturesHand(){
+	public void setTexturesHand() {
 		getTexturesHand().clear();
 		Card card;
 		Texture t;
-		for(int i = 0; i < getMyGame().getPlayers().get(0).getHand().size(); i++){
+		for(int i = 0; i < getMyGame().getPlayers().get(0).getHand().size(); i++) {
 			card = getMyGame().getPlayers().get(0).getHand().get(i);
 			t = new Texture(card.getColor() + card.getName() + ".png");
 			getTexturesHand().add(t);
 		}
 	}
 	
-	@Override
-	public void show() {
-
+	public void setPositionsArray() {
 	}
 
-	@Override
-	public void hide() {
-
-	}
-
-	@Override
-	public void pause() {
-
-	}
 }

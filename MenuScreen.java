@@ -12,10 +12,11 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
  * Created by mlund on 14/06/17.
  */
 public class MenuScreen extends AbstractScreen {
+	
 	private Texture bg;
 	private BitmapFont font;
 	
-	public MenuScreen(Game game){
+	public MenuScreen(Game game) {
 		super(game);
 		bg = new Texture("screen.jpg");
         this.font = new BitmapFont();
@@ -29,46 +30,23 @@ public class MenuScreen extends AbstractScreen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		gameCam.update();
-		super.batch.setProjectionMatrix(gameCam.combined);
+		getBatch().setProjectionMatrix(gameCam.combined);
 		
-		super.batch.begin();
-		super.batch.draw(bg, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		getBatch().begin();
 		
-		font.draw(super.batch, "Press \"S\" for Singleplayer Mode or \"M\" for Multiplayer Mode", 240, 70);
+		getBatch().draw(bg, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		
+		font.draw(getBatch(), "Press \"S\" for Singleplayer Mode or \"M\" for Multiplayer Mode", 240, 70);
 
-		if(Gdx.input.isKeyJustPressed(Input.Keys.M)) { //Modo multi player
+		if(Gdx.input.isKeyJustPressed(Input.Keys.M)) {
 			game.setScreen(new MultiGameScreen(game));
 			dispose();
 		}
-		if(Gdx.input.isKeyJustPressed(Input.Keys.S)) { //Modo single player
-			game.setScreen(new SingleGameScreen(game)); //ACA VA LA CLASE NUEVA
-			dispose();
+		else if(Gdx.input.isKeyJustPressed(Input.Keys.S)) {
+			game.setScreen(new SingleGameScreen(game));
 		}
-		super.batch.end();
+		
+		getBatch().end();
 	}
 
-	@Override
-	public void resize(int width, int height){
-		
-	}
-
-	@Override
-	public void show(){
-		
-	}
-
-	@Override
-	public void hide(){
-		
-	}
-
-	@Override
-	public void pause(){
-		
-	}
-
-	@Override
-	public void dispose() {
-		
-	}
 }
